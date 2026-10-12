@@ -1,4 +1,4 @@
-// CodeHelpers Main Interaction Scripts
+// AICodeHelper Main Interaction Scripts
 document.addEventListener('DOMContentLoaded', () => {
   // FAQ Accordion
   const faqRows = document.querySelectorAll('.faq-row');

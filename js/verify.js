@@ -1,4 +1,4 @@
-// CodeHelpers Reviewer Onboarding & Verification Controller
+// AICodeHelper Reviewer Onboarding & Verification Controller
 const API_BASE = '/api';
 
 const verifyForm  = document.getElementById('verify-form');
@@ -131,7 +131,7 @@ async function checkReviewerStatus() {
   if (status === 'completed' && outcome === 'GREEN') {
     displayStatus('Verification confirmed! Your reviewer profile is now approved.', 'success');
   } else if (status === 'completed' && outcome === 'RED') {
-    displayStatus('Verification could not be confirmed. Please reach out to support@codehelper.us.', 'error');
+    displayStatus('Verification could not be confirmed. Please reach out to support@aicodehelper.us.', 'error');
   } else {
     setTimeout(checkReviewerStatus, 5000);
   }

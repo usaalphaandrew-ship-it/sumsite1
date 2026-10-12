@@ -4,4 +4,4 @@ define('SUMSUB_APP_TOKEN', 'sbx:BKTh8ccfrqJqm0XkLRYYY1yY.ekIyrgDbv4YewrRAuuyPgaD
 define('SUMSUB_SECRET',    'YkqtMvBhH7SGlm8dc6lBPbAgNqhTB7Jj');
 define('SUMSUB_LEVEL',     'id-and-liveness');
 define('SUMSUB_BASE',      'https://api.sumsub.com');
-define('USER_PREFIX',      'ch_');
+define('USER_PREFIX',      'aich_');
