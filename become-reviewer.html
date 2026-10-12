@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditor Onboarding &amp; Verification — CodeHelpers</title>
+  <meta name="description" content="Join the CodeHelpers verified code reviewer network. Complete standard technical auditor identity verification.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- Nav -->
+  <nav class="site-nav">
+    <div class="container nav-wrapper">
+      <a href="/" class="brand-link">
+        <div class="brand-badge">&lt;/&gt;</div>
+        <span>CodeHelpers</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#services">Audit Services</a>
+        <a href="/#process">Workflow</a>
+      </div>
+      <a href="/" class="btn btn-outline btn-sm">&larr; Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="legal-header">
+    <div class="container" style="text-align: center;">
+      <span class="pill pill-indigo" style="margin-bottom: 10px;">Reviewer Network Application</span>
+      <h1>Technical Auditor Verification</h1>
+      <p>Complete your identity check to receive verified auditor status and access review requests.</p>
+    </div>
+  </div>
+
+  <!-- Verification Card -->
+  <main style="flex: 1;">
+    <div class="verify-container">
+      <div class="verify-panel">
+        
+        <div class="info-note">
+          <strong>Security Note:</strong> To ensure high-quality evaluations and protect confidential client repositories, all auditors undergo a one-time identity verification. All data is transmitted securely and handled in accordance with our <a href="privacy.html">Privacy Notice</a>.
+        </div>
+
+        <form id="verify-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reviewer-name">Full Legal Name</label>
+              <input type="text" id="reviewer-name" class="form-control" placeholder="e.g. David Chen" autocomplete="name" required>
+            </div>
+            <div class="form-group">
+              <label for="reviewer-email">Professional Email</label>
+              <input type="email" id="reviewer-email" class="form-control" placeholder="david@domain.com" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reviewer-stack">Primary Expertise / Language</label>
+              <input type="text" id="reviewer-stack" class="form-control" placeholder="e.g. Go, Distributed Systems">
+            </div>
+            <div class="form-group">
+              <label for="reviewer-years">Years of Professional Experience</label>
+              <input type="text" id="reviewer-years" class="form-control" placeholder="e.g. 7+ Years">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reviewer-github">GitHub or Portfolio URL</label>
+            <input type="text" id="reviewer-github" class="form-control" placeholder="https://github.com/username">
+          </div>
+
+          <button type="button" id="start-btn" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 10px;">
+            Begin Identity Verification
+          </button>
+        </form>
+
+        <!-- WebSDK Container -->
+        <div id="sumsub-container"></div>
+        <div id="status-alert" class="status-alert"></div>
+
+      </div>
+
+      <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-top: 22px;">
+        By continuing, you agree to CodeHelper <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Notice</a>.
+        Need assistance? Contact <a href="mailto:support@codehelper.us">support@codehelper.us</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" style="padding: 32px 0 24px;">
+    <div class="container" style="text-align: center; font-size: 0.8rem;">
+      <p>&copy; 2026 CodeHelper. Operated by Codehelper Ai Solutions Private Limited (CIN: U62013RJ2025PTC103506 &bull; Inc. 07 June 2025, ROC Jaipur, Rajasthan).</p>
+      <div style="margin-top: 8px; display: flex; justify-content: center; gap: 18px;">
+        <a href="terms.html" style="color: #94A3B8;">Terms of Service</a>
+        <a href="privacy.html" style="color: #94A3B8;">Privacy Notice</a>
+        <a href="cookies.html" style="color: #94A3B8;">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/verify.js"></script>
+</body>
+</html>

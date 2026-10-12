@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeHelpers — Independent Code Reviews &amp; Architecture Audits</title>
+  <meta name="description" content="Ship resilient software with comprehensive code reviews and security architecture audits from verified senior engineers.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container nav-wrapper">
+      <a href="/" class="brand-link">
+        <div class="brand-badge">&lt;/&gt;</div>
+        <span>CodeHelpers</span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">Audit Services</a>
+        <a href="#stacks">Technologies</a>
+        <a href="#process">How It Works</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="become-reviewer.html" class="btn btn-primary btn-sm">Join as Auditor</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="pill pill-indigo">Independent Code Review &amp; Analysis</div>
+        <h1>Ship cleaner code with <span>expert audits</span></h1>
+        <p class="hero-lead">
+          Get your repositories audited by verified senior developers. Actionable reports on code hygiene, security hotspots, and architecture — delivered in 24 to 48 hours.
+        </p>
+        <div class="hero-cta">
+          <a href="#services" class="btn btn-primary">Browse Audit Packages</a>
+          <a href="become-reviewer.html" class="btn btn-outline">Become a Verified Auditor</a>
+        </div>
+        <div class="hero-metric-row">
+          <div class="metric-item">
+            <strong>24h–48h</strong>
+            <span>Standard Turnaround</span>
+          </div>
+          <div class="metric-item">
+            <strong>100%</strong>
+            <span>Human Expert Reviews</span>
+          </div>
+          <div class="metric-item">
+            <strong>20+</strong>
+            <span>Frameworks &amp; Languages</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">codehelpers-audit-report.md</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="cmd">$ codehelpers audit</span> --target ./backend --level standard</p>
+            <p class="comment"># Running AST analysis &amp; senior manual inspection...</p>
+            <p><span class="pass">[PASS]</span> Architecture separation &amp; service contracts</p>
+            <p><span class="pass">[PASS]</span> Dependency graph &amp; license compliance</p>
+            <p><span class="warn">[WARN]</span> Unindexed query in /api/v2/transactions.ts:84</p>
+            <p><span class="warn">[WARN]</span> Missing idempotency token on payment webhook</p>
+            <p><span class="pass">[REPORT]</span> 14 findings &bull; 3 recommendations &bull; Grade: A-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Supported Stacks Strip -->
+  <section class="section" id="stacks" style="padding: 48px 0; background: var(--surface);">
+    <div class="container" style="text-align: center;">
+      <span class="pill pill-emerald" style="margin-bottom: 12px;">Multi-Stack Coverage</span>
+      <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">Auditing Modern Languages &amp; Frameworks</h3>
+      <div class="stacks-strip">
+        <div class="stack-chip">TypeScript / Node.js</div>
+        <div class="stack-chip">Python / FastAPI</div>
+        <div class="stack-chip">Go / Microservices</div>
+        <div class="stack-chip">Rust</div>
+        <div class="stack-chip">React / Next.js</div>
+        <div class="stack-chip">Java / Spring Boot</div>
+        <div class="stack-chip">PHP / Laravel</div>
+        <div class="stack-chip">PostgreSQL &amp; Redis</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audit Packages -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill pill-indigo">Fixed-Price Packages</span>
+        <h2>Structured Audits Designed for Speed</h2>
+        <p>Simple pricing with guaranteed turnaround. No recurring subscriptions or long contract commitments.</p>
+      </div>
+
+      <div class="packages-grid">
+        <!-- Package 1 -->
+        <div class="package-card">
+          <div class="package-tag">Quick Health Check</div>
+          <h3>Sprint Code Review</h3>
+          <p class="package-desc">Ideal for feature branches, pull requests, and targeted modules before merging.</p>
+          <div class="package-price">$149</div>
+          <div class="package-duration">Guaranteed 24-hour turnaround</div>
+          <ul class="package-features">
+            <li><span class="feature-check">&#10003;</span> Up to 1,500 lines of code (LOC)</li>
+            <li><span class="feature-check">&#10003;</span> Logic bug &amp; edge case analysis</li>
+            <li><span class="feature-check">&#10003;</span> Code style &amp; clean code evaluation</li>
+            <li><span class="feature-check">&#10003;</span> Inline comments &amp; suggested diffs</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" data-package="Sprint Code Review">Request Review</a>
+        </div>
+
+        <!-- Package 2 (Highlight) -->
+        <div class="package-card highlight">
+          <div class="package-tag">Most Popular</div>
+          <h3>Architecture &amp; Quality Audit</h3>
+          <p class="package-desc">Comprehensive system inspection for production MVPs and scaling codebases.</p>
+          <div class="package-price">$399</div>
+          <div class="package-duration">Guaranteed 48-hour turnaround</div>
+          <ul class="package-features">
+            <li><span class="feature-check">&#10003;</span> Up to 8,000 lines of code (LOC)</li>
+            <li><span class="feature-check">&#10003;</span> Architectural soundness &amp; design patterns</li>
+            <li><span class="feature-check">&#10003;</span> Performance hotspots &amp; query bottlenecks</li>
+            <li><span class="feature-check">&#10003;</span> Configuration &amp; dependency review</li>
+            <li><span class="feature-check">&#10003;</span> Structured PDF executive report</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" data-package="Architecture Audit">Request Review</a>
+        </div>
+
+        <!-- Package 3 -->
+        <div class="package-card">
+          <div class="package-tag">Production Ready</div>
+          <h3>Full Repository Assessment</h3>
+          <p class="package-desc">Deep-dive technical assessment for commercial products, pre-launch or investment.</p>
+          <div class="package-price">$890</div>
+          <div class="package-duration">3 to 4 business days turnaround</div>
+          <ul class="package-features">
+            <li><span class="feature-check">&#10003;</span> Up to 25,000 lines of code (LOC)</li>
+            <li><span class="feature-check">&#10003;</span> Full-stack security posture review</li>
+            <li><span class="feature-check">&#10003;</span> Scalability &amp; database design review</li>
+            <li><span class="feature-check">&#10003;</span> Test coverage &amp; CI/CD hygiene</li>
+            <li><span class="feature-check">&#10003;</span> 45-minute live Q&amp;A consultation</li>
+          </ul>
+          <a href="#contact" class="btn btn-outline" data-package="Full Repository Assessment">Request Review</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" id="process" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill pill-emerald">Clear Workflow</span>
+        <h2>How CodeHelpers Delivers Audits</h2>
+        <p>A streamlined process connecting engineering teams with verified senior developers.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h4>Submit Repository</h4>
+          <p>Share your Git repository link or zip bundle. Specify your framework, primary concerns, and audit scope.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h4>Expert Allocation</h4>
+          <p>Your codebase is assigned to a verified domain specialist with proven senior experience in your specific stack.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h4>Receive Structured Report</h4>
+          <p>Get a comprehensive audit document complete with code examples, severity ratings, and actionable refactoring diffs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviewer Banner -->
+  <section class="section">
+    <div class="container">
+      <div class="reviewer-banner">
+        <div>
+          <h3>Are you a Senior Engineer or Architect?</h3>
+          <p>Join the CodeHelpers verified auditor network. Perform flexible code reviews in your domain and earn competitive compensation on your schedule.</p>
+        </div>
+        <a href="become-reviewer.html" class="btn btn-primary" style="background: #FFFFFF; color: var(--primary);">Apply as an Auditor &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order / Inquiry Section -->
+  <section class="section" id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill pill-indigo">Get Started</span>
+        <h2>Request a Code Audit</h2>
+        <p>Tell us about your project and requirements. Our engineering team will confirm reviewer availability within 2 hours.</p>
+      </div>
+
+      <div style="max-width: 580px; margin: 0 auto; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px 28px;">
+        <form onsubmit="event.preventDefault(); alert('Thank you for your submission. An audit coordinator will contact you shortly.');">
+          <div class="form-group">
+            <label for="contact-name">Your Full Name</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="Alex Morgan" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Work Email</label>
+            <input type="email" id="contact-email" class="form-control" placeholder="alex@company.com" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="selected-package">Selected Package</label>
+              <input type="text" id="selected-package" class="form-control" value="Architecture &amp; Quality Audit" readonly>
+            </div>
+            <div class="form-group">
+              <label for="repo-stack">Primary Tech Stack</label>
+              <input type="text" id="repo-stack" class="form-control" placeholder="e.g. TypeScript, Node.js" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="repo-notes">Scope / Specific Areas to Inspect</label>
+            <textarea id="repo-notes" class="form-control" rows="3" placeholder="Describe repository purpose, critical endpoints, or specific security concerns..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Submit Audit Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill pill-indigo">Common Questions</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about our code review methodology and reviewer qualification.</p>
+      </div>
+
+      <div class="faq-box">
+        <div class="faq-row">
+          <div class="faq-question">
+            <span>How do you protect client code privacy and intellectual property?</span>
+            <span class="faq-symbol">+</span>
+          </div>
+          <div class="faq-answer">
+            All code access is governed by strict non-disclosure agreements. Repositories are processed on secure ephemeral workstations and are deleted immediately upon report delivery. Your code is never shared publicly or used for model training.
+          </div>
+        </div>
+
+        <div class="faq-row">
+          <div class="faq-question">
+            <span>How are auditors vetted before joining CodeHelpers?</span>
+            <span class="faq-symbol">+</span>
+          </div>
+          <div class="faq-answer">
+            Every auditor undergoes rigorous technical credential evaluation and identity verification before being approved. This guarantees our clients receive advice exclusively from real, experienced practitioners.
+          </div>
+        </div>
+
+        <div class="faq-row">
+          <div class="faq-question">
+            <span>What format does the audit report come in?</span>
+            <span class="faq-symbol">+</span>
+          </div>
+          <div class="faq-answer">
+            Deliverables include a structured PDF report categorised by severity (Critical, Warning, Informational), accompanied by line-by-line annotations, remediation diffs, and architectural recommendations.
+          </div>
+        </div>
+
+        <div class="faq-row">
+          <div class="faq-question">
+            <span>Can we request an NDA prior to sharing our codebase?</span>
+            <span class="faq-symbol">+</span>
+          </div>
+          <div class="faq-answer">
+            Yes. We execute standard mutual non-disclosure agreements for all custom audits and enterprise evaluations upon request.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>
+            <span style="background: var(--primary); padding: 4px 8px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">&lt;/&gt;</span>
+            CodeHelpers
+          </h4>
+          <p>
+            Professional code audit and architecture review platform connecting engineering leaders with verified technical specialists.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <a href="#services">Sprint Code Review</a>
+          <a href="#services">Architecture Audit</a>
+          <a href="#services">Repository Assessment</a>
+          <a href="become-reviewer.html">Reviewer Portal</a>
+        </div>
+        <div class="footer-col">
+          <h5>Legal &amp; Policy</h5>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Notice</a>
+          <a href="cookies.html">Cookie Preferences</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-corporate">
+          <p>&copy; 2026 CodeHelper. Operated by <strong>Codehelper Ai Solutions Private Limited</strong></p>
+          <p>CIN: <strong>U62013RJ2025PTC103506</strong> &bull; Incorporated 07 June 2025 under the Companies Act (ROC Jaipur, Rajasthan)</p>
+          <p>Website: <a href="https://codehelper.us" style="color: #CBD5E1;">codehelper.us</a> &bull; Support: <a href="mailto:support@codehelper.us" style="color: #CBD5E1;">support@codehelper.us</a></p>
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <a href="terms.html" style="color: #94A3B8;">Terms</a>
+          <a href="privacy.html" style="color: #94A3B8;">Privacy</a>
+          <a href="cookies.html" style="color: #94A3B8;">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
