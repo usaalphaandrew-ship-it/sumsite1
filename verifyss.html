@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sumsub Verification Hub — Fullscreen 16:9 Camera Canvas</title>
+  <title>Sumsub Verification Hub — Full Screen &amp; Independent Page</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -181,7 +181,8 @@
     .nav-controls {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
     /* Environment Tabs */
@@ -244,9 +245,9 @@
 
     /* ─── Main Content ─── */
     .main-container {
-      max-width: 1040px;
+      max-width: 1060px;
       width: 100%;
-      margin: 32px auto;
+      margin: 28px auto;
       padding: 0 20px;
       flex: 1;
     }
@@ -282,6 +283,7 @@
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       padding: 10px 18px;
       border-radius: var(--radius-sm);
@@ -290,6 +292,7 @@
       cursor: pointer;
       border: 1px solid transparent;
       transition: all 0.2s;
+      text-decoration: none !important;
     }
 
     .btn-primary {
@@ -299,6 +302,15 @@
 
     .btn-primary:hover {
       background: var(--primary-hover);
+    }
+
+    .btn-emerald {
+      background: #059669;
+      color: #FFF;
+    }
+
+    .btn-emerald:hover {
+      background: #047857;
     }
 
     .btn-outline {
@@ -325,6 +337,33 @@
     .btn-danger:hover {
       background: var(--danger);
       color: #FFF;
+    }
+
+    /* ─── Server Config Strip ─── */
+    .server-strip {
+      background: #0D1322;
+      border: 1px solid #1E293B;
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .server-strip input {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 4px;
+      color: #E2E8F0;
+      padding: 4px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      width: 260px;
     }
 
     /* ─── Key Pool Section ─── */
@@ -412,7 +451,7 @@
       margin-bottom: 18px;
     }
 
-    /* ─── Verification Flow Launcher Inline Box ─── */
+    /* ─── Verification Flow Panel ─── */
     .flow-panel {
       background: var(--surface-dark);
       border: 1px solid var(--border-color);
@@ -439,8 +478,16 @@
       background: var(--surface-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
-      padding: 40px 24px;
+      padding: 36px 24px;
       text-align: center;
+    }
+
+    .flow-actions-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
     .flow-log {
@@ -465,7 +512,7 @@
     .flow-log .error { color: #F87171; }
     .flow-log .warn { color: #FBBF24; }
 
-    /* ─── FULLSCREEN 16:9 CAMERA CANVAS MODAL ─── */
+    /* ─── FULL SCREEN 16:9 CAMERA CANVAS MODAL ─── */
     #fullscreen-viewport {
       position: fixed;
       inset: 0;
@@ -476,7 +523,7 @@
       display: none;
       flex-direction: column;
       overflow: hidden;
-      animation: fadeIn 0.25s ease;
+      animation: fadeIn 0.2s ease;
     }
 
     #fullscreen-viewport.active {
@@ -484,7 +531,7 @@
     }
 
     .fs-topbar {
-      height: 54px;
+      height: 56px;
       background: #0D1322;
       border-bottom: 1px solid #1E293B;
       padding: 0 20px;
@@ -509,7 +556,7 @@
       gap: 6px;
       background: rgba(16, 185, 129, 0.15);
       color: #10B981;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 999px;
       font-size: 0.75rem;
       font-weight: 700;
@@ -533,12 +580,13 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .fs-canvas-stage {
       flex: 1;
       width: 100%;
-      height: calc(100vh - 54px);
+      height: calc(100vh - 56px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -548,13 +596,12 @@
       position: relative;
     }
 
-    /* 16:9 Canvas Container for Camera */
+    /* 16:9 Widescreen Camera Canvas Box */
     .camera-canvas-box {
       width: 100%;
       height: 100%;
-      /* 16:9 Exact Aspect Ratio Constraints */
       aspect-ratio: 16 / 9;
-      max-width: calc((100vh - 86px) * 16 / 9);
+      max-width: calc((100vh - 88px) * 16 / 9);
       max-height: calc(100vw * 9 / 16);
       background: #111827;
       border-radius: 12px;
@@ -567,7 +614,6 @@
       justify-content: center;
     }
 
-    /* Stretched full width/height toggle */
     .camera-canvas-box.stretch-mode {
       aspect-ratio: unset !important;
       max-width: 100% !important;
@@ -781,6 +827,16 @@
       </div>
     </div>
 
+    <!-- Backend Endpoint Configuration Strip -->
+    <div class="server-strip">
+      <span>API Host URL:</span>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="text" id="api-base-url" placeholder="/api/token.php" title="Custom endpoint path or full domain e.g. https://aicodehelper.us/api/token.php">
+        <button class="btn btn-outline btn-sm" onclick="saveApiBaseUrl()">Save</button>
+      </div>
+      <span style="font-size: 0.75rem; color: #64748B;">Auto-detects current host or fallback domain</span>
+    </div>
+
     <!-- Key Pool Section -->
     <div class="section-title">
       <span>Credential Pool (<span id="key-pool-count">0</span> stored)</span>
@@ -795,17 +851,14 @@
     <div class="flow-panel">
       <div class="flow-header">
         <div>
-          <h3>Full Screen 16:9 Camera Verification</h3>
+          <h3>Verification Launch Controls</h3>
           <p style="font-size: 0.84rem; color: var(--text-muted);" id="flow-active-key-text">
             Select an active credential above to initialize a session.
           </p>
         </div>
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <button class="btn btn-outline btn-sm" id="reopen-fs-btn" onclick="openFullscreenView()" style="display: none;">
             ⛶ Re-open Full Screen
-          </button>
-          <button class="btn btn-primary" id="launch-flow-btn" onclick="startVerification()">
-            ⛶ Launch Full Screen Flow &rarr;
           </button>
         </div>
       </div>
@@ -815,13 +868,20 @@
           <path d="M23 7l-7 5 7 5V7z"></path>
           <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
         </svg>
-        <h4 style="font-size: 1.05rem; margin-bottom: 6px;">16:9 Widescreen Camera Verification</h4>
-        <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 20px;">
-          Clicking launch will open the dedicated full screen experience with an immersive 16:9 camera canvas for optimal ID and face capture.
+        <h4 style="font-size: 1.1rem; margin-bottom: 6px;">Choose Your Verification Experience</h4>
+        <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 20px;">
+          Launch the full screen 16:9 HD camera canvas inside this app, or open a fresh session in an independent Sumsub-hosted web page in a new tab.
         </p>
-        <button class="btn btn-primary" onclick="startVerification()">
-          ⛶ Launch Full Screen Flow
-        </button>
+        
+        <div class="flow-actions-row">
+          <button class="btn btn-primary" id="launch-flow-btn" onclick="startVerification()">
+            ⛶ Launch Full Screen Flow (16:9 Canvas)
+          </button>
+
+          <button class="btn btn-emerald" id="open-newtab-btn" onclick="openFreshSessionInNewTab()">
+            ↗ Open Fresh Session in New Tab
+          </button>
+        </div>
       </div>
 
       <div id="flow-log" class="flow-log"></div>
@@ -843,6 +903,10 @@
       </div>
 
       <div class="fs-actions">
+        <!-- Button: Open Fresh Session in New Tab from Full Screen -->
+        <button class="btn btn-emerald btn-sm" onclick="openFreshSessionInNewTab()" title="Open independent Sumsub verification page in new browser tab">
+          ↗ Open in New Tab
+        </button>
         <button class="btn btn-outline btn-sm" id="canvas-ratio-btn" onclick="toggleCanvasAspect()" title="Toggle Canvas Ratio">
           ⛶ Ratio: 16:9
         </button>
@@ -911,6 +975,7 @@
     const ALT_PASSCODE  = "7890";
     const STORAGE_KEY   = "sumsub_hub_keys_v2";
     const SESSION_AUTH  = "sumsub_hub_unlocked";
+    const API_BASE_KEY  = "sumsub_hub_api_base";
 
     // Known Sandbox Default for 1-click test
     const KNOWN_SANDBOX = {
@@ -932,7 +997,27 @@
     };
     let currentSdkInstance = null;
     let activeSessionUserId = null;
-    let isFlowLaunched = false;
+    let lastGeneratedUrl = null;
+
+    // ─── API Base URL Management ───
+    function getApiBaseUrl() {
+      const saved = localStorage.getItem(API_BASE_KEY);
+      if (saved) return saved.trim();
+
+      // If running on actual web server, use relative path
+      if (window.location.protocol.startsWith('http')) {
+        return window.location.origin;
+      }
+      // If running locally as file://, default to deployed domain
+      return 'https://aicodehelper.us';
+    }
+
+    function saveApiBaseUrl() {
+      const val = document.getElementById('api-base-url').value.trim();
+      localStorage.setItem(API_BASE_KEY, val);
+      logEvent(`API Base URL saved: ${val}`, 'success');
+      alert(`API Host updated to: ${val}`);
+    }
 
     // ─── Passcode Gate ───
     function checkGateSession() {
@@ -986,6 +1071,7 @@
         activeKeyIndex.production = 0;
       }
 
+      document.getElementById('api-base-url').value = getApiBaseUrl();
       renderCurrentEnv();
     }
 
@@ -1198,11 +1284,11 @@
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    // ─── Dynamic Token Acquisition via Server API ───
+    // ─── Dynamic Token Acquisition via Server API (with 405 Fallback) ───
     async function requestFreshToken(credentials, action = 'create', existingUserId = '') {
       logEvent(`Contacting server to generate fresh token (${credentials.alias})...`);
       
-      const endpoint = '/api/token.php';
+      const rawBase = getApiBaseUrl().replace(/\/$/, '');
       const payload = {
         appToken: credentials.appToken,
         secret: credentials.secret,
@@ -1211,28 +1297,65 @@
         userId: existingUserId
       };
 
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+      // Candidate endpoints to prevent 405 / rewrite mismatches
+      const endpoints = [
+        `${rawBase}/api/token.php`,
+        `${rawBase}/api/token`,
+        `${rawBase}/api/unlock.php`
+      ];
 
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || `Server responded with HTTP ${res.status}`);
+      let lastError = null;
+
+      for (const url of endpoints) {
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            if (data.token || data.independentUrl) {
+              return data;
+            }
+          } else if (res.status === 405) {
+            // If POST was refused (405), try GET fallback with query parameters
+            logEvent(`Received 405 on POST ${url}. Attempting GET fallback...`, 'warn');
+            const qParams = new URLSearchParams({
+              appToken: payload.appToken,
+              secret: payload.secret,
+              levelName: payload.levelName,
+              action: payload.action,
+              userId: payload.userId
+            });
+
+            const getRes = await fetch(`${url}?${qParams.toString()}`, {
+              method: 'GET',
+              headers: { 'Accept': 'application/json' }
+            });
+
+            if (getRes.ok) {
+              const getData = await getRes.json();
+              if (getData.token || getData.independentUrl) {
+                return getData;
+              }
+            }
+            lastError = new Error(`Server responded with HTTP 405 on ${url}`);
+          } else {
+            const errJson = await res.json().catch(() => ({}));
+            lastError = new Error(errJson.error || `Server responded with HTTP ${res.status}`);
+          }
+        } catch (netErr) {
+          lastError = netErr;
         }
-
-        const data = await res.json();
-        if (!data.token) {
-          throw new Error('No token returned from server');
-        }
-
-        return data;
-      } catch (err) {
-        logEvent(`Token Generation Error: ${err.message}`, 'error');
-        throw err;
       }
+
+      logEvent(`Token Generation Error: ${lastError?.message || 'Request failed'}`, 'error');
+      throw lastError;
     }
 
     // ─── Full Screen & Aspect Ratio Controls ───
@@ -1294,14 +1417,56 @@
       }
     }
 
-    // Escape key closes fullscreen
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeFullscreenView();
       }
     });
 
-    // ─── WebSDK Integration ───
+    // ─── FEATURE 1: Open Fresh Session in New Tab (Independent Sumsub Page) ───
+    async function openFreshSessionInNewTab() {
+      const pool = keyStore[currentEnv] || [];
+      const activeIdx = activeKeyIndex[currentEnv];
+
+      if (pool.length === 0 || activeIdx < 0 || !pool[activeIdx]) {
+        alert(`No active key in ${currentEnv.toUpperCase()} pool. Please add a key first.`);
+        openAddKeyModal();
+        return;
+      }
+
+      const keyItem = pool[activeIdx];
+      logEvent(`Generating independent hosted link for "${keyItem.alias}"...`);
+
+      // Open blank tab immediately to prevent popup blocker
+      const newTab = window.open('about:blank', '_blank');
+
+      try {
+        const session = await requestFreshToken(keyItem, 'create');
+        activeSessionUserId = session.userId;
+
+        let targetUrl = session.independentUrl;
+        if (!targetUrl && session.token) {
+          // Direct fallback to Sumsub WebSDK hosted viewer
+          targetUrl = `https://cockpit.sumsub.com/idensic/index.html?token=${session.token}`;
+        }
+
+        if (targetUrl) {
+          logEvent(`Independent Sumsub Page generated: ${targetUrl}`, 'success');
+          if (newTab) {
+            newTab.location.href = targetUrl;
+          } else {
+            window.open(targetUrl, '_blank');
+          }
+        } else {
+          throw new Error('No hosted URL returned by Sumsub.');
+        }
+      } catch (err) {
+        if (newTab) newTab.close();
+        alert(`Could not open independent session: ${err.message}\n\nPlease verify that api/token.php is uploaded to your host.`);
+      }
+    }
+
+    // ─── FEATURE 2: Full Screen 16:9 Camera WebSDK Flow ───
     async function startVerification() {
       const pool = keyStore[currentEnv] || [];
       const activeIdx = activeKeyIndex[currentEnv];
@@ -1315,30 +1480,31 @@
       const keyItem = pool[activeIdx];
       const launchBtn = document.getElementById('launch-flow-btn');
       launchBtn.disabled = true;
-      launchBtn.textContent = 'Generating Token...';
+      launchBtn.textContent = 'Generating Session...';
 
       try {
         logEvent(`Initiating session for "${keyItem.alias}" [${currentEnv.toUpperCase()}]`);
 
-        // Request a fresh session token
+        // Request a fresh, non-expiring session token
         const session = await requestFreshToken(keyItem, 'create');
         activeSessionUserId = session.userId;
+        lastGeneratedUrl = session.independentUrl;
 
         logEvent(`Session created! Applicant ID: ${session.applicantId || 'N/A'}`, 'success');
-        logEvent(`Fresh SDK Access Token ready (_act-...)`, 'success');
+        logEvent(`Fresh SDK Token ready (_act-...)`, 'success');
 
         // Open Fullscreen with 16:9 camera canvas
         openFullscreenView();
 
-        // Clear previous frame
+        // Clear container
         document.getElementById('sumsub-container').innerHTML = '';
 
         launchSumsubSdk(session.token, keyItem);
       } catch (err) {
-        alert(`Could not start verification: ${err.message}\n\nPlease verify your App Token & Secret Key.`);
+        alert(`Could not start verification: ${err.message}\n\nPlease check the API Host URL or verify your App Token & Secret.`);
       } finally {
         launchBtn.disabled = false;
-        launchBtn.textContent = '⛶ Launch Full Screen Flow →';
+        launchBtn.textContent = '⛶ Launch Full Screen Flow (16:9 Canvas)';
       }
     }
 
@@ -1375,7 +1541,7 @@
           .withConf({ lang: 'en' })
           .withOptions({
             addViewportTag: false,
-            adaptIframeHeight: false // Allows the 16:9 canvas container to govern dimensions
+            adaptIframeHeight: false // Governed by 16:9 canvas container
           })
           .on('idCheck.onStepCompleted', (payload) => {
             logEvent(`Step completed: ${payload?.idDocType || 'step'}`, 'success');
@@ -1389,7 +1555,6 @@
           .build();
 
         currentSdkInstance.launch('#sumsub-container');
-        isFlowLaunched = true;
         logEvent('WebSDK launched successfully in full screen 16:9 canvas.', 'success');
       } catch (err) {
         logEvent(`Launch exception: ${err.message}`, 'error');

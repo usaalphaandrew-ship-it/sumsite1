@@ -27,7 +27,7 @@ if (!$applicantId) {
 }
 
 $token = sumsub_request('POST',
-    '/resources/accessTokens/sdk?userId=' . urlencode($userId) . '&levelName=' . SUMSUB_LEVEL);
+    '/resources/accessTokens?userId=' . urlencode($userId) . '&levelName=' . SUMSUB_LEVEL);
 
 if ($token['status'] !== 200) {
     json_response(['error' => 'Could not generate access token'], 502);
