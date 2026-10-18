@@ -1,0 +1,13 @@
+Options -Indexes
+RewriteEngine On
+
+RewriteRule ^api/status/([a-zA-Z0-9]+)$ api/status.php?applicantId=$1 [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/([a-z0-9_-]+)$ api/$1.php [L,QSA]
+
+<IfModule mod_headers.c>
+  Header always set Permissions-Policy "camera=(self \"https://api.sumsub.com\"), microphone=(self \"https://api.sumsub.com\")"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>

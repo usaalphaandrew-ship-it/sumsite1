@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Portal — Sumsub Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-dark: #0B0F19;
+      --surface-dark: #111827;
+      --surface-card: #1F2937;
+      --surface-hover: #374151;
+      --border-color: #374151;
+      --border-subtle: #1F2937;
+      --text-main: #F9FAFB;
+      --text-muted: #9CA3AF;
+      --text-dim: #6B7280;
+      --primary: #4F46E5;
+      --primary-hover: #4338CA;
+      --primary-soft: rgba(79, 70, 229, 0.15);
+      --sandbox: #F59E0B;
+      --sandbox-soft: rgba(245, 158, 11, 0.15);
+      --production: #10B981;
+      --production-soft: rgba(16, 185, 129, 0.15);
+      --danger: #EF4444;
+      --danger-soft: rgba(239, 68, 68, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Passcode Gate Screen ─── */
+    #gate-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 15, 25, 0.96);
+      backdrop-filter: blur(16px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .gate-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .gate-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .gate-card h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .gate-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .gate-input-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .gate-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: #FFF;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.25em;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .gate-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+
+    .gate-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: #FFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .gate-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .gate-error {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* ─── Header ─── */
+    .top-nav {
+      background: var(--surface-dark);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .nav-brand-badge {
+      background: var(--primary);
+      color: #FFF;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Environment Tabs */
+    .env-switch {
+      display: flex;
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .env-btn {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .env-btn.active.sandbox {
+      background: var(--sandbox-soft);
+      color: var(--sandbox);
+    }
+
+    .env-btn.active.production {
+      background: var(--production-soft);
+      color: var(--production);
+    }
+
+    .env-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .lock-btn {
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lock-btn:hover {
+      color: #FFF;
+      background: var(--surface-hover);
+    }
+
+    /* ─── Main Content ─── */
+    .main-container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 32px auto;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    /* ─── Banner / Status Row ─── */
+    .status-banner {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .banner-env-info h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .banner-env-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: var(--surface-card);
+      border-color: var(--border-color);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-hover);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.82rem;
+    }
+
+    .btn-danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #FFF;
+    }
+
+    /* ─── Key Pool Section ─── */
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .key-pool-list {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .key-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .key-card.active {
+      border-color: var(--primary);
+      background: rgba(79, 70, 229, 0.05);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .key-meta h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .key-badge {
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .key-badge.active-badge {
+      background: var(--production-soft);
+      color: var(--production);
+    }
+
+    .key-details {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 16px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .key-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .empty-pool-box {
+      background: var(--surface-dark);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-pool-box p {
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    /* ─── Verification Flow Launcher ─── */
+    .flow-panel {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      margin-bottom: 36px;
+    }
+
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .flow-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    #sumsub-container {
+      min-height: 480px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .sdk-placeholder {
+      text-align: center;
+      color: var(--text-dim);
+      padding: 40px 20px;
+    }
+
+    .sdk-placeholder p {
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .flow-log {
+      margin-top: 18px;
+      background: #000;
+      border: 1px solid #1E293B;
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #38BDF8;
+      max-height: 120px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .flow-log.show {
+      display: block;
+    }
+
+    /* ─── Modal ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: #FFF;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .form-help {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 5px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 640px) {
+      .top-nav {
+        flex-direction: column;
+        gap: 14px;
+        align-items: stretch;
+      }
+      .nav-controls {
+        justify-content: space-between;
+      }
+      .key-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .key-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── PASSCODE GATE SCREEN ─── -->
+  <div id="gate-screen">
+    <div class="gate-card">
+      <div class="gate-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h2>Protected Verification Hub</h2>
+      <p>Enter the security code to access Sandbox &amp; Production API pools.</p>
+      
+      <form id="gate-form" onsubmit="handleGateUnlock(event)">
+        <div class="gate-input-group">
+          <input type="password" id="passcode-input" class="gate-input" placeholder="••••" autocomplete="off" autofocus required>
+        </div>
+        <button type="submit" class="gate-btn">Unlock Console</button>
+        <div id="gate-error" class="gate-error">Invalid security code. Please check and retry.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── TOP NAVIGATION ─── -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <div class="nav-brand-badge">SDK-HUB</div>
+      <span>Sumsub Multi-Environment Portal</span>
+    </div>
+
+    <div class="nav-controls">
+      <!-- Environment Switcher -->
+      <div class="env-switch">
+        <button class="env-btn active sandbox" id="env-sandbox-btn" onclick="switchEnvironment('sandbox')">
+          <span class="env-dot"></span> Sandbox
+        </button>
+        <button class="env-btn production" id="env-prod-btn" onclick="switchEnvironment('production')">
+          <span class="env-dot"></span> Production
+        </button>
+      </div>
+
+      <button class="lock-btn" onclick="lockConsole()" title="Lock Console">
+        🔒 Lock
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── MAIN CONTENT ─── -->
+  <main class="main-container">
+
+    <!-- Active Environment Banner -->
+    <div class="status-banner">
+      <div class="banner-env-info">
+        <h3 id="env-banner-title">
+          <span>Sandbox Environment</span>
+        </h3>
+        <p id="env-banner-desc">Testing mode with synthetic profiles and instant test-run resets.</p>
+      </div>
+
+      <button class="btn btn-primary" onclick="openAddKeyModal()">
+        + Add New API Key / Token
+      </button>
+    </div>
+
+    <!-- Key Pool Section -->
+    <div class="section-title">
+      <span>Key Pool (<span id="key-pool-count">0</span> available)</span>
+      <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="current-active-label">No active key selected</span>
+    </div>
+
+    <div id="key-pool-list" class="key-pool-list">
+      <!-- Generated Key Cards will appear here -->
+    </div>
+
+    <!-- Verification Flow Execution Panel -->
+    <div class="flow-panel">
+      <div class="flow-header">
+        <div>
+          <h3>Live WebSDK Flow</h3>
+          <p style="font-size: 0.82rem; color: var(--text-muted);" id="flow-active-key-text">
+            Select a key from the pool above to initiate verification.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-outline btn-sm" id="reset-flow-btn" onclick="resetWebSdkFlow()" style="display: none;">
+            ↺ Reset Container
+          </button>
+          <button class="btn btn-primary btn-sm" id="launch-flow-btn" onclick="startVerification()">
+            Launch Flow
+          </button>
+        </div>
+      </div>
+
+      <div id="sumsub-container">
+        <div class="sdk-placeholder" id="sdk-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; color: var(--text-dim);">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <p>Ready to initialize verification iframe.</p>
+          <button class="btn btn-outline btn-sm" onclick="startVerification()">Launch Verification</button>
+        </div>
+      </div>
+
+      <div id="flow-log" class="flow-log"></div>
+    </div>
+
+  </main>
+
+  <!-- ─── ADD KEY MODAL ─── -->
+  <div class="modal-overlay" id="add-key-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-env-title">Add Key to Pool</h3>
+        <button class="modal-close" onclick="closeAddKeyModal()">&times;</button>
+      </div>
+
+      <form id="add-key-form" onsubmit="saveKeyToPool(event)">
+        <div class="form-group">
+          <label for="key-alias">Friendly Alias / Note</label>
+          <input type="text" id="key-alias" class="form-control" placeholder="e.g. Primary Sandbox Client, Demo Key 1" required>
+          <div class="form-help">A recognisable name to identify this credential in your pool.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="key-type">Credential Format</label>
+          <select id="key-type" class="form-control" onchange="toggleKeyFields()">
+            <option value="token">SDK Access Token (Direct launch)</option>
+            <option value="app_token">App Token + Secret Key (Server-style)</option>
+          </select>
+        </div>
+
+        <div id="field-token" class="form-group">
+          <label for="key-token">Access Token String</label>
+          <textarea id="key-token" class="form-control" rows="3" placeholder="Paste SDK Access Token (_act-..., sbx:..., etc.)" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;"></textarea>
+          <div class="form-help">Generated via Sumsub Dashboard or your /resources/accessTokens/sdk endpoint.</div>
+        </div>
+
+        <div id="field-app-token" style="display: none;">
+          <div class="form-group">
+            <label for="key-app-token">App Token</label>
+            <input type="text" id="key-app-token" class="form-control" placeholder="sbx:BKTh8ccfrq... or prd:...">
+          </div>
+          <div class="form-group">
+            <label for="key-secret">Secret Key</label>
+            <input type="password" id="key-secret" class="form-control" placeholder="HMAC Secret Key">
+          </div>
+          <div class="form-group">
+            <label for="key-level">Level Name</label>
+            <input type="text" id="key-level" class="form-control" value="id-and-liveness" placeholder="e.g. id-and-liveness">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeAddKeyModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save to Pool</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── SCRIPT CONTROLLER ─── -->
+  <script>
+    // Constants & State
+    const AUTH_PASSCODE = "7890\\";
+    const ALT_PASSCODE  = "7890";
+    const STORAGE_KEY   = "sumsub_hub_keys_v1";
+    const SESSION_AUTH  = "sumsub_hub_unlocked";
+
+    let currentEnv = "sandbox"; // 'sandbox' | 'production'
+    let keyStore = {
+      sandbox: [],
+      production: []
+    };
+    let activeKeyIndex = {
+      sandbox: -1,
+      production: -1
+    };
+    let currentSdkInstance = null;
+
+    // ─── Gate / Unlock ───
+    function checkGateSession() {
+      if (sessionStorage.getItem(SESSION_AUTH) === "true") {
+        document.getElementById('gate-screen').style.display = 'none';
+      } else {
+        document.getElementById('gate-screen').style.display = 'flex';
+      }
+    }
+
+    function handleGateUnlock(e) {
+      e.preventDefault();
+      const val = document.getElementById('passcode-input').value;
+      const err = document.getElementById('gate-error');
+
+      if (val === AUTH_PASSCODE || val === ALT_PASSCODE) {
+        sessionStorage.setItem(SESSION_AUTH, "true");
+        document.getElementById('gate-screen').style.display = 'none';
+        err.style.display = 'none';
+      } else {
+        err.style.display = 'block';
+        document.getElementById('passcode-input').focus();
+      }
+    }
+
+    function lockConsole() {
+      sessionStorage.removeItem(SESSION_AUTH);
+      document.getElementById('passcode-input').value = '';
+      document.getElementById('gate-error').style.display = 'none';
+      document.getElementById('gate-screen').style.display = 'flex';
+    }
+
+    // ─── Persistence ───
+    function loadKeysFromStorage() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        if (data) {
+          keyStore = JSON.parse(data);
+          if (!keyStore.sandbox) keyStore.sandbox = [];
+          if (!keyStore.production) keyStore.production = [];
+        }
+      } catch (err) {
+        console.error("Could not load stored keys", err);
+      }
+
+      // Default active key selection
+      if (keyStore.sandbox.length > 0 && activeKeyIndex.sandbox === -1) {
+        activeKeyIndex.sandbox = 0;
+      }
+      if (keyStore.production.length > 0 && activeKeyIndex.production === -1) {
+        activeKeyIndex.production = 0;
+      }
+
+      renderCurrentEnv();
+    }
+
+    function saveKeysToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(keyStore));
+      } catch (err) {
+        console.error("Could not persist keys", err);
+      }
+    }
+
+    // ─── Environment Switching ───
+    function switchEnvironment(env) {
+      currentEnv = env;
+      
+      const sbxBtn = document.getElementById('env-sandbox-btn');
+      const prdBtn = document.getElementById('env-prod-btn');
+
+      if (env === 'sandbox') {
+        sbxBtn.className = 'env-btn active sandbox';
+        prdBtn.className = 'env-btn production';
+        document.getElementById('env-banner-title').innerHTML = '<span>Sandbox Environment</span>';
+        document.getElementById('env-banner-desc').textContent = 'Testing mode with synthetic profiles and instant test-run resets.';
+      } else {
+        sbxBtn.className = 'env-btn sandbox';
+        prdBtn.className = 'env-btn active production';
+        document.getElementById('env-banner-title').innerHTML = '<span style="color:var(--production)">Production Environment</span>';
+        document.getElementById('env-banner-desc').textContent = 'Live production mode for genuine identity evaluations.';
+      }
+
+      renderCurrentEnv();
+    }
+
+    // ─── Render Pool & Active Key ───
+    function renderCurrentEnv() {
+      const pool = keyStore[currentEnv] || [];
+      const container = document.getElementById('key-pool-list');
+      const countEl = document.getElementById('key-pool-count');
+      const activeLabel = document.getElementById('current-active-label');
+      const flowKeyText = document.getElementById('flow-active-key-text');
+
+      countEl.textContent = pool.length;
+
+      if (pool.length === 0) {
+        container.innerHTML = `
+          <div class="empty-pool-box">
+            <p>No keys currently stored in the <strong>${currentEnv.toUpperCase()}</strong> pool.</p>
+            <button class="btn btn-outline btn-sm" onclick="openAddKeyModal()">+ Add First Key</button>
+          </div>
+        `;
+        activeLabel.textContent = "No active key selected";
+        flowKeyText.textContent = "Please add a key to the pool before launching.";
+        return;
+      }
+
+      let activeIdx = activeKeyIndex[currentEnv];
+      if (activeIdx < 0 || activeIdx >= pool.length) {
+        activeIdx = 0;
+        activeKeyIndex[currentEnv] = 0;
+      }
+
+      const activeKey = pool[activeIdx];
+      activeLabel.textContent = `Active: ${activeKey.alias}`;
+      flowKeyText.textContent = `Using Key: "${activeKey.alias}" (${formatPreview(activeKey.token || activeKey.appToken)})`;
+
+      let html = '';
+      pool.forEach((item, index) => {
+        const isActive = (index === activeIdx);
+        const preview = formatPreview(item.token || item.appToken);
+
+        html += `
+          <div class="key-card ${isActive ? 'active' : ''}">
+            <div class="key-meta">
+              <h4>
+                ${escapeHtml(item.alias)}
+                ${isActive ? '<span class="key-badge active-badge">ACTIVE</span>' : ''}
+              </h4>
+              <div class="key-details">
+                <span>Key: ${preview}</span>
+                <span>Type: ${item.type === 'app_token' ? 'App+Secret' : 'Access Token'}</span>
+                <span>Added: ${item.createdAt}</span>
+              </div>
+            </div>
+
+            <div class="key-actions">
+              ${!isActive ? `<button class="btn btn-outline btn-sm" onclick="setActiveKey(${index})">Use Key</button>` : ''}
+              <button class="btn btn-danger btn-sm" onclick="deleteKey(${index})" title="Delete Key">Delete</button>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function formatPreview(str) {
+      if (!str) return '••••••••';
+      const clean = str.trim();
+      if (clean.length <= 16) return clean;
+      return clean.substring(0, 8) + '••••' + clean.substring(clean.length - 6);
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[m]);
+    }
+
+    function setActiveKey(index) {
+      activeKeyIndex[currentEnv] = index;
+      renderCurrentEnv();
+      logEvent(`Active key switched to: "${keyStore[currentEnv][index].alias}"`);
+    }
+
+    function deleteKey(index) {
+      const alias = keyStore[currentEnv][index].alias;
+      if (!confirm(`Are you sure you want to remove "${alias}" from the pool?`)) return;
+
+      keyStore[currentEnv].splice(index, 1);
+      if (activeKeyIndex[currentEnv] >= keyStore[currentEnv].length) {
+        activeKeyIndex[currentEnv] = keyStore[currentEnv].length - 1;
+      }
+      saveKeysToStorage();
+      renderCurrentEnv();
+      logEvent(`Deleted key: "${alias}"`);
+    }
+
+    // ─── Modal Actions ───
+    function openAddKeyModal() {
+      document.getElementById('modal-env-title').textContent = `Add Key to ${currentEnv.toUpperCase()} Pool`;
+      document.getElementById('add-key-form').reset();
+      toggleKeyFields();
+      document.getElementById('add-key-modal').classList.add('open');
+      document.getElementById('key-alias').focus();
+    }
+
+    function closeAddKeyModal() {
+      document.getElementById('add-key-modal').classList.remove('open');
+    }
+
+    function toggleKeyFields() {
+      const type = document.getElementById('key-type').value;
+      if (type === 'token') {
+        document.getElementById('field-token').style.display = 'block';
+        document.getElementById('field-app-token').style.display = 'none';
+      } else {
+        document.getElementById('field-token').style.display = 'none';
+        document.getElementById('field-app-token').style.display = 'block';
+      }
+    }
+
+    function saveKeyToPool(e) {
+      e.preventDefault();
+
+      const alias = document.getElementById('key-alias').value.trim();
+      const type = document.getElementById('key-type').value;
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + 
+        ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+      let keyObj = {
+        alias,
+        type,
+        createdAt: dateFormatted
+      };
+
+      if (type === 'token') {
+        const token = document.getElementById('key-token').value.trim();
+        if (!token) {
+          alert('Please paste the Access Token.');
+          return;
+        }
+        keyObj.token = token;
+      } else {
+        const appToken = document.getElementById('key-app-token').value.trim();
+        const secret = document.getElementById('key-secret').value.trim();
+        const level = document.getElementById('key-level').value.trim() || 'id-and-liveness';
+        if (!appToken || !secret) {
+          alert('Both App Token and Secret Key are required.');
+          return;
+        }
+        keyObj.appToken = appToken;
+        keyObj.secret = secret;
+        keyObj.level = level;
+      }
+
+      keyStore[currentEnv].push(keyObj);
+      activeKeyIndex[currentEnv] = keyStore[currentEnv].length - 1; // Set as active
+      saveKeysToStorage();
+      closeAddKeyModal();
+      renderCurrentEnv();
+      logEvent(`Added new key "${alias}" to ${currentEnv.toUpperCase()} pool.`);
+    }
+
+    // ─── WebSDK Integration ───
+    function logEvent(msg) {
+      const logEl = document.getElementById('flow-log');
+      logEl.classList.add('show');
+      const time = new Date().toLocaleTimeString();
+      logEl.innerHTML += `<div>[${time}] ${escapeHtml(msg)}</div>`;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function resetWebSdkFlow() {
+      const container = document.getElementById('sumsub-container');
+      container.innerHTML = `
+        <div class="sdk-placeholder" id="sdk-placeholder">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; color: var(--text-dim);">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <p>Ready to initialize verification iframe.</p>
+          <button class="btn btn-outline btn-sm" onclick="startVerification()">Launch Verification</button>
+        </div>
+      `;
+      document.getElementById('reset-flow-btn').style.display = 'none';
+      logEvent('WebSDK container reset.');
+    }
+
+    async function startVerification() {
+      const pool = keyStore[currentEnv] || [];
+      const activeIdx = activeKeyIndex[currentEnv];
+
+      if (pool.length === 0 || activeIdx < 0 || !pool[activeIdx]) {
+        alert(`No active key in ${currentEnv.toUpperCase()} pool. Please add a key first.`);
+        openAddKeyModal();
+        return;
+      }
+
+      const keyItem = pool[activeIdx];
+      logEvent(`Preparing flow with "${keyItem.alias}"...`);
+
+      document.getElementById('sdk-placeholder')?.remove();
+      document.getElementById('reset-flow-btn').style.display = 'inline-flex';
+
+      let token = keyItem.token;
+
+      // If user supplied App Token + Secret, attempt token acquisition
+      if (keyItem.type === 'app_token') {
+        logEvent('App Token mode detected. Generating applicant session...');
+        token = await generateTokenFromAppCredentials(keyItem);
+        if (!token) {
+          logEvent('Error: Could not generate token from App credentials.');
+          return;
+        }
+      }
+
+      launchSumsubSdk(token);
+    }
+
+    function launchSumsubSdk(token) {
+      if (!token) {
+        logEvent('Missing valid token for SDK launch.');
+        return;
+      }
+
+      logEvent('Loading Sumsub WebSDK script...');
+
+      // Load SDK if not loaded
+      if (typeof snsWebSdk === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://static.sumsub.com/idensic/static/sns-websdk-builder.js';
+        script.onload = () => mountSdk(token);
+        script.onerror = () => logEvent('Failed to load sns-websdk-builder.js from CDN.');
+        document.head.appendChild(script);
+      } else {
+        mountSdk(token);
+      }
+    }
+
+    function mountSdk(token) {
+      try {
+        logEvent('Initializing WebSDK instance...');
+        
+        currentSdkInstance = snsWebSdk
+          .init(token, () => {
+            logEvent('Token refresh requested by WebSDK.');
+            return token;
+          })
+          .withConf({ lang: 'en' })
+          .withOptions({ addViewportTag: false, adaptIframeHeight: true })
+          .on('idCheck.onStepCompleted', (payload) => {
+            logEvent(`Step completed: ${JSON.stringify(payload || {})}`);
+          })
+          .on('idCheck.onApplicantStatusChanged', (payload) => {
+            logEvent(`Status changed: ${JSON.stringify(payload || {})}`);
+          })
+          .on('idCheck.onError', (error) => {
+            logEvent(`WebSDK Error: ${JSON.stringify(error || 'Unknown')}`);
+          })
+          .build();
+
+        currentSdkInstance.launch('#sumsub-container');
+        logEvent('WebSDK launched successfully in iframe container.');
+      } catch (err) {
+        logEvent(`Launch exception: ${err.message}`);
+      }
+    }
+
+    // Helper: Generate Token via server proxy or direct HMAC if configured
+    async function generateTokenFromAppCredentials(item) {
+      try {
+        // Try local server API if running on Spaceship/PHP host
+        const localApi = '/api/unlock';
+        const res = await fetch(localApi, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: 'admin3200' })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.token) {
+            logEvent('Acquired token via /api/unlock server endpoint.');
+            return data.token;
+          }
+        }
+      } catch (e) {
+        // Fallback info
+      }
+
+      alert('App Token + Secret requires server-side HMAC generation due to browser CORS policies. Please use direct SDK Access Token format or ensure your backend /api/unlock endpoint is accessible.');
+      return null;
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      checkGateSession();
+      loadKeysFromStorage();
+    });
+  </script>
+</body>
+</html>
