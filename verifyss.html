@@ -828,13 +828,20 @@
     </div>
 
     <!-- Backend Endpoint Configuration Strip -->
-    <div class="server-strip">
-      <span>API Host URL:</span>
-      <div style="display: flex; gap: 8px; align-items: center;">
-        <input type="text" id="api-base-url" placeholder="/api/token.php" title="Custom endpoint path or full domain e.g. https://aicodehelper.us/api/token.php">
+    <div class="server-strip" style="flex-wrap: wrap; gap: 10px;">
+      <div style="display: flex; gap: 8px; align-items: center; flex: 1; min-width: 280px;">
+        <span style="font-weight: 600; white-space: nowrap;">API Host URL:</span>
+        <input type="text" id="api-base-url" placeholder="http://localhost:3200" style="flex: 1;" title="Custom backend API host">
         <button class="btn btn-outline btn-sm" onclick="saveApiBaseUrl()">Save</button>
       </div>
-      <span style="font-size: 0.75rem; color: #64748B;">Auto-detects current host or fallback domain</span>
+      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+        <button class="btn btn-outline btn-sm" onclick="setApiPreset('http://localhost:3200')" title="Use local Node server (run-backend.bat)">⚡ Local (3200)</button>
+        <button class="btn btn-outline btn-sm" onclick="setApiPreset('https://aicodehelper.us')" title="Use deployed web host">🌐 aicodehelper.us</button>
+        <button class="btn btn-outline btn-sm" onclick="testBackendStatus()" title="Probe backend connection">🔍 Check Status</button>
+      </div>
+      <div id="backend-status-tag" style="font-size: 0.78rem; color: #94A3B8; width: 100%; margin-top: 4px;">
+        Probing backend connection...
+      </div>
     </div>
 
     <!-- Key Pool Section -->
@@ -881,6 +888,22 @@
           <button class="btn btn-emerald" id="open-newtab-btn" onclick="openFreshSessionInNewTab()">
             ↗ Open Fresh Session in New Tab
           </button>
+        </div>
+
+        <!-- GitHub Pages Static Bypass (Zero Backend Needed) -->
+        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px dashed var(--border-color); text-align: left;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="font-size: 0.84rem; font-weight: 600; color: #38BDF8;">⚡ GitHub Pages Bypass (Direct Token or Hosted Link)</span>
+            <span style="font-size: 0.74rem; color: #64748B;">No backend required</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="text" id="direct-token-input" placeholder="Paste SDK Access Token (_act-...) OR Hosted Link (https://in.sumsub.com/...)" style="flex: 1; min-width: 260px; padding: 10px 14px; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: #FFF; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; outline: none;">
+            <button class="btn btn-outline btn-sm" onclick="launchDirectToken(false)" title="Launch 16:9 Fullscreen with this token">⛶ 16:9 Full Screen</button>
+            <button class="btn btn-emerald btn-sm" onclick="launchDirectToken(true)" title="Open this hosted link in new tab">↗ New Tab</button>
+          </div>
+          <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 6px;">
+            Tip: Generate an ephemeral token or hosted link directly from Sumsub Dashboard → Dev Space → Token Generator.
+          </div>
         </div>
       </div>
 
@@ -1004,19 +1027,59 @@
       const saved = localStorage.getItem(API_BASE_KEY);
       if (saved) return saved.trim();
 
-      // If running on actual web server, use relative path
-      if (window.location.protocol.startsWith('http')) {
+      // If running on local dev server or localhost
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         return window.location.origin;
       }
-      // If running locally as file://, default to deployed domain
-      return 'https://aicodehelper.us';
+      // If running on actual live web server, use relative origin
+      if (window.location.protocol.startsWith('http') && !window.location.hostname.includes('github.io')) {
+        return window.location.origin;
+      }
+      // Default to local server runner port 3200
+      return 'http://localhost:3200';
     }
 
     function saveApiBaseUrl() {
       const val = document.getElementById('api-base-url').value.trim();
       localStorage.setItem(API_BASE_KEY, val);
       logEvent(`API Base URL saved: ${val}`, 'success');
-      alert(`API Host updated to: ${val}`);
+      testBackendStatus();
+    }
+
+    function setApiPreset(url) {
+      document.getElementById('api-base-url').value = url;
+      localStorage.setItem(API_BASE_KEY, url);
+      logEvent(`API Host switched to: ${url}`, 'info');
+      testBackendStatus();
+    }
+
+    async function testBackendStatus() {
+      const statusEl = document.getElementById('backend-status-tag');
+      const base = (document.getElementById('api-base-url').value.trim() || getApiBaseUrl()).replace(/\/$/, '');
+      if (statusEl) statusEl.innerHTML = `<span style="color:#94A3B8;">Connecting to ${base}...</span>`;
+
+      try {
+        const testRes = await fetch(`${base}/api/token`, { method: 'OPTIONS' }).catch(() => null);
+        if (testRes && (testRes.ok || testRes.status === 204 || testRes.status === 400 || testRes.status === 200)) {
+          if (statusEl) statusEl.innerHTML = `<span style="color:#10B981; font-weight:600;">✓ Backend Online (${base})</span>`;
+          return true;
+        }
+
+        // Try GET probe
+        const getRes = await fetch(`${base}/api/token.php`, { method: 'GET' }).catch(() => null);
+        if (getRes) {
+          const txt = await getRes.text();
+          if (txt.trim().startsWith('<?php')) {
+            if (statusEl) statusEl.innerHTML = `<span style="color:#EF4444; font-weight:600;">⚠ Static Host Detected: ${base} serves PHP as raw text (GitHub Pages does not run PHP). Please click "⚡ Local (3200)" and start run-backend.bat.</span>`;
+            return false;
+          }
+        }
+        if (statusEl) statusEl.innerHTML = `<span style="color:#F59E0B;">⚠ Host reachable, ready for signed requests.</span>`;
+        return true;
+      } catch (err) {
+        if (statusEl) statusEl.innerHTML = `<span style="color:#EF4444;">✕ Offline / CORS blocked at ${base}. If local, double-click run-backend.bat.</span>`;
+        return false;
+      }
     }
 
     // ─── Passcode Gate ───
@@ -1284,11 +1347,11 @@
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    // ─── Dynamic Token Acquisition via Server API (with 405 Fallback) ───
+    // ─── Dynamic Token Acquisition via Server API (with Local & Remote Auto-Routing) ───
     async function requestFreshToken(credentials, action = 'create', existingUserId = '') {
       logEvent(`Contacting server to generate fresh token (${credentials.alias})...`);
       
-      const rawBase = getApiBaseUrl().replace(/\/$/, '');
+      const rawBase = (document.getElementById('api-base-url').value.trim() || getApiBaseUrl()).replace(/\/$/, '');
       const payload = {
         appToken: credentials.appToken,
         secret: credentials.secret,
@@ -1297,60 +1360,85 @@
         userId: existingUserId
       };
 
-      // Candidate endpoints to prevent 405 / rewrite mismatches
-      const endpoints = [
-        `${rawBase}/api/token.php`,
-        `${rawBase}/api/token`,
-        `${rawBase}/api/unlock.php`
-      ];
+      // Candidate bases to probe: configured base first, then local micro-backend fallback
+      const candidateBases = [rawBase];
+      if (!rawBase.includes('localhost') && !rawBase.includes('127.0.0.1')) {
+        candidateBases.push('http://localhost:3200');
+        candidateBases.push('http://127.0.0.1:3200');
+      }
 
       let lastError = null;
 
-      for (const url of endpoints) {
-        try {
-          const res = await fetch(url, {
-            method: 'POST',
-            headers: { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
+      for (const base of candidateBases) {
+        const endpoints = [
+          `${base}/api/token`,
+          `${base}/api/token.php`,
+          `${base}/api/unlock.php`
+        ];
 
-          if (res.ok) {
-            const data = await res.json();
-            if (data.token || data.independentUrl) {
-              return data;
+        for (const url of endpoints) {
+          try {
+            const res = await fetch(url, {
+              method: 'POST',
+              headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+
+            const rawText = await res.text();
+
+            // Detect static server serving raw PHP text
+            if (rawText.trim().startsWith('<?php')) {
+              logEvent(`Host ${base} returned raw PHP script instead of JSON (GitHub Pages does not run PHP).`, 'warn');
+              lastError = new Error(`Static host detected at ${base}. GitHub Pages cannot execute PHP. Please start the local server by running 'run-backend.bat' (or 'node server.js') and click '⚡ Local (3200)'.`);
+              continue;
             }
-          } else if (res.status === 405) {
-            // If POST was refused (405), try GET fallback with query parameters
-            logEvent(`Received 405 on POST ${url}. Attempting GET fallback...`, 'warn');
-            const qParams = new URLSearchParams({
-              appToken: payload.appToken,
-              secret: payload.secret,
-              levelName: payload.levelName,
-              action: payload.action,
-              userId: payload.userId
-            });
 
-            const getRes = await fetch(`${url}?${qParams.toString()}`, {
-              method: 'GET',
-              headers: { 'Accept': 'application/json' }
-            });
+            let data = null;
+            try {
+              data = JSON.parse(rawText);
+            } catch (jsonErr) {
+              if (res.status === 405) {
+                // If POST was refused (405 on static server), check GET
+                const qParams = new URLSearchParams({
+                  appToken: payload.appToken,
+                  secret: payload.secret,
+                  levelName: payload.levelName,
+                  action: payload.action,
+                  userId: payload.userId
+                });
 
-            if (getRes.ok) {
-              const getData = await getRes.json();
-              if (getData.token || getData.independentUrl) {
-                return getData;
+                const getRes = await fetch(`${url}?${qParams.toString()}`, {
+                  method: 'GET',
+                  headers: { 'Accept': 'application/json' }
+                });
+                const getTxt = await getRes.text();
+                if (getTxt.trim().startsWith('<?php')) {
+                  lastError = new Error(`Static host detected at ${base}. GitHub Pages cannot execute PHP. Please launch 'run-backend.bat' locally or deploy to a PHP server.`);
+                  continue;
+                }
+                data = JSON.parse(getTxt);
+              } else {
+                lastError = new Error(`Unexpected non-JSON response from ${url}: ${rawText.substring(0, 80)}`);
+                continue;
               }
             }
-            lastError = new Error(`Server responded with HTTP 405 on ${url}`);
-          } else {
-            const errJson = await res.json().catch(() => ({}));
-            lastError = new Error(errJson.error || `Server responded with HTTP ${res.status}`);
+
+            if (data && (data.token || data.independentUrl)) {
+              if (base !== rawBase) {
+                logEvent(`Switched and connected to live backend: ${base}`, 'success');
+                document.getElementById('api-base-url').value = base;
+                localStorage.setItem(API_BASE_KEY, base);
+              }
+              return data;
+            } else if (data && data.error) {
+              lastError = new Error(data.error);
+            }
+          } catch (netErr) {
+            lastError = netErr;
           }
-        } catch (netErr) {
-          lastError = netErr;
         }
       }
 
@@ -1422,6 +1510,36 @@
         closeFullscreenView();
       }
     });
+
+    // ─── GitHub Pages Direct Token / Link Launcher ───
+    function launchDirectToken(isNewTab) {
+      const input = (document.getElementById('direct-token-input').value || '').trim();
+      if (!input) {
+        alert('Please paste an SDK Access Token (_act-...) or a Standalone URL (https://in.sumsub.com/websdk/p/...) first.');
+        document.getElementById('direct-token-input').focus();
+        return;
+      }
+
+      if (input.startsWith('http://') || input.startsWith('https://')) {
+        // It is an independent hosted URL
+        logEvent(`Opening direct hosted link in new tab: ${input}`, 'success');
+        window.open(input, '_blank');
+        return;
+      }
+
+      if (isNewTab) {
+        // It is an access token, open standalone viewer in new tab
+        const standaloneUrl = `https://cockpit.sumsub.com/idensic/index.html?token=${encodeURIComponent(input)}`;
+        logEvent(`Opening standalone viewer in new tab with direct token...`, 'success');
+        window.open(standaloneUrl, '_blank');
+      } else {
+        // Mount WebSDK inside 16:9 full screen canvas
+        logEvent(`Mounting direct token inside 16:9 Full Screen Canvas...`, 'info');
+        openFullscreenView();
+        document.getElementById('sumsub-container').innerHTML = '';
+        launchSumsubSdk(input, { alias: 'Direct Token' });
+      }
+    }
 
     // ─── FEATURE 1: Open Fresh Session in New Tab (Independent Sumsub Page) ───
     async function openFreshSessionInNewTab() {
