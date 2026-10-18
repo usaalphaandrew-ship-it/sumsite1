@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verification Portal — Sumsub Hub</title>
+  <title>Sumsub Verification Hub — Fullscreen 16:9 Camera Canvas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -56,7 +56,7 @@
       inset: 0;
       background: rgba(11, 15, 25, 0.96);
       backdrop-filter: blur(16px);
-      z-index: 9999;
+      z-index: 999999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -195,11 +195,11 @@
     }
 
     .env-btn {
-      padding: 8px 16px;
+      padding: 8px 18px;
       border: none;
       background: transparent;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
@@ -244,7 +244,7 @@
 
     /* ─── Main Content ─── */
     .main-container {
-      max-width: 1000px;
+      max-width: 1040px;
       width: 100%;
       margin: 32px auto;
       padding: 0 20px;
@@ -356,7 +356,7 @@
 
     .key-card.active {
       border-color: var(--primary);
-      background: rgba(79, 70, 229, 0.05);
+      background: rgba(79, 70, 229, 0.06);
       box-shadow: 0 0 0 1px var(--primary);
     }
 
@@ -389,6 +389,7 @@
       display: flex;
       gap: 16px;
       font-family: 'JetBrains Mono', monospace;
+      flex-wrap: wrap;
     }
 
     .key-actions {
@@ -407,11 +408,11 @@
     }
 
     .empty-pool-box p {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       margin-bottom: 18px;
     }
 
-    /* ─── Verification Flow Launcher ─── */
+    /* ─── Verification Flow Launcher Inline Box ─── */
     .flow-panel {
       background: var(--surface-dark);
       border: 1px solid var(--border-color);
@@ -425,33 +426,21 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
     .flow-header h3 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
     }
 
-    #sumsub-container {
-      min-height: 480px;
+    #inline-launch-card {
       background: var(--surface-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .sdk-placeholder {
+      padding: 40px 24px;
       text-align: center;
-      color: var(--text-dim);
-      padding: 40px 20px;
-    }
-
-    .sdk-placeholder p {
-      font-size: 0.9rem;
-      margin-bottom: 16px;
     }
 
     .flow-log {
@@ -459,11 +448,11 @@
       background: #000;
       border: 1px solid #1E293B;
       border-radius: var(--radius-sm);
-      padding: 12px 16px;
+      padding: 14px 16px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.82rem;
       color: #38BDF8;
-      max-height: 120px;
+      max-height: 140px;
       overflow-y: auto;
       display: none;
     }
@@ -472,11 +461,139 @@
       display: block;
     }
 
+    .flow-log .success { color: #34D399; }
+    .flow-log .error { color: #F87171; }
+    .flow-log .warn { color: #FBBF24; }
+
+    /* ─── FULLSCREEN 16:9 CAMERA CANVAS MODAL ─── */
+    #fullscreen-viewport {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #060911;
+      z-index: 99999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.25s ease;
+    }
+
+    #fullscreen-viewport.active {
+      display: flex;
+    }
+
+    .fs-topbar {
+      height: 54px;
+      background: #0D1322;
+      border-bottom: 1px solid #1E293B;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .fs-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .fs-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .fs-live-badge.sandbox {
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+    }
+
+    .fs-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    .fs-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fs-canvas-stage {
+      flex: 1;
+      width: 100%;
+      height: calc(100vh - 54px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: radial-gradient(circle at center, #0F172A 0%, #060911 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 16:9 Canvas Container for Camera */
+    .camera-canvas-box {
+      width: 100%;
+      height: 100%;
+      /* 16:9 Exact Aspect Ratio Constraints */
+      aspect-ratio: 16 / 9;
+      max-width: calc((100vh - 86px) * 16 / 9);
+      max-height: calc(100vw * 9 / 16);
+      background: #111827;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Stretched full width/height toggle */
+    .camera-canvas-box.stretch-mode {
+      aspect-ratio: unset !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      border-radius: 0;
+    }
+
+    #sumsub-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+    }
+
+    #sumsub-container iframe {
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      background: transparent !important;
+    }
+
     /* ─── Modal ─── */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
       z-index: 200;
       display: none;
@@ -494,7 +611,7 @@
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       padding: 32px;
-      max-width: 520px;
+      max-width: 540px;
       width: 100%;
       box-shadow: var(--shadow);
       animation: fadeIn 0.2s ease;
@@ -585,6 +702,12 @@
         width: 100%;
         justify-content: flex-end;
       }
+      .fs-canvas-stage {
+        padding: 0;
+      }
+      .camera-canvas-box {
+        border-radius: 0;
+      }
     }
   </style>
 </head>
@@ -599,8 +722,8 @@
           <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
         </svg>
       </div>
-      <h2>Protected Verification Hub</h2>
-      <p>Enter the security code to access Sandbox &amp; Production API pools.</p>
+      <h2>Verification Console Lock</h2>
+      <p>Enter the security code to access Sandbox &amp; Production verification pools.</p>
       
       <form id="gate-form" onsubmit="handleGateUnlock(event)">
         <div class="gate-input-group">
@@ -616,7 +739,7 @@
   <header class="top-nav">
     <div class="nav-brand">
       <div class="nav-brand-badge">SDK-HUB</div>
-      <span>Sumsub Multi-Environment Portal</span>
+      <span>Sumsub Verification Portal</span>
     </div>
 
     <div class="nav-controls">
@@ -643,54 +766,62 @@
     <div class="status-banner">
       <div class="banner-env-info">
         <h3 id="env-banner-title">
-          <span>Sandbox Environment</span>
+          <span>Sandbox Mode</span>
         </h3>
-        <p id="env-banner-desc">Testing mode with synthetic profiles and instant test-run resets.</p>
+        <p id="env-banner-desc">Synthetic profile environment with dynamic session token generation.</p>
       </div>
 
-      <button class="btn btn-primary" onclick="openAddKeyModal()">
-        + Add New API Key / Token
-      </button>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="btn btn-outline" id="preload-btn" onclick="preloadSandboxKey()" style="font-size: 0.85rem;">
+          ⚡ Quick-Add Sandbox Key
+        </button>
+        <button class="btn btn-primary" onclick="openAddKeyModal()">
+          + Add Key to Pool
+        </button>
+      </div>
     </div>
 
     <!-- Key Pool Section -->
     <div class="section-title">
-      <span>Key Pool (<span id="key-pool-count">0</span> available)</span>
-      <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);" id="current-active-label">No active key selected</span>
+      <span>Credential Pool (<span id="key-pool-count">0</span> stored)</span>
+      <span style="font-size: 0.82rem; font-weight: 500; color: var(--text-muted);" id="current-active-label">No active key selected</span>
     </div>
 
     <div id="key-pool-list" class="key-pool-list">
-      <!-- Generated Key Cards will appear here -->
+      <!-- Key Cards -->
     </div>
 
     <!-- Verification Flow Execution Panel -->
     <div class="flow-panel">
       <div class="flow-header">
         <div>
-          <h3>Live WebSDK Flow</h3>
-          <p style="font-size: 0.82rem; color: var(--text-muted);" id="flow-active-key-text">
-            Select a key from the pool above to initiate verification.
+          <h3>Full Screen 16:9 Camera Verification</h3>
+          <p style="font-size: 0.84rem; color: var(--text-muted);" id="flow-active-key-text">
+            Select an active credential above to initialize a session.
           </p>
         </div>
         <div style="display: flex; gap: 10px;">
-          <button class="btn btn-outline btn-sm" id="reset-flow-btn" onclick="resetWebSdkFlow()" style="display: none;">
-            ↺ Reset Container
+          <button class="btn btn-outline btn-sm" id="reopen-fs-btn" onclick="openFullscreenView()" style="display: none;">
+            ⛶ Re-open Full Screen
           </button>
-          <button class="btn btn-primary btn-sm" id="launch-flow-btn" onclick="startVerification()">
-            Launch Flow
+          <button class="btn btn-primary" id="launch-flow-btn" onclick="startVerification()">
+            ⛶ Launch Full Screen Flow &rarr;
           </button>
         </div>
       </div>
 
-      <div id="sumsub-container">
-        <div class="sdk-placeholder" id="sdk-placeholder">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; color: var(--text-dim);">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <p>Ready to initialize verification iframe.</p>
-          <button class="btn btn-outline btn-sm" onclick="startVerification()">Launch Verification</button>
-        </div>
+      <div id="inline-launch-card">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; color: var(--text-dim);">
+          <path d="M23 7l-7 5 7 5V7z"></path>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+        </svg>
+        <h4 style="font-size: 1.05rem; margin-bottom: 6px;">16:9 Widescreen Camera Verification</h4>
+        <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 20px;">
+          Clicking launch will open the dedicated full screen experience with an immersive 16:9 camera canvas for optimal ID and face capture.
+        </p>
+        <button class="btn btn-primary" onclick="startVerification()">
+          ⛶ Launch Full Screen Flow
+        </button>
       </div>
 
       <div id="flow-log" class="flow-log"></div>
@@ -698,48 +829,71 @@
 
   </main>
 
+  <!-- ─── FULL SCREEN 16:9 CAMERA VIEWPORT ─── -->
+  <div id="fullscreen-viewport">
+    <div class="fs-topbar">
+      <div class="fs-title-wrap">
+        <span class="fs-live-badge sandbox" id="fs-badge">
+          <span class="fs-live-dot"></span>
+          <span id="fs-badge-text">SANDBOX ACTIVE</span>
+        </span>
+        <span style="color: #94A3B8; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;" id="fs-key-alias">
+          Default Key
+        </span>
+      </div>
+
+      <div class="fs-actions">
+        <button class="btn btn-outline btn-sm" id="canvas-ratio-btn" onclick="toggleCanvasAspect()" title="Toggle Canvas Ratio">
+          ⛶ Ratio: 16:9
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="toggleNativeFullscreen()" title="Native Browser Fullscreen">
+          🗖 Maximize
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="closeFullscreenView()">
+          ✕ Exit Full Screen (Esc)
+        </button>
+      </div>
+    </div>
+
+    <div class="fs-canvas-stage">
+      <!-- 16:9 Widescreen Camera Canvas Box -->
+      <div class="camera-canvas-box" id="camera-canvas-box">
+        <div id="sumsub-container"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ─── ADD KEY MODAL ─── -->
   <div class="modal-overlay" id="add-key-modal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="modal-env-title">Add Key to Pool</h3>
+        <h3 id="modal-env-title">Add Credential to Pool</h3>
         <button class="modal-close" onclick="closeAddKeyModal()">&times;</button>
       </div>
 
       <form id="add-key-form" onsubmit="saveKeyToPool(event)">
         <div class="form-group">
           <label for="key-alias">Friendly Alias / Note</label>
-          <input type="text" id="key-alias" class="form-control" placeholder="e.g. Primary Sandbox Client, Demo Key 1" required>
+          <input type="text" id="key-alias" class="form-control" placeholder="e.g. Primary Sandbox Client, Production Key 1" required>
           <div class="form-help">A recognisable name to identify this credential in your pool.</div>
         </div>
 
         <div class="form-group">
-          <label for="key-type">Credential Format</label>
-          <select id="key-type" class="form-control" onchange="toggleKeyFields()">
-            <option value="token">SDK Access Token (Direct launch)</option>
-            <option value="app_token">App Token + Secret Key (Server-style)</option>
-          </select>
+          <label for="key-app-token">App Token</label>
+          <input type="text" id="key-app-token" class="form-control" placeholder="sbx:BKA7AQ... or prd:..." required style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+          <div class="form-help">Begins with sbx: for Sandbox, or prd: for Production.</div>
         </div>
 
-        <div id="field-token" class="form-group">
-          <label for="key-token">Access Token String</label>
-          <textarea id="key-token" class="form-control" rows="3" placeholder="Paste SDK Access Token (_act-..., sbx:..., etc.)" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;"></textarea>
-          <div class="form-help">Generated via Sumsub Dashboard or your /resources/accessTokens/sdk endpoint.</div>
+        <div class="form-group">
+          <label for="key-secret">Secret Key</label>
+          <input type="password" id="key-secret" class="form-control" placeholder="HMAC SHA-256 Secret Key" required style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+          <div class="form-help">Used to generate fresh, non-expiring session tokens server-side.</div>
         </div>
 
-        <div id="field-app-token" style="display: none;">
-          <div class="form-group">
-            <label for="key-app-token">App Token</label>
-            <input type="text" id="key-app-token" class="form-control" placeholder="sbx:BKTh8ccfrq... or prd:...">
-          </div>
-          <div class="form-group">
-            <label for="key-secret">Secret Key</label>
-            <input type="password" id="key-secret" class="form-control" placeholder="HMAC Secret Key">
-          </div>
-          <div class="form-group">
-            <label for="key-level">Level Name</label>
-            <input type="text" id="key-level" class="form-control" value="id-and-liveness" placeholder="e.g. id-and-liveness">
-          </div>
+        <div class="form-group">
+          <label for="key-level">Verification Level Name</label>
+          <input type="text" id="key-level" class="form-control" value="id-and-liveness" placeholder="id-and-liveness" required>
+          <div class="form-help">Default: id-and-liveness (must match the level defined in your Sumsub Dashboard).</div>
         </div>
 
         <div class="modal-footer">
@@ -752,13 +906,22 @@
 
   <!-- ─── SCRIPT CONTROLLER ─── -->
   <script>
-    // Constants & State
+    // Security & Storage Constants
     const AUTH_PASSCODE = "7890\\";
     const ALT_PASSCODE  = "7890";
-    const STORAGE_KEY   = "sumsub_hub_keys_v1";
+    const STORAGE_KEY   = "sumsub_hub_keys_v2";
     const SESSION_AUTH  = "sumsub_hub_unlocked";
 
+    // Known Sandbox Default for 1-click test
+    const KNOWN_SANDBOX = {
+      alias: "Default Sandbox (Verified)",
+      appToken: "sbx:BKA7AQ2qVXmUDA5jotdRDI64.EfyFMXXuVGAK7UdDHnE4ru5ceWLAoOD1",
+      secret: "zKUClqxeeWBPpiyyUzutSr8tXBrEA9In",
+      level: "id-and-liveness"
+    };
+
     let currentEnv = "sandbox"; // 'sandbox' | 'production'
+    let is16by9 = true;
     let keyStore = {
       sandbox: [],
       production: []
@@ -768,8 +931,10 @@
       production: -1
     };
     let currentSdkInstance = null;
+    let activeSessionUserId = null;
+    let isFlowLaunched = false;
 
-    // ─── Gate / Unlock ───
+    // ─── Passcode Gate ───
     function checkGateSession() {
       if (sessionStorage.getItem(SESSION_AUTH) === "true") {
         document.getElementById('gate-screen').style.display = 'none';
@@ -798,14 +963,15 @@
       document.getElementById('passcode-input').value = '';
       document.getElementById('gate-error').style.display = 'none';
       document.getElementById('gate-screen').style.display = 'flex';
+      closeFullscreenView();
     }
 
     // ─── Persistence ───
     function loadKeysFromStorage() {
       try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        if (data) {
-          keyStore = JSON.parse(data);
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          keyStore = JSON.parse(raw);
           if (!keyStore.sandbox) keyStore.sandbox = [];
           if (!keyStore.production) keyStore.production = [];
         }
@@ -813,7 +979,6 @@
         console.error("Could not load stored keys", err);
       }
 
-      // Default active key selection
       if (keyStore.sandbox.length > 0 && activeKeyIndex.sandbox === -1) {
         activeKeyIndex.sandbox = 0;
       }
@@ -838,23 +1003,26 @@
       
       const sbxBtn = document.getElementById('env-sandbox-btn');
       const prdBtn = document.getElementById('env-prod-btn');
+      const preloadBtn = document.getElementById('preload-btn');
 
       if (env === 'sandbox') {
         sbxBtn.className = 'env-btn active sandbox';
         prdBtn.className = 'env-btn production';
-        document.getElementById('env-banner-title').innerHTML = '<span>Sandbox Environment</span>';
-        document.getElementById('env-banner-desc').textContent = 'Testing mode with synthetic profiles and instant test-run resets.';
+        document.getElementById('env-banner-title').innerHTML = '<span>Sandbox Mode</span>';
+        document.getElementById('env-banner-desc').textContent = 'Synthetic profile environment with dynamic session token generation.';
+        if (preloadBtn) preloadBtn.style.display = 'inline-flex';
       } else {
         sbxBtn.className = 'env-btn sandbox';
         prdBtn.className = 'env-btn active production';
-        document.getElementById('env-banner-title').innerHTML = '<span style="color:var(--production)">Production Environment</span>';
+        document.getElementById('env-banner-title').innerHTML = '<span style="color:var(--production)">Production Mode</span>';
         document.getElementById('env-banner-desc').textContent = 'Live production mode for genuine identity evaluations.';
+        if (preloadBtn) preloadBtn.style.display = 'none';
       }
 
       renderCurrentEnv();
     }
 
-    // ─── Render Pool & Active Key ───
+    // ─── Render Pool ───
     function renderCurrentEnv() {
       const pool = keyStore[currentEnv] || [];
       const container = document.getElementById('key-pool-list');
@@ -868,7 +1036,10 @@
         container.innerHTML = `
           <div class="empty-pool-box">
             <p>No keys currently stored in the <strong>${currentEnv.toUpperCase()}</strong> pool.</p>
-            <button class="btn btn-outline btn-sm" onclick="openAddKeyModal()">+ Add First Key</button>
+            <div style="display:flex; justify-content:center; gap:10px;">
+              ${currentEnv === 'sandbox' ? `<button class="btn btn-outline btn-sm" onclick="preloadSandboxKey()">⚡ Pre-load Verified Sandbox Key</button>` : ''}
+              <button class="btn btn-primary btn-sm" onclick="openAddKeyModal()">+ Add Key to Pool</button>
+            </div>
           </div>
         `;
         activeLabel.textContent = "No active key selected";
@@ -884,12 +1055,12 @@
 
       const activeKey = pool[activeIdx];
       activeLabel.textContent = `Active: ${activeKey.alias}`;
-      flowKeyText.textContent = `Using Key: "${activeKey.alias}" (${formatPreview(activeKey.token || activeKey.appToken)})`;
+      flowKeyText.textContent = `Active Credential: "${activeKey.alias}" (${formatPreview(activeKey.appToken)})`;
 
       let html = '';
       pool.forEach((item, index) => {
         const isActive = (index === activeIdx);
-        const preview = formatPreview(item.token || item.appToken);
+        const preview = formatPreview(item.appToken);
 
         html += `
           <div class="key-card ${isActive ? 'active' : ''}">
@@ -899,14 +1070,14 @@
                 ${isActive ? '<span class="key-badge active-badge">ACTIVE</span>' : ''}
               </h4>
               <div class="key-details">
-                <span>Key: ${preview}</span>
-                <span>Type: ${item.type === 'app_token' ? 'App+Secret' : 'Access Token'}</span>
+                <span>App Token: ${preview}</span>
+                <span>Level: ${escapeHtml(item.level || 'id-and-liveness')}</span>
                 <span>Added: ${item.createdAt}</span>
               </div>
             </div>
 
             <div class="key-actions">
-              ${!isActive ? `<button class="btn btn-outline btn-sm" onclick="setActiveKey(${index})">Use Key</button>` : ''}
+              ${!isActive ? `<button class="btn btn-outline btn-sm" onclick="setActiveKey(${index})">Set Active</button>` : ''}
               <button class="btn btn-danger btn-sm" onclick="deleteKey(${index})" title="Delete Key">Delete</button>
             </div>
           </div>
@@ -920,7 +1091,7 @@
       if (!str) return '••••••••';
       const clean = str.trim();
       if (clean.length <= 16) return clean;
-      return clean.substring(0, 8) + '••••' + clean.substring(clean.length - 6);
+      return clean.substring(0, 10) + '••••' + clean.substring(clean.length - 6);
     }
 
     function escapeHtml(str) {
@@ -948,11 +1119,35 @@
       logEvent(`Deleted key: "${alias}"`);
     }
 
+    function preloadSandboxKey() {
+      const existing = keyStore.sandbox.find(k => k.appToken === KNOWN_SANDBOX.appToken);
+      if (existing) {
+        alert("Verified Sandbox Key is already in your pool!");
+        return;
+      }
+
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + 
+        ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+      keyStore.sandbox.push({
+        alias: KNOWN_SANDBOX.alias,
+        appToken: KNOWN_SANDBOX.appToken,
+        secret: KNOWN_SANDBOX.secret,
+        level: KNOWN_SANDBOX.level,
+        createdAt: dateFormatted
+      });
+
+      activeKeyIndex.sandbox = keyStore.sandbox.length - 1;
+      saveKeysToStorage();
+      renderCurrentEnv();
+      logEvent("Pre-loaded verified Sandbox credentials into pool.");
+    }
+
     // ─── Modal Actions ───
     function openAddKeyModal() {
       document.getElementById('modal-env-title').textContent = `Add Key to ${currentEnv.toUpperCase()} Pool`;
       document.getElementById('add-key-form').reset();
-      toggleKeyFields();
       document.getElementById('add-key-modal').classList.add('open');
       document.getElementById('key-alias').focus();
     }
@@ -961,85 +1156,152 @@
       document.getElementById('add-key-modal').classList.remove('open');
     }
 
-    function toggleKeyFields() {
-      const type = document.getElementById('key-type').value;
-      if (type === 'token') {
-        document.getElementById('field-token').style.display = 'block';
-        document.getElementById('field-app-token').style.display = 'none';
-      } else {
-        document.getElementById('field-token').style.display = 'none';
-        document.getElementById('field-app-token').style.display = 'block';
-      }
-    }
-
     function saveKeyToPool(e) {
       e.preventDefault();
 
       const alias = document.getElementById('key-alias').value.trim();
-      const type = document.getElementById('key-type').value;
+      const appToken = document.getElementById('key-app-token').value.trim();
+      const secret = document.getElementById('key-secret').value.trim();
+      const level = document.getElementById('key-level').value.trim() || 'id-and-liveness';
+
+      if (!alias || !appToken || !secret) {
+        alert('All fields are required.');
+        return;
+      }
+
       const now = new Date();
       const dateFormatted = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + 
         ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
-      let keyObj = {
+      keyStore[currentEnv].push({
         alias,
-        type,
+        appToken,
+        secret,
+        level,
         createdAt: dateFormatted
-      };
+      });
 
-      if (type === 'token') {
-        const token = document.getElementById('key-token').value.trim();
-        if (!token) {
-          alert('Please paste the Access Token.');
-          return;
-        }
-        keyObj.token = token;
-      } else {
-        const appToken = document.getElementById('key-app-token').value.trim();
-        const secret = document.getElementById('key-secret').value.trim();
-        const level = document.getElementById('key-level').value.trim() || 'id-and-liveness';
-        if (!appToken || !secret) {
-          alert('Both App Token and Secret Key are required.');
-          return;
-        }
-        keyObj.appToken = appToken;
-        keyObj.secret = secret;
-        keyObj.level = level;
-      }
-
-      keyStore[currentEnv].push(keyObj);
-      activeKeyIndex[currentEnv] = keyStore[currentEnv].length - 1; // Set as active
+      activeKeyIndex[currentEnv] = keyStore[currentEnv].length - 1;
       saveKeysToStorage();
       closeAddKeyModal();
       renderCurrentEnv();
       logEvent(`Added new key "${alias}" to ${currentEnv.toUpperCase()} pool.`);
     }
 
-    // ─── WebSDK Integration ───
-    function logEvent(msg) {
+    // ─── Logging ───
+    function logEvent(msg, type = '') {
       const logEl = document.getElementById('flow-log');
       logEl.classList.add('show');
       const time = new Date().toLocaleTimeString();
-      logEl.innerHTML += `<div>[${time}] ${escapeHtml(msg)}</div>`;
+      const cls = type ? ` class="${type}"` : '';
+      logEl.innerHTML += `<div${cls}>[${time}] ${escapeHtml(msg)}</div>`;
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    function resetWebSdkFlow() {
-      const container = document.getElementById('sumsub-container');
-      container.innerHTML = `
-        <div class="sdk-placeholder" id="sdk-placeholder">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; color: var(--text-dim);">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <p>Ready to initialize verification iframe.</p>
-          <button class="btn btn-outline btn-sm" onclick="startVerification()">Launch Verification</button>
-        </div>
-      `;
-      document.getElementById('reset-flow-btn').style.display = 'none';
-      logEvent('WebSDK container reset.');
+    // ─── Dynamic Token Acquisition via Server API ───
+    async function requestFreshToken(credentials, action = 'create', existingUserId = '') {
+      logEvent(`Contacting server to generate fresh token (${credentials.alias})...`);
+      
+      const endpoint = '/api/token.php';
+      const payload = {
+        appToken: credentials.appToken,
+        secret: credentials.secret,
+        levelName: credentials.level || 'id-and-liveness',
+        action: action,
+        userId: existingUserId
+      };
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || `Server responded with HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        if (!data.token) {
+          throw new Error('No token returned from server');
+        }
+
+        return data;
+      } catch (err) {
+        logEvent(`Token Generation Error: ${err.message}`, 'error');
+        throw err;
+      }
     }
 
+    // ─── Full Screen & Aspect Ratio Controls ───
+    function openFullscreenView() {
+      const viewport = document.getElementById('fullscreen-viewport');
+      viewport.classList.add('active');
+
+      const badge = document.getElementById('fs-badge');
+      const badgeText = document.getElementById('fs-badge-text');
+      const aliasEl = document.getElementById('fs-key-alias');
+
+      const pool = keyStore[currentEnv] || [];
+      const activeIdx = activeKeyIndex[currentEnv];
+      const activeKey = pool[activeIdx];
+
+      if (currentEnv === 'sandbox') {
+        badge.className = 'fs-live-badge sandbox';
+        badgeText.textContent = 'SANDBOX • 16:9 HD CAMERA';
+      } else {
+        badge.className = 'fs-live-badge';
+        badgeText.textContent = 'PRODUCTION • 16:9 HD CAMERA';
+      }
+
+      if (activeKey) {
+        aliasEl.textContent = activeKey.alias;
+      }
+
+      document.getElementById('reopen-fs-btn').style.display = 'inline-flex';
+    }
+
+    function closeFullscreenView() {
+      document.getElementById('fullscreen-viewport').classList.remove('active');
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function toggleCanvasAspect() {
+      const box = document.getElementById('camera-canvas-box');
+      const btn = document.getElementById('canvas-ratio-btn');
+      is16by9 = !is16by9;
+
+      if (is16by9) {
+        box.classList.remove('stretch-mode');
+        btn.textContent = '⛶ Ratio: 16:9';
+        btn.className = 'btn btn-outline btn-sm';
+      } else {
+        box.classList.add('stretch-mode');
+        btn.textContent = '🗖 Ratio: Fill Screen';
+        btn.className = 'btn btn-primary btn-sm';
+      }
+    }
+
+    function toggleNativeFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Escape key closes fullscreen
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFullscreenView();
+      }
+    });
+
+    // ─── WebSDK Integration ───
     async function startVerification() {
       const pool = keyStore[currentEnv] || [];
       const activeIdx = activeKeyIndex[currentEnv];
@@ -1051,98 +1313,87 @@
       }
 
       const keyItem = pool[activeIdx];
-      logEvent(`Preparing flow with "${keyItem.alias}"...`);
+      const launchBtn = document.getElementById('launch-flow-btn');
+      launchBtn.disabled = true;
+      launchBtn.textContent = 'Generating Token...';
 
-      document.getElementById('sdk-placeholder')?.remove();
-      document.getElementById('reset-flow-btn').style.display = 'inline-flex';
+      try {
+        logEvent(`Initiating session for "${keyItem.alias}" [${currentEnv.toUpperCase()}]`);
 
-      let token = keyItem.token;
+        // Request a fresh session token
+        const session = await requestFreshToken(keyItem, 'create');
+        activeSessionUserId = session.userId;
 
-      // If user supplied App Token + Secret, attempt token acquisition
-      if (keyItem.type === 'app_token') {
-        logEvent('App Token mode detected. Generating applicant session...');
-        token = await generateTokenFromAppCredentials(keyItem);
-        if (!token) {
-          logEvent('Error: Could not generate token from App credentials.');
-          return;
-        }
+        logEvent(`Session created! Applicant ID: ${session.applicantId || 'N/A'}`, 'success');
+        logEvent(`Fresh SDK Access Token ready (_act-...)`, 'success');
+
+        // Open Fullscreen with 16:9 camera canvas
+        openFullscreenView();
+
+        // Clear previous frame
+        document.getElementById('sumsub-container').innerHTML = '';
+
+        launchSumsubSdk(session.token, keyItem);
+      } catch (err) {
+        alert(`Could not start verification: ${err.message}\n\nPlease verify your App Token & Secret Key.`);
+      } finally {
+        launchBtn.disabled = false;
+        launchBtn.textContent = '⛶ Launch Full Screen Flow →';
       }
-
-      launchSumsubSdk(token);
     }
 
-    function launchSumsubSdk(token) {
-      if (!token) {
-        logEvent('Missing valid token for SDK launch.');
-        return;
-      }
+    function launchSumsubSdk(token, keyItem) {
+      logEvent('Loading Sumsub WebSDK library...');
 
-      logEvent('Loading Sumsub WebSDK script...');
-
-      // Load SDK if not loaded
       if (typeof snsWebSdk === 'undefined') {
         const script = document.createElement('script');
         script.src = 'https://static.sumsub.com/idensic/static/sns-websdk-builder.js';
-        script.onload = () => mountSdk(token);
-        script.onerror = () => logEvent('Failed to load sns-websdk-builder.js from CDN.');
+        script.onload = () => mountSdk(token, keyItem);
+        script.onerror = () => logEvent('Failed to load sns-websdk-builder.js from CDN.', 'error');
         document.head.appendChild(script);
       } else {
-        mountSdk(token);
+        mountSdk(token, keyItem);
       }
     }
 
-    function mountSdk(token) {
+    function mountSdk(token, keyItem) {
       try {
-        logEvent('Initializing WebSDK instance...');
-        
+        logEvent('Mounting WebSDK inside 16:9 camera canvas...');
+
         currentSdkInstance = snsWebSdk
-          .init(token, () => {
-            logEvent('Token refresh requested by WebSDK.');
-            return token;
+          .init(token, async () => {
+            logEvent('WebSDK requested background token refresh...');
+            try {
+              const refreshed = await requestFreshToken(keyItem, 'refresh', activeSessionUserId);
+              logEvent('Token refreshed successfully.', 'success');
+              return refreshed.token;
+            } catch (e) {
+              logEvent('Failed to refresh token: ' + e.message, 'error');
+              return token;
+            }
           })
           .withConf({ lang: 'en' })
-          .withOptions({ addViewportTag: false, adaptIframeHeight: true })
+          .withOptions({
+            addViewportTag: false,
+            adaptIframeHeight: false // Allows the 16:9 canvas container to govern dimensions
+          })
           .on('idCheck.onStepCompleted', (payload) => {
-            logEvent(`Step completed: ${JSON.stringify(payload || {})}`);
+            logEvent(`Step completed: ${payload?.idDocType || 'step'}`, 'success');
           })
           .on('idCheck.onApplicantStatusChanged', (payload) => {
-            logEvent(`Status changed: ${JSON.stringify(payload || {})}`);
+            logEvent(`Status changed: ${payload?.reviewStatus || 'unknown'} (Answer: ${payload?.reviewResult?.reviewAnswer || 'pending'})`, 'warn');
           })
           .on('idCheck.onError', (error) => {
-            logEvent(`WebSDK Error: ${JSON.stringify(error || 'Unknown')}`);
+            logEvent(`WebSDK notice/error: ${JSON.stringify(error || 'unknown')}`, 'error');
           })
           .build();
 
         currentSdkInstance.launch('#sumsub-container');
-        logEvent('WebSDK launched successfully in iframe container.');
+        isFlowLaunched = true;
+        logEvent('WebSDK launched successfully in full screen 16:9 canvas.', 'success');
       } catch (err) {
-        logEvent(`Launch exception: ${err.message}`);
+        logEvent(`Launch exception: ${err.message}`, 'error');
       }
-    }
-
-    // Helper: Generate Token via server proxy or direct HMAC if configured
-    async function generateTokenFromAppCredentials(item) {
-      try {
-        // Try local server API if running on Spaceship/PHP host
-        const localApi = '/api/unlock';
-        const res = await fetch(localApi, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ key: 'admin3200' })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.token) {
-            logEvent('Acquired token via /api/unlock server endpoint.');
-            return data.token;
-          }
-        }
-      } catch (e) {
-        // Fallback info
-      }
-
-      alert('App Token + Secret requires server-side HMAC generation due to browser CORS policies. Please use direct SDK Access Token format or ensure your backend /api/unlock endpoint is accessible.');
-      return null;
     }
 
     // Initialize on load
