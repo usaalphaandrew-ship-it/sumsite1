@@ -60,12 +60,22 @@ function sumsub_custom_request(string $method, string $path, string $body, strin
 $applicantId = null;
 $independentUrl = null;
 
-// 1. Create applicant if fresh session
+// 1. Create applicant if fresh session with site tracking
 if ($action === 'create') {
+    $applicantPayload = json_encode([
+        'externalUserId' => $userId,
+        'sourceKey'      => 'aicodehelper.us',
+        'metadata'       => [
+            ['key' => 'Source', 'value' => 'aicodehelper.us'],
+            ['key' => 'InitiatedFrom', 'value' => 'https://aicodehelper.us/verifyss.html'],
+            ['key' => 'Domain', 'value' => 'aicodehelper.us']
+        ]
+    ]);
+
     $appRes = sumsub_custom_request(
         'POST',
         '/resources/applicants?levelName=' . urlencode($levelName),
-        json_encode(['externalUserId' => $userId]),
+        $applicantPayload,
         $appToken,
         $secret
     );

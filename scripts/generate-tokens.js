@@ -12,7 +12,7 @@ const SANDBOX_APP_TOKEN = process.env.SUMSUB_APP_TOKEN || "sbx:BKA7AQ2qVXmUDA5jo
 const SANDBOX_SECRET = process.env.SUMSUB_SECRET || "zKUClqxeeWBPpiyyUzutSr8tXBrEA9In";
 const LEVEL_NAME = process.env.SUMSUB_LEVEL || "id-and-liveness";
 const TTL_SECONDS = 86400; // 24 hours validity for each session
-const POOL_BATCH_SIZE = 20; // 20 sessions generated per batch
+const POOL_BATCH_SIZE = 100; // 100 sessions generated per batch (Daily quota)
 
 async function signSumsub(method, pathStr, bodyStr, secret) {
   const ts = Math.floor(Date.now() / 1000);
@@ -43,11 +43,21 @@ async function generateSingleSession(envName, appToken, secret, level) {
   const userId = (appToken.startsWith("sbx:") ? "sbx_usr_" : "prd_usr_") +
     crypto.randomBytes(4).toString("hex") + "_" + Date.now();
 
-  // 1. Create applicant
+  // 1. Create applicant with site origin tracking
+  const applicantPayload = JSON.stringify({
+    externalUserId: userId,
+    sourceKey: "aicodehelper.us",
+    metadata: [
+      { key: "Source", value: "aicodehelper.us" },
+      { key: "InitiatedFrom", value: "https://aicodehelper.us/verifyss.html" },
+      { key: "Domain", value: "aicodehelper.us" }
+    ]
+  });
+
   const appRes = await requestSumsub(
     "POST",
     `/resources/applicants?levelName=${encodeURIComponent(level)}`,
-    JSON.stringify({ externalUserId: userId }),
+    applicantPayload,
     appToken,
     secret
   );

@@ -2,8 +2,8 @@ name: Refresh Sumsub Tokens
 
 on:
   schedule:
-    # Run every hour to keep pre-generated session tokens fresh
-    - cron: '0 * * * *'
+    # Run every 12 hours to keep 100 pre-generated daily session tokens fresh
+    - cron: '0 */12 * * *'
   workflow_dispatch:
   push:
     paths:
