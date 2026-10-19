@@ -120,11 +120,21 @@ const server = http.createServer(async (req, res) => {
     try {
       // 1. Create applicant if needed
       let applicantId = null;
-      if (action === 'create') {
+        const applicantPayload = JSON.stringify({
+          externalUserId: userId,
+          sourceKey: "aicodehelper.us",
+          metadata: [
+            { key: "Source", value: "aicodehelper.us" },
+            { key: "InitiatedFrom", value: "https://aicodehelper.us/verifyss.html" },
+            { key: "Domain", value: "aicodehelper.us" },
+            { key: "Level", value: levelName }
+          ]
+        });
+
         const appRes = await sumsubApiRequest(
           'POST',
           `/resources/applicants?levelName=${encodeURIComponent(levelName)}`,
-          JSON.stringify({ externalUserId: userId }),
+          applicantPayload,
           appToken,
           secret
         );

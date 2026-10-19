@@ -900,6 +900,27 @@
           </div>
         </div>
         
+        <!-- Verification Level Selector -->
+        <div style="margin: 0 auto 20px; max-width: 600px; text-align: left; background: var(--surface-dark); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 14px 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label for="active-level-select" style="font-weight: 600; font-size: 0.86rem; color: #FFF; display: flex; align-items: center; gap: 8px;">
+              <span>Target Verification Level:</span>
+            </label>
+            <span id="level-quota-badge" style="font-size: 0.75rem; background: rgba(56, 189, 248, 0.15); color: #38BDF8; padding: 3px 8px; border-radius: 4px; font-weight: 600;">
+              40 ready
+            </span>
+          </div>
+          <select id="active-level-select" onchange="onActiveLevelChanged()" class="form-control" style="font-size: 0.88rem; padding: 10px 14px; background: var(--surface-card); cursor: pointer;">
+            <option value="developer-liveness-check" selected>developer-liveness-check (Standard Liveness Check)</option>
+            <option value="id-and-liveness">id-and-liveness (ID Document &amp; Liveness Check)</option>
+            <option value="idv-and-phone-verification">idv-and-phone-verification (ID + Phone/SMS + Liveness)</option>
+            <option value="id-only">id-only (ID Document Confirmation Only)</option>
+          </select>
+          <div style="font-size: 0.76rem; color: #94A3B8; margin-top: 6px;" id="level-description-hint">
+            Standard 3D biometric face liveness check (active selfie camera scan).
+          </div>
+        </div>
+
         <div class="flow-actions-row">
           <button class="btn btn-primary" id="launch-flow-btn" onclick="startVerification()">
             ⛶ Launch Full Screen Flow (16:9 Canvas)
@@ -998,9 +1019,14 @@
         </div>
 
         <div class="form-group">
-          <label for="key-level">Verification Level Name</label>
-          <input type="text" id="key-level" class="form-control" value="id-and-liveness" placeholder="id-and-liveness" required>
-          <div class="form-help">Default: id-and-liveness (must match the level defined in your Sumsub Dashboard).</div>
+          <label for="key-level">Verification Level</label>
+          <select id="key-level" class="form-control">
+            <option value="developer-liveness-check" selected>developer-liveness-check (Standard Liveness Check)</option>
+            <option value="id-and-liveness">id-and-liveness (ID Document &amp; Liveness Check)</option>
+            <option value="idv-and-phone-verification">idv-and-phone-verification (ID + Phone/SMS + Liveness)</option>
+            <option value="id-only">id-only (ID Document Confirmation Only)</option>
+          </select>
+          <div class="form-help">Select the verification level configured in your Sumsub Cockpit.</div>
         </div>
 
         <div class="modal-footer">
@@ -1528,9 +1554,26 @@
       }
     }
 
-    // ─── GitHub Actions Cloud Token Pool Integration ───
+    // ─── GitHub Actions Cloud Token Pool Integration & Multi-Level Support ───
     const GITHUB_REPO = "usaalphaandrew-ship-it/sumsite1";
     let cloudSessionPool = [];
+
+    const LEVEL_DESCRIPTIONS = {
+      'developer-liveness-check': "Standard 3D biometric face liveness check (active selfie camera scan).",
+      'id-and-liveness': "Verify applicant's identity with an ID document and a liveness check to confirm authenticity.",
+      'idv-and-phone-verification': "Verify applicant's identity with an ID document, SMS verification, and a liveness check for added security.",
+      'id-only': "Verify applicant's identity with only an ID document, ensuring basic identity confirmation."
+    };
+
+    function onActiveLevelChanged() {
+      const select = document.getElementById('active-level-select');
+      const level = select ? select.value : 'developer-liveness-check';
+      const hint = document.getElementById('level-description-hint');
+      if (hint && LEVEL_DESCRIPTIONS[level]) {
+        hint.textContent = LEVEL_DESCRIPTIONS[level];
+      }
+      updateCloudPoolStatus();
+    }
 
     async function loadCloudTokenPool() {
       try {
@@ -1547,13 +1590,19 @@
 
             if (card && cloudSessionPool.length > 0) {
               card.style.display = 'block';
-              statusTxt.innerHTML = `✓ GitHub Cloud Sessions Ready (${cloudSessionPool.length} Active)`;
-              detailTxt.innerHTML = `Auto-refreshed by GitHub Actions runner at ${new Date(data.updatedAt).toLocaleTimeString()}. Instant 16:9 canvas and new tab ready on GitHub Pages.`;
-              logEvent(`Loaded ${cloudSessionPool.length} active sessions from GitHub Actions pool.`, 'success');
+              onActiveLevelChanged();
+              if (detailTxt) {
+                detailTxt.innerHTML = `Auto-refreshed by GitHub Actions runner at ${new Date(data.updatedAt).toLocaleTimeString()}. 100 sessions across 4 levels. Instant 16:9 canvas and new tab ready on GitHub Pages.`;
+              }
+              logEvent(`Loaded ${cloudSessionPool.length} active sessions from GitHub Actions pool across ${data.levelsAvailable?.length || 4} levels.`, 'success');
             } else if (card) {
               card.style.display = 'block';
-              statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty or expired</span>`;
-              detailTxt.innerHTML = `Click "↻ Regenerate via GitHub Action" to launch a fresh background generator.`;
+              if (statusTxt) {
+                statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty or expired</span>`;
+              }
+              if (detailTxt) {
+                detailTxt.innerHTML = `Click "↻ Regenerate (100 Daily Sessions)" to launch a fresh background generator.`;
+              }
             }
           }
         }
@@ -1565,10 +1614,21 @@
     function updateCloudPoolStatus() {
       const card = document.getElementById('github-actions-pool-card');
       const statusTxt = document.getElementById('cloud-pool-status-text');
+      const badge = document.getElementById('level-quota-badge');
+      const select = document.getElementById('active-level-select');
+      const selectedLevel = select ? select.value : 'developer-liveness-check';
+
+      const levelCount = cloudSessionPool.filter(s => s.levelName === selectedLevel).length;
+
+      if (badge) {
+        badge.textContent = `${levelCount} ready`;
+        badge.style.color = levelCount > 0 ? '#38BDF8' : '#F59E0B';
+      }
+
       if (!card || !statusTxt) return;
       if (cloudSessionPool.length > 0) {
         card.style.display = 'block';
-        statusTxt.textContent = `✓ GitHub Cloud Sessions Ready (${cloudSessionPool.length} Active)`;
+        statusTxt.textContent = `✓ GitHub Cloud Sessions Ready (${cloudSessionPool.length} Total, ${levelCount} for chosen level)`;
       } else {
         card.style.display = 'block';
         statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty. Click "↻ Regenerate" to trigger GitHub Action.</span>`;
@@ -1604,8 +1664,8 @@
         });
 
         if (res.ok || res.status === 204) {
-          logEvent('GitHub Action dispatched! Fresh tokens will commit to tokens.json in ~30 seconds.', 'success');
-          alert('GitHub Action launched! New tokens will be available in ~30 seconds.');
+          logEvent('GitHub Action dispatched! 100 fresh tokens will commit to tokens.json in ~30 seconds.', 'success');
+          alert('GitHub Action launched! 100 new tokens will be available in ~30 seconds.');
           setTimeout(loadCloudTokenPool, 35000);
         } else if (res.status === 401 || res.status === 403) {
           localStorage.removeItem('gh_actions_pat');
@@ -1624,16 +1684,25 @@
         alert(`Could not trigger GitHub Action: ${err.message}`);
       } finally {
         btn.disabled = false;
-        btn.textContent = '↻ Regenerate via GitHub Action';
+        btn.textContent = '↻ Regenerate (100 Daily Sessions)';
       }
     }
 
     // ─── FEATURE 1: Open Fresh Session in New Tab (Independent Sumsub Page) ───
     async function openFreshSessionInNewTab() {
-      // 1. Check if we have pre-generated GitHub Cloud tokens ready
-      if (cloudSessionPool.length > 0) {
-        const cloudSession = cloudSessionPool.shift();
-        logEvent(`Using pre-signed session from GitHub Actions cloud pool (${cloudSession.userId})...`, 'success');
+      const selectedLevel = document.getElementById('active-level-select')?.value || 'developer-liveness-check';
+
+      // 1. Check if we have pre-generated GitHub Cloud tokens matching the selected level
+      const matchIdx = cloudSessionPool.findIndex(s => s.levelName === selectedLevel);
+      let cloudSession = null;
+      if (matchIdx !== -1) {
+        cloudSession = cloudSessionPool.splice(matchIdx, 1)[0];
+      } else if (cloudSessionPool.length > 0) {
+        cloudSession = cloudSessionPool.shift();
+      }
+
+      if (cloudSession) {
+        logEvent(`Using pre-signed session for level "${cloudSession.levelName}" (${cloudSession.userId})...`, 'success');
         updateCloudPoolStatus();
         window.open(cloudSession.independentUrl, '_blank');
         return;
@@ -1648,8 +1717,8 @@
         return;
       }
 
-      const keyItem = pool[activeIdx];
-      logEvent(`Generating independent hosted link for "${keyItem.alias}"...`);
+      const keyItem = Object.assign({}, pool[activeIdx], { level: selectedLevel });
+      logEvent(`Generating independent hosted link for "${keyItem.alias}" [Level: ${selectedLevel}]...`);
 
       // Open blank tab immediately to prevent popup blocker
       const newTab = window.open('about:blank', '_blank');
@@ -1660,7 +1729,6 @@
 
         let targetUrl = session.independentUrl;
         if (!targetUrl && session.token) {
-          // Direct fallback to Sumsub WebSDK hosted viewer
           targetUrl = `https://cockpit.sumsub.com/idensic/index.html?token=${session.token}`;
         }
 
@@ -1682,14 +1750,23 @@
 
     // ─── FEATURE 2: Full Screen 16:9 Camera WebSDK Flow ───
     async function startVerification() {
-      // 1. Check if we have pre-generated GitHub Cloud tokens ready
-      if (cloudSessionPool.length > 0) {
-        const cloudSession = cloudSessionPool.shift();
-        logEvent(`Using pre-signed session from GitHub Actions cloud pool (${cloudSession.userId})...`, 'success');
+      const selectedLevel = document.getElementById('active-level-select')?.value || 'developer-liveness-check';
+
+      // 1. Check if we have pre-generated GitHub Cloud tokens matching the selected level
+      const matchIdx = cloudSessionPool.findIndex(s => s.levelName === selectedLevel);
+      let cloudSession = null;
+      if (matchIdx !== -1) {
+        cloudSession = cloudSessionPool.splice(matchIdx, 1)[0];
+      } else if (cloudSessionPool.length > 0) {
+        cloudSession = cloudSessionPool.shift();
+      }
+
+      if (cloudSession) {
+        logEvent(`Using pre-signed session for level "${cloudSession.levelName}" (${cloudSession.userId})...`, 'success');
         updateCloudPoolStatus();
         openFullscreenView();
         document.getElementById('sumsub-container').innerHTML = '';
-        launchSumsubSdk(cloudSession.token, { alias: 'GitHub Cloud Session' });
+        launchSumsubSdk(cloudSession.token, { alias: `Cloud: ${cloudSession.levelName}` });
         return;
       }
 
@@ -1702,13 +1779,13 @@
         return;
       }
 
-      const keyItem = pool[activeIdx];
+      const keyItem = Object.assign({}, pool[activeIdx], { level: selectedLevel });
       const launchBtn = document.getElementById('launch-flow-btn');
       launchBtn.disabled = true;
       launchBtn.textContent = 'Generating Session...';
 
       try {
-        logEvent(`Initiating session for "${keyItem.alias}" [${currentEnv.toUpperCase()}]`);
+        logEvent(`Initiating session for "${keyItem.alias}" [${currentEnv.toUpperCase()} • Level: ${selectedLevel}]`);
 
         // Request a fresh, non-expiring session token
         const session = await requestFreshToken(keyItem, 'create');
