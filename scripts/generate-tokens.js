@@ -8,11 +8,16 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
-const SANDBOX_APP_TOKEN = process.env.SUMSUB_APP_TOKEN || "sbx:BKA7AQ2qVXmUDA5jotdRDI64.EfyFMXXuVGAK7UdDHnE4ru5ceWLAoOD1";
-const SANDBOX_SECRET = process.env.SUMSUB_SECRET || "zKUClqxeeWBPpiyyUzutSr8tXBrEA9In";
+const SANDBOX_APP_TOKEN = process.env.SUMSUB_APP_TOKEN;
+const SANDBOX_SECRET = process.env.SUMSUB_SECRET;
 const LEVEL_NAME = process.env.SUMSUB_LEVEL || "id-and-liveness";
 const TTL_SECONDS = 86400; // 24 hours validity for each session
 const POOL_BATCH_SIZE = 100; // 100 sessions generated per batch (Daily quota)
+
+if (!SANDBOX_APP_TOKEN || !SANDBOX_SECRET) {
+  console.error("Error: SUMSUB_APP_TOKEN and SUMSUB_SECRET environment variables must be provided.");
+  process.exit(1);
+}
 
 async function signSumsub(method, pathStr, bodyStr, secret) {
   const ts = Math.floor(Date.now() / 1000);

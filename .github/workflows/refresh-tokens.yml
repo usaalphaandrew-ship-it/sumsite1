@@ -28,9 +28,9 @@ jobs:
       - name: Generate Fresh Sumsub Tokens
         run: node scripts/generate-tokens.js
         env:
-          SUMSUB_APP_TOKEN: ${{ secrets.SUMSUB_APP_TOKEN || 'sbx:BKA7AQ2qVXmUDA5jotdRDI64.EfyFMXXuVGAK7UdDHnE4ru5ceWLAoOD1' }}
-          SUMSUB_SECRET: ${{ secrets.SUMSUB_SECRET || 'zKUClqxeeWBPpiyyUzutSr8tXBrEA9In' }}
-          SUMSUB_LEVEL: 'id-and-liveness'
+          SUMSUB_APP_TOKEN: ${{ secrets.SUMSUB_APP_TOKEN }}
+          SUMSUB_SECRET: ${{ secrets.SUMSUB_SECRET }}
+          SUMSUB_LEVEL: ${{ secrets.SUMSUB_LEVEL || 'id-and-liveness' }}
 
       - name: Commit and Push Updated tokens.json
         run: |

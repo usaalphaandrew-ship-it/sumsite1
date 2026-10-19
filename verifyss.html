@@ -818,9 +818,6 @@
       </div>
 
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button class="btn btn-outline" id="preload-btn" onclick="preloadSandboxKey()" style="font-size: 0.85rem;">
-          ⚡ Quick-Add Sandbox Key
-        </button>
         <button class="btn btn-primary" onclick="openAddKeyModal()">
           + Add Key to Pool
         </button>
@@ -1023,14 +1020,7 @@
     const SESSION_AUTH  = "sumsub_hub_unlocked";
     const API_BASE_KEY  = "sumsub_hub_api_base";
 
-    // Known Sandbox Default for 1-click test
-    const KNOWN_SANDBOX = {
-      alias: "Default Sandbox (Verified)",
-      appToken: "sbx:BKA7AQ2qVXmUDA5jotdRDI64.EfyFMXXuVGAK7UdDHnE4ru5ceWLAoOD1",
-      secret: "zKUClqxeeWBPpiyyUzutSr8tXBrEA9In",
-      level: "id-and-liveness"
-    };
-
+    // Pool state variables
     let currentEnv = "sandbox"; // 'sandbox' | 'production'
     let is16by9 = true;
     let keyStore = {
@@ -1209,7 +1199,6 @@
           <div class="empty-pool-box">
             <p>No keys currently stored in the <strong>${currentEnv.toUpperCase()}</strong> pool.</p>
             <div style="display:flex; justify-content:center; gap:10px;">
-              ${currentEnv === 'sandbox' ? `<button class="btn btn-outline btn-sm" onclick="preloadSandboxKey()">⚡ Pre-load Verified Sandbox Key</button>` : ''}
               <button class="btn btn-primary btn-sm" onclick="openAddKeyModal()">+ Add Key to Pool</button>
             </div>
           </div>
@@ -1289,31 +1278,6 @@
       saveKeysToStorage();
       renderCurrentEnv();
       logEvent(`Deleted key: "${alias}"`);
-    }
-
-    function preloadSandboxKey() {
-      const existing = keyStore.sandbox.find(k => k.appToken === KNOWN_SANDBOX.appToken);
-      if (existing) {
-        alert("Verified Sandbox Key is already in your pool!");
-        return;
-      }
-
-      const now = new Date();
-      const dateFormatted = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + 
-        ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-      keyStore.sandbox.push({
-        alias: KNOWN_SANDBOX.alias,
-        appToken: KNOWN_SANDBOX.appToken,
-        secret: KNOWN_SANDBOX.secret,
-        level: KNOWN_SANDBOX.level,
-        createdAt: dateFormatted
-      });
-
-      activeKeyIndex.sandbox = keyStore.sandbox.length - 1;
-      saveKeysToStorage();
-      renderCurrentEnv();
-      logEvent("Pre-loaded verified Sandbox credentials into pool.");
     }
 
     // ─── Modal Actions ───
