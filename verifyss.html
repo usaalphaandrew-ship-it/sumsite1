@@ -879,6 +879,24 @@
         <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 20px;">
           Launch the full screen 16:9 HD camera canvas inside this app, or open a fresh session in an independent Sumsub-hosted web page in a new tab.
         </p>
+
+        <!-- GitHub Cloud Actions Token Pool Indicator -->
+        <div id="github-actions-pool-card" style="margin: 0 auto 20px; max-width: 600px; padding: 14px 16px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: var(--radius-sm); text-align: left; display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
+              <span style="font-size: 0.88rem; font-weight: 600; color: #10B981;" id="cloud-pool-status-text">
+                ✓ GitHub Cloud Sessions Ready
+              </span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="triggerGitHubWorkflow()" id="dispatch-action-btn" style="font-size: 0.76rem; padding: 4px 10px;" title="Trigger GitHub Actions workflow to generate new tokens">
+              ↻ Regenerate via GitHub Action
+            </button>
+          </div>
+          <div style="font-size: 0.76rem; color: #94A3B8; margin-top: 6px;" id="cloud-pool-detail">
+            Pre-signed server-to-server by GitHub Actions. Instant launch on GitHub Pages with 0 CORS &amp; 0 local servers.
+          </div>
+        </div>
         
         <div class="flow-actions-row">
           <button class="btn btn-primary" id="launch-flow-btn" onclick="startVerification()">
@@ -1541,8 +1559,109 @@
       }
     }
 
+    // ─── GitHub Actions Cloud Token Pool Integration ───
+    const GITHUB_REPO = "usaalphaandrew-ship-it/sumsite1";
+    let cloudSessionPool = [];
+
+    async function loadCloudTokenPool() {
+      try {
+        const res = await fetch(`tokens.json?nocache=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.sessions)) {
+            const now = Date.now();
+            cloudSessionPool = data.sessions.filter(s => new Date(s.expiresAt).getTime() > now);
+
+            const card = document.getElementById('github-actions-pool-card');
+            const statusTxt = document.getElementById('cloud-pool-status-text');
+            const detailTxt = document.getElementById('cloud-pool-detail');
+
+            if (card && cloudSessionPool.length > 0) {
+              card.style.display = 'block';
+              statusTxt.innerHTML = `✓ GitHub Cloud Sessions Ready (${cloudSessionPool.length} Active)`;
+              detailTxt.innerHTML = `Auto-refreshed by GitHub Actions runner at ${new Date(data.updatedAt).toLocaleTimeString()}. Instant 16:9 canvas and new tab ready on GitHub Pages.`;
+              logEvent(`Loaded ${cloudSessionPool.length} active sessions from GitHub Actions pool.`, 'success');
+            } else if (card) {
+              card.style.display = 'block';
+              statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty or expired</span>`;
+              detailTxt.innerHTML = `Click "↻ Regenerate via GitHub Action" to launch a fresh background generator.`;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("tokens.json not yet loaded:", e);
+      }
+    }
+
+    function updateCloudPoolStatus() {
+      const card = document.getElementById('github-actions-pool-card');
+      const statusTxt = document.getElementById('cloud-pool-status-text');
+      if (!card || !statusTxt) return;
+      if (cloudSessionPool.length > 0) {
+        card.style.display = 'block';
+        statusTxt.textContent = `✓ GitHub Cloud Sessions Ready (${cloudSessionPool.length} Active)`;
+      } else {
+        card.style.display = 'block';
+        statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty. Click "↻ Regenerate" to trigger GitHub Action.</span>`;
+      }
+    }
+
+    async function triggerGitHubWorkflow() {
+      let pat = localStorage.getItem('gh_actions_pat');
+      if (!pat) {
+        pat = prompt('Please enter your GitHub PAT to trigger the Actions workflow:');
+        if (pat) {
+          pat = pat.trim();
+          localStorage.setItem('gh_actions_pat', pat);
+        } else {
+          return;
+        }
+      }
+
+      const btn = document.getElementById('dispatch-action-btn');
+      btn.disabled = true;
+      btn.textContent = 'Triggering Action...';
+      logEvent('Dispatching GitHub Actions refresh-tokens workflow via API...');
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/workflows/refresh-tokens.yml/dispatches`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+            'Authorization': `Bearer ${pat}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ref: 'main' })
+        });
+
+        if (res.ok || res.status === 204) {
+          logEvent('GitHub Action dispatched! Fresh tokens will commit to tokens.json in ~30 seconds.', 'success');
+          alert('GitHub Action launched! New tokens will be available in ~30 seconds.');
+          setTimeout(loadCloudTokenPool, 35000);
+        } else {
+          const txt = await res.text();
+          throw new Error(txt || `HTTP ${res.status}`);
+        }
+      } catch (err) {
+        logEvent(`Workflow dispatch failed: ${err.message}`, 'error');
+        alert(`Could not trigger GitHub Action: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '↻ Regenerate via GitHub Action';
+      }
+    }
+
     // ─── FEATURE 1: Open Fresh Session in New Tab (Independent Sumsub Page) ───
     async function openFreshSessionInNewTab() {
+      // 1. Check if we have pre-generated GitHub Cloud tokens ready
+      if (cloudSessionPool.length > 0) {
+        const cloudSession = cloudSessionPool.shift();
+        logEvent(`Using pre-signed session from GitHub Actions cloud pool (${cloudSession.userId})...`, 'success');
+        updateCloudPoolStatus();
+        window.open(cloudSession.independentUrl, '_blank');
+        return;
+      }
+
       const pool = keyStore[currentEnv] || [];
       const activeIdx = activeKeyIndex[currentEnv];
 
@@ -1586,6 +1705,17 @@
 
     // ─── FEATURE 2: Full Screen 16:9 Camera WebSDK Flow ───
     async function startVerification() {
+      // 1. Check if we have pre-generated GitHub Cloud tokens ready
+      if (cloudSessionPool.length > 0) {
+        const cloudSession = cloudSessionPool.shift();
+        logEvent(`Using pre-signed session from GitHub Actions cloud pool (${cloudSession.userId})...`, 'success');
+        updateCloudPoolStatus();
+        openFullscreenView();
+        document.getElementById('sumsub-container').innerHTML = '';
+        launchSumsubSdk(cloudSession.token, { alias: 'GitHub Cloud Session' });
+        return;
+      }
+
       const pool = keyStore[currentEnv] || [];
       const activeIdx = activeKeyIndex[currentEnv];
 
@@ -1683,6 +1813,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       checkGateSession();
       loadKeysFromStorage();
+      loadCloudTokenPool();
     });
   </script>
 </body>

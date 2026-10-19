@@ -1,0 +1,40 @@
+name: Refresh Sumsub Tokens
+
+on:
+  schedule:
+    # Run every hour to keep pre-generated session tokens fresh
+    - cron: '0 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/generate-tokens.js'
+      - '.github/workflows/refresh-tokens.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate Fresh Sumsub Tokens
+        run: node scripts/generate-tokens.js
+        env:
+          SUMSUB_APP_TOKEN: ${{ secrets.SUMSUB_APP_TOKEN || 'sbx:BKA7AQ2qVXmUDA5jotdRDI64.EfyFMXXuVGAK7UdDHnE4ru5ceWLAoOD1' }}
+          SUMSUB_SECRET: ${{ secrets.SUMSUB_SECRET || 'zKUClqxeeWBPpiyyUzutSr8tXBrEA9In' }}
+          SUMSUB_LEVEL: 'id-and-liveness'
+
+      - name: Commit and Push Updated tokens.json
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add tokens.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-refresh Sumsub session tokens [skip ci]" && git push)
