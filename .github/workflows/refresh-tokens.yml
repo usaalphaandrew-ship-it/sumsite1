@@ -2,7 +2,7 @@ name: Refresh Sumsub Tokens
 
 on:
   schedule:
-    # Run every 12 hours to keep 100 pre-generated daily session tokens fresh
+    # Run every 12 hours to keep pre-generated daily session tokens fresh
     - cron: '0 */12 * * *'
   workflow_dispatch:
   push:
@@ -25,12 +25,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate Fresh Sumsub Tokens
+      - name: Generate Fresh Sumsub Tokens (Sandbox & Production)
         run: node scripts/generate-tokens.js
         env:
           SUMSUB_APP_TOKEN: ${{ secrets.SUMSUB_APP_TOKEN }}
           SUMSUB_SECRET: ${{ secrets.SUMSUB_SECRET }}
-          SUMSUB_LEVEL: ${{ secrets.SUMSUB_LEVEL || 'id-and-liveness' }}
+          SUMSUB_PROD_APP_TOKEN: ${{ secrets.SUMSUB_PROD_APP_TOKEN }}
+          SUMSUB_PROD_SECRET: ${{ secrets.SUMSUB_PROD_SECRET }}
 
       - name: Commit and Push Updated tokens.json
         run: |

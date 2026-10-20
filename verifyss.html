@@ -2,49 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sumsub Verification Hub — Full Screen &amp; Independent Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sumsub Verification Portal | 16:9 Camera Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     :root {
-      --bg-dark: #0B0F19;
-      --surface-dark: #111827;
-      --surface-card: #1F2937;
-      --surface-hover: #374151;
-      --border-color: #374151;
-      --border-subtle: #1F2937;
-      --text-main: #F9FAFB;
-      --text-muted: #9CA3AF;
-      --text-dim: #6B7280;
-      --primary: #4F46E5;
-      --primary-hover: #4338CA;
-      --primary-soft: rgba(79, 70, 229, 0.15);
+      --bg: #0B0F19;
+      --surface: #111827;
+      --surface-card: #162032;
+      --surface-hover: #1E293B;
+      --border: #1F293D;
+      --border-light: #2D3A54;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
       --sandbox: #F59E0B;
-      --sandbox-soft: rgba(245, 158, 11, 0.15);
+      --sandbox-soft: rgba(245, 158, 11, 0.12);
       --production: #10B981;
-      --production-soft: rgba(16, 185, 129, 0.15);
+      --production-soft: rgba(16, 185, 129, 0.12);
       --danger: #EF4444;
-      --danger-soft: rgba(239, 68, 68, 0.15);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
+      background-color: var(--bg);
+      color: var(--text);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -54,9 +45,8 @@
     #gate-screen {
       position: fixed;
       inset: 0;
-      background: rgba(11, 15, 25, 0.96);
-      backdrop-filter: blur(16px);
-      z-index: 999999;
+      background: var(--bg);
+      z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -64,95 +54,72 @@
     }
 
     .gate-card {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-color);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
+      padding: 36px 32px;
       max-width: 420px;
       width: 100%;
       text-align: center;
-      box-shadow: var(--shadow);
-      animation: fadeIn 0.3s ease;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     }
 
     .gate-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--primary-soft);
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(59, 130, 246, 0.12);
       color: var(--primary);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin-bottom: 20px;
     }
 
-    .gate-card h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .gate-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-
-    .gate-input-group {
-      position: relative;
-      margin-bottom: 16px;
-    }
+    .gate-card h2 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; }
+    .gate-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
 
     .gate-input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 13px 16px;
       background: var(--surface-card);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: #FFF;
-      font-family: 'JetBrains Mono', monospace;
       font-size: 1.1rem;
       text-align: center;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       outline: none;
-      transition: border-color 0.2s;
+      margin-bottom: 16px;
     }
-
-    .gate-input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-soft);
-    }
+    .gate-input:focus { border-color: var(--primary); }
 
     .gate-btn {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       background: var(--primary);
       color: #FFF;
       border: none;
       border-radius: var(--radius-sm);
-      font-weight: 600;
       font-size: 0.95rem;
+      font-weight: 600;
       cursor: pointer;
       transition: background 0.2s;
     }
-
-    .gate-btn:hover {
-      background: var(--primary-hover);
-    }
+    .gate-btn:hover { background: var(--primary-hover); }
 
     .gate-error {
       color: var(--danger);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       margin-top: 12px;
       display: none;
     }
 
-    /* ─── Header ─── */
-    .top-nav {
-      background: var(--surface-dark);
-      border-bottom: 1px solid var(--border-color);
-      padding: 16px 24px;
+    /* ─── Top Toolbar ─── */
+    .top-toolbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -161,133 +128,247 @@
       z-index: 100;
     }
 
-    .nav-brand {
+    .brand-group {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 700;
-      font-size: 1.1rem;
     }
 
-    .nav-brand-badge {
+    .brand-badge {
       background: var(--primary);
       color: #FFF;
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-    }
-
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    /* Environment Tabs */
-    .env-switch {
-      display: flex;
-      background: var(--surface-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 4px;
-      gap: 4px;
-    }
-
-    .env-btn {
-      padding: 8px 18px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 8px;
       border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    .toolbar-center {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .env-btn.active.sandbox {
+    .mode-switch {
+      display: flex;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .mode-btn {
+      padding: 6px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mode-btn.active.sandbox {
       background: var(--sandbox-soft);
       color: var(--sandbox);
     }
 
-    .env-btn.active.production {
+    .mode-btn.active.production {
       background: var(--production-soft);
       color: var(--production);
     }
 
-    .env-dot {
-      width: 8px;
-      height: 8px;
+    .mode-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: currentColor;
     }
 
-    .lock-btn {
-      background: var(--surface-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .lock-btn:hover {
+    .tb-btn {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .tb-btn:hover {
       color: #FFF;
       background: var(--surface-hover);
+      border-color: var(--border-light);
     }
 
-    /* ─── Main Content ─── */
-    .main-container {
-      max-width: 1060px;
+    .tb-badge {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60A5FA;
+      padding: 2px 6px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── Main Content (3 Pillars) ─── */
+    .main-wrap {
+      max-width: 900px;
       width: 100%;
-      margin: 28px auto;
+      margin: 32px auto;
       padding: 0 20px;
       flex: 1;
     }
 
-    /* ─── Banner / Status Row ─── */
-    .status-banner {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-color);
+    /* Pillar 1: Level Selector Card */
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 20px 24px;
+      padding: 28px;
       margin-bottom: 24px;
+    }
+
+    .pillar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 18px;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
     }
 
-    .banner-env-info h3 {
-      font-size: 1.15rem;
+    .pillar-title {
+      font-size: 1.1rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 4px;
     }
 
-    .banner-env-info p {
-      font-size: 0.85rem;
+    .pool-balance-badge {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--production);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pool-balance-badge.warning {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--sandbox);
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .level-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .level-card:hover {
+      border-color: var(--border-light);
+      background: var(--surface-hover);
+    }
+
+    .level-card.selected {
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.08);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .level-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .level-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: #FFF;
+      word-break: break-word;
+    }
+
+    .level-desc {
+      font-size: 0.76rem;
       color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .level-quota {
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    /* Pillar 2: Action Controls */
+    .actions-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .actions-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 10px 18px;
+      gap: 10px;
+      padding: 13px 26px;
       border-radius: var(--radius-sm);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
@@ -299,220 +380,34 @@
       background: var(--primary);
       color: #FFF;
     }
-
     .btn-primary:hover {
       background: var(--primary-hover);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
     }
 
     .btn-emerald {
       background: #059669;
       color: #FFF;
     }
-
     .btn-emerald:hover {
       background: #047857;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
     }
 
-    .btn-outline {
-      background: var(--surface-card);
-      border-color: var(--border-color);
-      color: var(--text-main);
-    }
-
-    .btn-outline:hover {
-      background: var(--surface-hover);
-    }
-
-    .btn-sm {
-      padding: 6px 12px;
-      font-size: 0.82rem;
-    }
-
-    .btn-danger {
-      background: var(--danger-soft);
-      color: var(--danger);
-      border-color: rgba(239, 68, 68, 0.2);
-    }
-
-    .btn-danger:hover {
-      background: var(--danger);
-      color: #FFF;
-    }
-
-    /* ─── Server Config Strip ─── */
-    .server-strip {
-      background: #0D1322;
-      border: 1px solid #1E293B;
-      border-radius: var(--radius-sm);
-      padding: 10px 16px;
-      margin-bottom: 22px;
-      display: flex;
+    .fresh-mode-indicator {
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .server-strip input {
-      background: #111827;
-      border: 1px solid #374151;
-      border-radius: 4px;
-      color: #E2E8F0;
-      padding: 4px 10px;
-      font-family: 'JetBrains Mono', monospace;
+      gap: 8px;
       font-size: 0.8rem;
-      width: 260px;
-    }
-
-    /* ─── Key Pool Section ─── */
-    .section-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .key-pool-list {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 32px;
-    }
-
-    .key-card {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.2s;
-    }
-
-    .key-card.active {
-      border-color: var(--primary);
-      background: rgba(79, 70, 229, 0.06);
-      box-shadow: 0 0 0 1px var(--primary);
-    }
-
-    .key-meta h4 {
-      font-size: 0.98rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .key-badge {
-      font-size: 0.72rem;
-      padding: 2px 8px;
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.08);
+      padding: 6px 14px;
       border-radius: 999px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      margin-top: 16px;
     }
 
-    .key-badge.active-badge {
-      background: var(--production-soft);
-      color: var(--production);
-    }
-
-    .key-details {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: flex;
-      gap: 16px;
-      font-family: 'JetBrains Mono', monospace;
-      flex-wrap: wrap;
-    }
-
-    .key-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .empty-pool-box {
-      background: var(--surface-dark);
-      border: 1px dashed var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 40px 24px;
-      text-align: center;
-      color: var(--text-muted);
-    }
-
-    .empty-pool-box p {
-      font-size: 0.92rem;
-      margin-bottom: 18px;
-    }
-
-    /* ─── Verification Flow Panel ─── */
-    .flow-panel {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 28px;
-      margin-bottom: 36px;
-    }
-
-    .flow-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .flow-header h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    #inline-launch-card {
-      background: var(--surface-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 36px 24px;
-      text-align: center;
-    }
-
-    .flow-actions-row {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .flow-log {
-      margin-top: 18px;
-      background: #000;
-      border: 1px solid #1E293B;
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
-      color: #38BDF8;
-      max-height: 140px;
-      overflow-y: auto;
-      display: none;
-    }
-
-    .flow-log.show {
-      display: block;
-    }
-
-    .flow-log .success { color: #34D399; }
-    .flow-log .error { color: #F87171; }
-    .flow-log .warn { color: #FBBF24; }
-
-    /* ─── FULL SCREEN 16:9 CAMERA CANVAS MODAL ─── */
+    /* ─── Pillar 3: FULL SCREEN 16:9 CAMERA CANVAS ─── */
     #fullscreen-viewport {
       position: fixed;
       inset: 0;
@@ -523,7 +418,6 @@
       display: none;
       flex-direction: column;
       overflow: hidden;
-      animation: fadeIn 0.2s ease;
     }
 
     #fullscreen-viewport.active {
@@ -542,45 +436,33 @@
       flex-shrink: 0;
     }
 
-    .fs-title-wrap {
+    .fs-meta {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 0.88rem;
-      font-weight: 600;
     }
 
-    .fs-live-badge {
+    .fs-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       background: rgba(16, 185, 129, 0.15);
       color: #10B981;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 999px;
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.04em;
     }
-
-    .fs-live-badge.sandbox {
+    .fs-badge.sandbox {
       background: rgba(245, 158, 11, 0.15);
       color: #F59E0B;
-    }
-
-    .fs-live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 8px currentColor;
     }
 
     .fs-actions {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
     }
 
     .fs-canvas-stage {
@@ -608,7 +490,6 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
       overflow: hidden;
       position: relative;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -621,26 +502,26 @@
       border-radius: 0;
     }
 
-    #sumsub-container {
+    .camera-canvas-mount {
       width: 100%;
       height: 100%;
       position: absolute;
       inset: 0;
     }
 
-    #sumsub-container iframe {
+    .camera-canvas-mount iframe {
       width: 100% !important;
       height: 100% !important;
       border: none !important;
       background: transparent !important;
     }
 
-    /* ─── Modal ─── */
+    /* ─── Session History Modal ─── */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(6px);
       z-index: 200;
       display: none;
       align-items: center;
@@ -648,30 +529,30 @@
       padding: 20px;
     }
 
-    .modal-overlay.open {
-      display: flex;
-    }
+    .modal-overlay.open { display: flex; }
 
-    .modal-card {
-      background: var(--surface-dark);
-      border: 1px solid var(--border-color);
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 32px;
-      max-width: 540px;
       width: 100%;
-      box-shadow: var(--shadow);
-      animation: fadeIn 0.2s ease;
+      max-width: 760px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
     }
 
     .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
     }
 
-    .modal-header h3 {
-      font-size: 1.25rem;
+    .modal-title {
+      font-size: 1.15rem;
       font-weight: 700;
     }
 
@@ -682,77 +563,89 @@
       font-size: 1.4rem;
       cursor: pointer;
     }
+    .modal-close:hover { color: #FFF; }
 
-    .form-group {
-      margin-bottom: 18px;
+    .modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex: 1;
     }
 
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text-main);
-    }
-
-    .form-control {
+    .history-table {
       width: 100%;
-      padding: 11px 14px;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .history-table th {
+      text-align: left;
+      padding: 10px 12px;
       background: var(--surface-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      color: #FFF;
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .form-control:focus {
-      border-color: var(--primary);
-    }
-
-    .form-help {
+      color: var(--text-muted);
+      font-weight: 600;
       font-size: 0.78rem;
-      color: var(--text-dim);
-      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-top: 24px;
+    .history-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
+    .history-table tr:hover td {
+      background: var(--surface-card);
+    }
+
+    .badge-env {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-env.sandbox { background: var(--sandbox-soft); color: var(--sandbox); }
+    .badge-env.production { background: var(--production-soft); color: var(--production); }
+
+    .btn-action-sm {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-action-sm:hover {
+      background: var(--surface-hover);
+      color: #FFF;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
     }
 
     @media (max-width: 640px) {
-      .top-nav {
+      .top-toolbar {
         flex-direction: column;
-        gap: 14px;
+        gap: 12px;
         align-items: stretch;
       }
-      .nav-controls {
+      .toolbar-center, .toolbar-actions {
         justify-content: space-between;
       }
-      .key-card {
+      .actions-row {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
       }
-      .key-actions {
+      .actions-row .btn {
         width: 100%;
-        justify-content: flex-end;
-      }
-      .fs-canvas-stage {
-        padding: 0;
-      }
-      .camera-canvas-box {
-        border-radius: 0;
       }
     }
   </style>
@@ -763,222 +656,161 @@
   <div id="gate-screen">
     <div class="gate-card">
       <div class="gate-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
         </svg>
       </div>
       <h2>Verification Console Lock</h2>
-      <p>Enter the security code to access Sandbox &amp; Production verification pools.</p>
+      <p>Enter the security code to unlock verification sessions.</p>
       
       <form id="gate-form" onsubmit="handleGateUnlock(event)">
-        <div class="gate-input-group">
-          <input type="password" id="passcode-input" class="gate-input" placeholder="••••" autocomplete="off" autofocus required>
-        </div>
+        <input type="password" id="passcode-input" class="gate-input" placeholder="••••" autocomplete="off" autofocus required>
         <button type="submit" class="gate-btn">Unlock Console</button>
         <div id="gate-error" class="gate-error">Invalid security code. Please check and retry.</div>
       </form>
     </div>
   </div>
 
-  <!-- ─── TOP NAVIGATION ─── -->
-  <header class="top-nav">
-    <div class="nav-brand">
-      <div class="nav-brand-badge">SDK-HUB</div>
-      <span>Sumsub Verification Portal</span>
+  <!-- ─── TOP TOOLBAR ─── -->
+  <header class="top-toolbar">
+    <div class="brand-group">
+      <div class="brand-badge">SDK-HUB</div>
+      <div class="brand-title">Sumsub Verification</div>
     </div>
 
-    <div class="nav-controls">
-      <!-- Environment Switcher -->
-      <div class="env-switch">
-        <button class="env-btn active sandbox" id="env-sandbox-btn" onclick="switchEnvironment('sandbox')">
-          <span class="env-dot"></span> Sandbox
+    <!-- Center: Mode Switch -->
+    <div class="toolbar-center">
+      <div class="mode-switch">
+        <button class="mode-btn active sandbox" id="mode-sandbox-btn" onclick="switchEnvironment('sandbox')">
+          <span class="mode-dot"></span> Sandbox
         </button>
-        <button class="env-btn production" id="env-prod-btn" onclick="switchEnvironment('production')">
-          <span class="env-dot"></span> Production
+        <button class="mode-btn production" id="mode-prod-btn" onclick="switchEnvironment('production')">
+          <span class="mode-dot"></span> Production
         </button>
       </div>
+    </div>
 
-      <button class="lock-btn" onclick="lockConsole()" title="Lock Console">
+    <!-- Right: Quick Action Buttons -->
+    <div class="toolbar-actions">
+      <button class="tb-btn" onclick="openHistoryModal()" title="View session launch history">
+        📜 History <span class="tb-badge" id="history-count-badge">0</span>
+      </button>
+      <button class="tb-btn" onclick="refreshPool()" title="Reload fresh cloud sessions">
+        ↻ Refresh Pool
+      </button>
+      <button class="tb-btn" onclick="lockConsole()" title="Lock Console">
         🔒 Lock
       </button>
     </div>
   </header>
 
-  <!-- ─── MAIN CONTENT ─── -->
-  <main class="main-container">
+  <!-- ─── MAIN CONTENT WRAP (3 PILLARS) ─── -->
+  <main class="main-wrap">
 
-    <!-- Active Environment Banner -->
-    <div class="status-banner">
-      <div class="banner-env-info">
-        <h3 id="env-banner-title">
-          <span>Sandbox Mode</span>
-        </h3>
-        <p id="env-banner-desc">Synthetic profile environment with dynamic session token generation.</p>
+    <!-- Pillar 1: Mode & Verification Level Selection -->
+    <div class="pillar-card">
+      <div class="pillar-header">
+        <div class="pillar-title">
+          <span>Target Verification Level</span>
+        </div>
+        <div class="pool-balance-badge" id="pool-balance-badge">
+          🟢 Checking pool...
+        </div>
       </div>
 
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button class="btn btn-primary" onclick="openAddKeyModal()">
-          + Add Key to Pool
+      <div class="level-grid" id="level-grid">
+        <!-- Level Option 1: developer-liveness-check -->
+        <div class="level-card selected" onclick="selectLevel('developer-liveness-check')" data-level="developer-liveness-check">
+          <div class="level-card-top">
+            <span class="level-name">developer-liveness-check</span>
+          </div>
+          <div class="level-desc">Standard 3D biometric face liveness check (active selfie camera scan).</div>
+          <div class="level-quota" id="quota-developer-liveness-check">- ready</div>
+        </div>
+
+        <!-- Level Option 2: id-and-liveness -->
+        <div class="level-card" onclick="selectLevel('id-and-liveness')" data-level="id-and-liveness">
+          <div class="level-card-top">
+            <span class="level-name">id-and-liveness</span>
+          </div>
+          <div class="level-desc">Verify applicant identity with an ID document and liveness check.</div>
+          <div class="level-quota" id="quota-id-and-liveness">- ready</div>
+        </div>
+
+        <!-- Level Option 3: idv-and-phone-verification -->
+        <div class="level-card" onclick="selectLevel('idv-and-phone-verification')" data-level="idv-and-phone-verification">
+          <div class="level-card-top">
+            <span class="level-name">idv-and-phone-verification</span>
+          </div>
+          <div class="level-desc">Verify applicant identity with ID document, SMS phone OTP, and liveness.</div>
+          <div class="level-quota" id="quota-idv-and-phone-verification">- ready</div>
+        </div>
+
+        <!-- Level Option 4: id-only -->
+        <div class="level-card" onclick="selectLevel('id-only')" data-level="id-only">
+          <div class="level-card-top">
+            <span class="level-name">id-only</span>
+          </div>
+          <div class="level-desc">Verify applicant identity with only an ID document.</div>
+          <div class="level-quota" id="quota-id-only">- ready</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pillar 2: Action Controls -->
+    <div class="actions-panel">
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 8px;" id="action-heading">
+        Ready to Verify
+      </h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 580px; margin: 0 auto;" id="action-subtext">
+        Every launch automatically allocates a dead-fresh applicant session with 0 previous progress cached.
+      </p>
+
+      <div class="actions-row">
+        <button class="btn btn-primary" id="launch-canvas-btn" onclick="launchVerification('canvas')">
+          ⛶ Launch 16:9 HD Canvas
+        </button>
+        <button class="btn btn-emerald" id="launch-newtab-btn" onclick="launchVerification('newtab')">
+          ↗ Open Fresh Session in New Tab
         </button>
       </div>
-    </div>
 
-    <!-- Backend Endpoint Configuration Strip -->
-    <div class="server-strip" style="flex-wrap: wrap; gap: 10px;">
-      <div style="display: flex; gap: 8px; align-items: center; flex: 1; min-width: 280px;">
-        <span style="font-weight: 600; white-space: nowrap;">API Host URL:</span>
-        <input type="text" id="api-base-url" placeholder="http://localhost:3200" style="flex: 1;" title="Custom backend API host">
-        <button class="btn btn-outline btn-sm" onclick="saveApiBaseUrl()">Save</button>
-      </div>
-      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-        <button class="btn btn-outline btn-sm" onclick="setApiPreset('http://localhost:3200')" title="Use local Node server (run-backend.bat)">⚡ Local (3200)</button>
-        <button class="btn btn-outline btn-sm" onclick="setApiPreset('https://aicodehelper.us')" title="Use deployed web host">🌐 aicodehelper.us</button>
-        <button class="btn btn-outline btn-sm" onclick="testBackendStatus()" title="Probe backend connection">🔍 Check Status</button>
-      </div>
-      <div id="backend-status-tag" style="font-size: 0.78rem; color: #94A3B8; width: 100%; margin-top: 4px;">
-        Probing backend connection...
-      </div>
-    </div>
-
-    <!-- Key Pool Section -->
-    <div class="section-title">
-      <span>Credential Pool (<span id="key-pool-count">0</span> stored)</span>
-      <span style="font-size: 0.82rem; font-weight: 500; color: var(--text-muted);" id="current-active-label">No active key selected</span>
-    </div>
-
-    <div id="key-pool-list" class="key-pool-list">
-      <!-- Key Cards -->
-    </div>
-
-    <!-- Verification Flow Execution Panel -->
-    <div class="flow-panel">
-      <div class="flow-header">
-        <div>
-          <h3>Verification Launch Controls</h3>
-          <p style="font-size: 0.84rem; color: var(--text-muted);" id="flow-active-key-text">
-            Select an active credential above to initialize a session.
-          </p>
-        </div>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <button class="btn btn-outline btn-sm" id="reopen-fs-btn" onclick="openFullscreenView()" style="display: none;">
-            ⛶ Re-open Full Screen
-          </button>
+      <div>
+        <div class="fresh-mode-indicator">
+          <span>✓</span>
+          <span>Anti-Caching Protection: Every session gets a brand-new unique applicant ID</span>
         </div>
       </div>
-
-      <div id="inline-launch-card">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px; color: var(--text-dim);">
-          <path d="M23 7l-7 5 7 5V7z"></path>
-          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-        </svg>
-        <h4 style="font-size: 1.1rem; margin-bottom: 6px;">Choose Your Verification Experience</h4>
-        <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 20px;">
-          Launch the full screen 16:9 HD camera canvas inside this app, or open a fresh session in an independent Sumsub-hosted web page in a new tab.
-        </p>
-
-        <!-- GitHub Cloud Actions Token Pool Indicator -->
-        <div id="github-actions-pool-card" style="margin: 0 auto 20px; max-width: 600px; padding: 14px 16px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: var(--radius-sm); text-align: left; display: none;">
-          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
-              <span style="font-size: 0.88rem; font-weight: 600; color: #10B981;" id="cloud-pool-status-text">
-                ✓ GitHub Cloud Sessions Ready
-              </span>
-            </div>
-            <div style="display: flex; gap: 6px; align-items: center;">
-              <button class="btn btn-outline btn-sm" onclick="triggerGitHubWorkflow()" id="dispatch-action-btn" style="font-size: 0.76rem; padding: 4px 10px;" title="Trigger GitHub Actions workflow to generate 100 new sessions">
-                ↻ Regenerate (100 Daily Sessions)
-              </button>
-              <a href="https://github.com/usaalphaandrew-ship-it/sumsite1/actions/workflows/refresh-tokens.yml" target="_blank" class="btn btn-outline btn-sm" style="font-size: 0.76rem; padding: 4px 10px; text-decoration: none;" title="Open GitHub Actions page directly">
-                ↗ GitHub UI
-              </a>
-            </div>
-          </div>
-          <div style="font-size: 0.76rem; color: #94A3B8; margin-top: 6px;" id="cloud-pool-detail">
-            Pre-signed server-to-server by GitHub Actions. Instant launch on GitHub Pages with 0 CORS &amp; 0 local servers.
-          </div>
-        </div>
-        
-        <!-- Verification Level Selector -->
-        <div style="margin: 0 auto 20px; max-width: 600px; text-align: left; background: var(--surface-dark); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 14px 16px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <label for="active-level-select" style="font-weight: 600; font-size: 0.86rem; color: #FFF; display: flex; align-items: center; gap: 8px;">
-              <span>Target Verification Level:</span>
-            </label>
-            <span id="level-quota-badge" style="font-size: 0.75rem; background: rgba(56, 189, 248, 0.15); color: #38BDF8; padding: 3px 8px; border-radius: 4px; font-weight: 600;">
-              40 ready
-            </span>
-          </div>
-          <select id="active-level-select" onchange="onActiveLevelChanged()" class="form-control" style="font-size: 0.88rem; padding: 10px 14px; background: var(--surface-card); cursor: pointer;">
-            <option value="developer-liveness-check" selected>developer-liveness-check (Standard Liveness Check)</option>
-            <option value="id-and-liveness">id-and-liveness (ID Document &amp; Liveness Check)</option>
-            <option value="idv-and-phone-verification">idv-and-phone-verification (ID + Phone/SMS + Liveness)</option>
-            <option value="id-only">id-only (ID Document Confirmation Only)</option>
-          </select>
-          <div style="font-size: 0.76rem; color: #94A3B8; margin-top: 6px;" id="level-description-hint">
-            Standard 3D biometric face liveness check (active selfie camera scan).
-          </div>
-        </div>
-
-        <div class="flow-actions-row">
-          <button class="btn btn-primary" id="launch-flow-btn" onclick="startVerification()">
-            ⛶ Launch Full Screen Flow (16:9 Canvas)
-          </button>
-
-          <button class="btn btn-emerald" id="open-newtab-btn" onclick="openFreshSessionInNewTab()">
-            ↗ Open Fresh Session in New Tab
-          </button>
-        </div>
-
-        <!-- GitHub Pages Static Bypass (Zero Backend Needed) -->
-        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px dashed var(--border-color); text-align: left;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-size: 0.84rem; font-weight: 600; color: #38BDF8;">⚡ GitHub Pages Bypass (Direct Token or Hosted Link)</span>
-            <span style="font-size: 0.74rem; color: #64748B;">No backend required</span>
-          </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <input type="text" id="direct-token-input" placeholder="Paste SDK Access Token (_act-...) OR Hosted Link (https://in.sumsub.com/...)" style="flex: 1; min-width: 260px; padding: 10px 14px; background: var(--surface-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: #FFF; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; outline: none;">
-            <button class="btn btn-outline btn-sm" onclick="launchDirectToken(false)" title="Launch 16:9 Fullscreen with this token">⛶ 16:9 Full Screen</button>
-            <button class="btn btn-emerald btn-sm" onclick="launchDirectToken(true)" title="Open this hosted link in new tab">↗ New Tab</button>
-          </div>
-          <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 6px;">
-            Tip: Generate an ephemeral token or hosted link directly from Sumsub Dashboard → Dev Space → Token Generator.
-          </div>
-        </div>
-      </div>
-
-      <div id="flow-log" class="flow-log"></div>
     </div>
 
   </main>
 
-  <!-- ─── FULL SCREEN 16:9 CAMERA VIEWPORT ─── -->
+  <!-- ─── Pillar 3: FULL SCREEN 16:9 CAMERA CANVAS ─── -->
   <div id="fullscreen-viewport">
     <div class="fs-topbar">
-      <div class="fs-title-wrap">
-        <span class="fs-live-badge sandbox" id="fs-badge">
-          <span class="fs-live-dot"></span>
+      <div class="fs-meta">
+        <span class="fs-badge sandbox" id="fs-badge">
+          <span class="mode-dot"></span>
           <span id="fs-badge-text">SANDBOX ACTIVE</span>
         </span>
-        <span style="color: #94A3B8; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;" id="fs-key-alias">
-          Default Key
+        <span style="color: #94A3B8; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;" id="fs-session-id">
+          Session
         </span>
       </div>
 
       <div class="fs-actions">
-        <!-- Button: Open Fresh Session in New Tab from Full Screen -->
-        <button class="btn btn-emerald btn-sm" onclick="openFreshSessionInNewTab()" title="Open independent Sumsub verification page in new browser tab">
+        <button class="tb-btn" onclick="openActiveSessionInNewTab()" title="Open independent Sumsub page in new browser tab">
           ↗ Open in New Tab
         </button>
-        <button class="btn btn-outline btn-sm" id="canvas-ratio-btn" onclick="toggleCanvasAspect()" title="Toggle Canvas Ratio">
+        <button class="tb-btn" id="canvas-ratio-btn" onclick="toggleCanvasAspect()" title="Toggle Canvas Ratio">
           ⛶ Ratio: 16:9
         </button>
-        <button class="btn btn-outline btn-sm" onclick="toggleNativeFullscreen()" title="Native Browser Fullscreen">
+        <button class="tb-btn" onclick="toggleNativeFullscreen()" title="Native Browser Fullscreen">
           🗖 Maximize
         </button>
-        <button class="btn btn-danger btn-sm" onclick="closeFullscreenView()">
-          ✕ Exit Full Screen (Esc)
+        <button class="tb-btn" onclick="closeFullscreenView()" style="color: #F87171; border-color: rgba(239, 68, 68, 0.3);">
+          ✕ Exit (Esc)
         </button>
       </div>
     </div>
@@ -986,140 +818,46 @@
     <div class="fs-canvas-stage">
       <!-- 16:9 Widescreen Camera Canvas Box -->
       <div class="camera-canvas-box" id="camera-canvas-box">
-        <div id="sumsub-container"></div>
+        <div class="camera-canvas-mount" id="sumsub-mount"></div>
       </div>
     </div>
   </div>
 
-  <!-- ─── ADD KEY MODAL ─── -->
-  <div class="modal-overlay" id="add-key-modal">
-    <div class="modal-card">
+  <!-- ─── ACCURATE SESSION HISTORY MODAL ─── -->
+  <div class="modal-overlay" id="history-modal">
+    <div class="modal-box">
       <div class="modal-header">
-        <h3 id="modal-env-title">Add Credential to Pool</h3>
-        <button class="modal-close" onclick="closeAddKeyModal()">&times;</button>
+        <h3 class="modal-title">Session Launch History</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-action-sm" onclick="clearSessionHistory()" title="Clear history">
+            🗑 Clear All
+          </button>
+          <button class="modal-close" onclick="closeHistoryModal()">&times;</button>
+        </div>
       </div>
 
-      <form id="add-key-form" onsubmit="saveKeyToPool(event)">
-        <div class="form-group">
-          <label for="key-alias">Friendly Alias / Note</label>
-          <input type="text" id="key-alias" class="form-control" placeholder="e.g. Primary Sandbox Client, Production Key 1" required>
-          <div class="form-help">A recognisable name to identify this credential in your pool.</div>
+      <div class="modal-body">
+        <div id="history-list-container">
+          <!-- History Table Rendered Here -->
         </div>
-
-        <div class="form-group">
-          <label for="key-app-token">App Token</label>
-          <input type="text" id="key-app-token" class="form-control" placeholder="sbx:BKA7AQ... or prd:..." required style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
-          <div class="form-help">Begins with sbx: for Sandbox, or prd: for Production.</div>
-        </div>
-
-        <div class="form-group">
-          <label for="key-secret">Secret Key</label>
-          <input type="password" id="key-secret" class="form-control" placeholder="HMAC SHA-256 Secret Key" required style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
-          <div class="form-help">Used to generate fresh, non-expiring session tokens server-side.</div>
-        </div>
-
-        <div class="form-group">
-          <label for="key-level">Verification Level</label>
-          <select id="key-level" class="form-control">
-            <option value="developer-liveness-check" selected>developer-liveness-check (Standard Liveness Check)</option>
-            <option value="id-and-liveness">id-and-liveness (ID Document &amp; Liveness Check)</option>
-            <option value="idv-and-phone-verification">idv-and-phone-verification (ID + Phone/SMS + Liveness)</option>
-            <option value="id-only">id-only (ID Document Confirmation Only)</option>
-          </select>
-          <div class="form-help">Select the verification level configured in your Sumsub Cockpit.</div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" onclick="closeAddKeyModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save to Pool</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 
-  <!-- ─── SCRIPT CONTROLLER ─── -->
+  <!-- ─── SCRIPT CONTROLLER (DEAD-FRESH ENGINE) ─── -->
   <script>
-    // Security & Storage Constants
     const AUTH_PASSCODE = "7890\\";
     const ALT_PASSCODE  = "7890";
-    const STORAGE_KEY   = "sumsub_hub_keys_v2";
     const SESSION_AUTH  = "sumsub_hub_unlocked";
-    const API_BASE_KEY  = "sumsub_hub_api_base";
+    const CONSUMED_KEY  = "sumsub_consumed_sessions_v1";
+    const HISTORY_KEY   = "sumsub_session_history_v1";
 
-    // Pool state variables
     let currentEnv = "sandbox"; // 'sandbox' | 'production'
+    let currentLevel = "developer-liveness-check";
     let is16by9 = true;
-    let keyStore = {
-      sandbox: [],
-      production: []
-    };
-    let activeKeyIndex = {
-      sandbox: -1,
-      production: -1
-    };
+    let cloudSessions = [];
+    let activeSession = null;
     let currentSdkInstance = null;
-    let activeSessionUserId = null;
-    let lastGeneratedUrl = null;
-
-    // ─── API Base URL Management ───
-    function getApiBaseUrl() {
-      const saved = localStorage.getItem(API_BASE_KEY);
-      if (saved) return saved.trim();
-
-      // If running on local dev server or localhost
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return window.location.origin;
-      }
-      // If running on actual live web server, use relative origin
-      if (window.location.protocol.startsWith('http') && !window.location.hostname.includes('github.io')) {
-        return window.location.origin;
-      }
-      // Default to local server runner port 3200
-      return 'http://localhost:3200';
-    }
-
-    function saveApiBaseUrl() {
-      const val = document.getElementById('api-base-url').value.trim();
-      localStorage.setItem(API_BASE_KEY, val);
-      logEvent(`API Base URL saved: ${val}`, 'success');
-      testBackendStatus();
-    }
-
-    function setApiPreset(url) {
-      document.getElementById('api-base-url').value = url;
-      localStorage.setItem(API_BASE_KEY, url);
-      logEvent(`API Host switched to: ${url}`, 'info');
-      testBackendStatus();
-    }
-
-    async function testBackendStatus() {
-      const statusEl = document.getElementById('backend-status-tag');
-      const base = (document.getElementById('api-base-url').value.trim() || getApiBaseUrl()).replace(/\/$/, '');
-      if (statusEl) statusEl.innerHTML = `<span style="color:#94A3B8;">Connecting to ${base}...</span>`;
-
-      try {
-        const testRes = await fetch(`${base}/api/token`, { method: 'OPTIONS' }).catch(() => null);
-        if (testRes && (testRes.ok || testRes.status === 204 || testRes.status === 400 || testRes.status === 200)) {
-          if (statusEl) statusEl.innerHTML = `<span style="color:#10B981; font-weight:600;">✓ Backend Online (${base})</span>`;
-          return true;
-        }
-
-        // Try GET probe
-        const getRes = await fetch(`${base}/api/token.php`, { method: 'GET' }).catch(() => null);
-        if (getRes) {
-          const txt = await getRes.text();
-          if (txt.trim().startsWith('<?php')) {
-            if (statusEl) statusEl.innerHTML = `<span style="color:#EF4444; font-weight:600;">⚠ Static Host Detected: ${base} serves PHP as raw text (GitHub Pages does not run PHP). Please click "⚡ Local (3200)" and start run-backend.bat.</span>`;
-            return false;
-          }
-        }
-        if (statusEl) statusEl.innerHTML = `<span style="color:#F59E0B;">⚠ Host reachable, ready for signed requests.</span>`;
-        return true;
-      } catch (err) {
-        if (statusEl) statusEl.innerHTML = `<span style="color:#EF4444;">✕ Offline / CORS blocked at ${base}. If local, double-click run-backend.bat.</span>`;
-        return false;
-      }
-    }
 
     // ─── Passcode Gate ───
     function checkGateSession() {
@@ -1153,338 +891,267 @@
       closeFullscreenView();
     }
 
-    // ─── Persistence ───
-    function loadKeysFromStorage() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          keyStore = JSON.parse(raw);
-          if (!keyStore.sandbox) keyStore.sandbox = [];
-          if (!keyStore.production) keyStore.production = [];
-        }
-      } catch (err) {
-        console.error("Could not load stored keys", err);
-      }
-
-      if (keyStore.sandbox.length > 0 && activeKeyIndex.sandbox === -1) {
-        activeKeyIndex.sandbox = 0;
-      }
-      if (keyStore.production.length > 0 && activeKeyIndex.production === -1) {
-        activeKeyIndex.production = 0;
-      }
-
-      document.getElementById('api-base-url').value = getApiBaseUrl();
-      renderCurrentEnv();
-    }
-
-    function saveKeysToStorage() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(keyStore));
-      } catch (err) {
-        console.error("Could not persist keys", err);
-      }
-    }
-
     // ─── Environment Switching ───
     function switchEnvironment(env) {
       currentEnv = env;
-      
-      const sbxBtn = document.getElementById('env-sandbox-btn');
-      const prdBtn = document.getElementById('env-prod-btn');
-      const preloadBtn = document.getElementById('preload-btn');
+      const sbxBtn = document.getElementById('mode-sandbox-btn');
+      const prdBtn = document.getElementById('mode-prod-btn');
 
       if (env === 'sandbox') {
-        sbxBtn.className = 'env-btn active sandbox';
-        prdBtn.className = 'env-btn production';
-        document.getElementById('env-banner-title').innerHTML = '<span>Sandbox Mode</span>';
-        document.getElementById('env-banner-desc').textContent = 'Synthetic profile environment with dynamic session token generation.';
-        if (preloadBtn) preloadBtn.style.display = 'inline-flex';
+        sbxBtn.className = 'mode-btn active sandbox';
+        prdBtn.className = 'mode-btn production';
       } else {
-        sbxBtn.className = 'env-btn sandbox';
-        prdBtn.className = 'env-btn active production';
-        document.getElementById('env-banner-title').innerHTML = '<span style="color:var(--production)">Production Mode</span>';
-        document.getElementById('env-banner-desc').textContent = 'Live production mode for genuine identity evaluations.';
-        if (preloadBtn) preloadBtn.style.display = 'none';
+        sbxBtn.className = 'mode-btn sandbox';
+        prdBtn.className = 'mode-btn active production';
       }
 
-      renderCurrentEnv();
+      updatePoolUI();
     }
 
-    // ─── Render Pool ───
-    function renderCurrentEnv() {
-      const pool = keyStore[currentEnv] || [];
-      const container = document.getElementById('key-pool-list');
-      const countEl = document.getElementById('key-pool-count');
-      const activeLabel = document.getElementById('current-active-label');
-      const flowKeyText = document.getElementById('flow-active-key-text');
-
-      countEl.textContent = pool.length;
-
-      if (pool.length === 0) {
-        container.innerHTML = `
-          <div class="empty-pool-box">
-            <p>No keys currently stored in the <strong>${currentEnv.toUpperCase()}</strong> pool.</p>
-            <div style="display:flex; justify-content:center; gap:10px;">
-              <button class="btn btn-primary btn-sm" onclick="openAddKeyModal()">+ Add Key to Pool</button>
-            </div>
-          </div>
-        `;
-        activeLabel.textContent = "No active key selected";
-        flowKeyText.textContent = "Please add a key to the pool before launching.";
-        return;
-      }
-
-      let activeIdx = activeKeyIndex[currentEnv];
-      if (activeIdx < 0 || activeIdx >= pool.length) {
-        activeIdx = 0;
-        activeKeyIndex[currentEnv] = 0;
-      }
-
-      const activeKey = pool[activeIdx];
-      activeLabel.textContent = `Active: ${activeKey.alias}`;
-      flowKeyText.textContent = `Active Credential: "${activeKey.alias}" (${formatPreview(activeKey.appToken)})`;
-
-      let html = '';
-      pool.forEach((item, index) => {
-        const isActive = (index === activeIdx);
-        const preview = formatPreview(item.appToken);
-
-        html += `
-          <div class="key-card ${isActive ? 'active' : ''}">
-            <div class="key-meta">
-              <h4>
-                ${escapeHtml(item.alias)}
-                ${isActive ? '<span class="key-badge active-badge">ACTIVE</span>' : ''}
-              </h4>
-              <div class="key-details">
-                <span>App Token: ${preview}</span>
-                <span>Level: ${escapeHtml(item.level || 'id-and-liveness')}</span>
-                <span>Added: ${item.createdAt}</span>
-              </div>
-            </div>
-
-            <div class="key-actions">
-              ${!isActive ? `<button class="btn btn-outline btn-sm" onclick="setActiveKey(${index})">Set Active</button>` : ''}
-              <button class="btn btn-danger btn-sm" onclick="deleteKey(${index})" title="Delete Key">Delete</button>
-            </div>
-          </div>
-        `;
+    // ─── Level Selection ───
+    function selectLevel(levelName) {
+      currentLevel = levelName;
+      document.querySelectorAll('.level-card').forEach(card => {
+        if (card.getAttribute('data-level') === levelName) {
+          card.classList.add('selected');
+        } else {
+          card.classList.remove('selected');
+        }
       });
-
-      container.innerHTML = html;
+      updatePoolUI();
     }
 
-    function formatPreview(str) {
-      if (!str) return '••••••••';
-      const clean = str.trim();
-      if (clean.length <= 16) return clean;
-      return clean.substring(0, 10) + '••••' + clean.substring(clean.length - 6);
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"']/g, m => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-      })[m]);
-    }
-
-    function setActiveKey(index) {
-      activeKeyIndex[currentEnv] = index;
-      renderCurrentEnv();
-      logEvent(`Active key switched to: "${keyStore[currentEnv][index].alias}"`);
-    }
-
-    function deleteKey(index) {
-      const alias = keyStore[currentEnv][index].alias;
-      if (!confirm(`Are you sure you want to remove "${alias}" from the pool?`)) return;
-
-      keyStore[currentEnv].splice(index, 1);
-      if (activeKeyIndex[currentEnv] >= keyStore[currentEnv].length) {
-        activeKeyIndex[currentEnv] = keyStore[currentEnv].length - 1;
+    // ─── Consumed / Anti-Cache Registry ───
+    function getConsumedSessionIds() {
+      try {
+        const raw = localStorage.getItem(CONSUMED_KEY);
+        return raw ? new Set(JSON.parse(raw)) : new Set();
+      } catch (e) {
+        return new Set();
       }
-      saveKeysToStorage();
-      renderCurrentEnv();
-      logEvent(`Deleted key: "${alias}"`);
     }
 
-    // ─── Modal Actions ───
-    function openAddKeyModal() {
-      document.getElementById('modal-env-title').textContent = `Add Key to ${currentEnv.toUpperCase()} Pool`;
-      document.getElementById('add-key-form').reset();
-      document.getElementById('add-key-modal').classList.add('open');
-      document.getElementById('key-alias').focus();
-    }
-
-    function closeAddKeyModal() {
-      document.getElementById('add-key-modal').classList.remove('open');
-    }
-
-    function saveKeyToPool(e) {
-      e.preventDefault();
-
-      const alias = document.getElementById('key-alias').value.trim();
-      const appToken = document.getElementById('key-app-token').value.trim();
-      const secret = document.getElementById('key-secret').value.trim();
-      const level = document.getElementById('key-level').value.trim() || 'id-and-liveness';
-
-      if (!alias || !appToken || !secret) {
-        alert('All fields are required.');
-        return;
+    function markSessionConsumed(userId) {
+      try {
+        const set = getConsumedSessionIds();
+        set.add(userId);
+        localStorage.setItem(CONSUMED_KEY, JSON.stringify(Array.from(set)));
+      } catch (e) {
+        console.error("Could not persist consumed session", e);
       }
-
-      const now = new Date();
-      const dateFormatted = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + 
-        ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-      keyStore[currentEnv].push({
-        alias,
-        appToken,
-        secret,
-        level,
-        createdAt: dateFormatted
-      });
-
-      activeKeyIndex[currentEnv] = keyStore[currentEnv].length - 1;
-      saveKeysToStorage();
-      closeAddKeyModal();
-      renderCurrentEnv();
-      logEvent(`Added new key "${alias}" to ${currentEnv.toUpperCase()} pool.`);
     }
 
-    // ─── Logging ───
-    function logEvent(msg, type = '') {
-      const logEl = document.getElementById('flow-log');
-      logEl.classList.add('show');
-      const time = new Date().toLocaleTimeString();
-      const cls = type ? ` class="${type}"` : '';
-      logEl.innerHTML += `<div${cls}>[${time}] ${escapeHtml(msg)}</div>`;
-      logEl.scrollTop = logEl.scrollHeight;
-    }
-
-    // ─── Dynamic Token Acquisition via Server API (with Local & Remote Auto-Routing) ───
-    async function requestFreshToken(credentials, action = 'create', existingUserId = '') {
-      logEvent(`Contacting server to generate fresh token (${credentials.alias})...`);
-      
-      const rawBase = (document.getElementById('api-base-url').value.trim() || getApiBaseUrl()).replace(/\/$/, '');
-      const payload = {
-        appToken: credentials.appToken,
-        secret: credentials.secret,
-        levelName: credentials.level || 'id-and-liveness',
-        action: action,
-        userId: existingUserId
-      };
-
-      // Candidate bases to probe: configured base first, then local micro-backend fallback
-      const candidateBases = [rawBase];
-      if (!rawBase.includes('localhost') && !rawBase.includes('127.0.0.1')) {
-        candidateBases.push('http://localhost:3200');
-        candidateBases.push('http://127.0.0.1:3200');
-      }
-
-      let lastError = null;
-
-      for (const base of candidateBases) {
-        const endpoints = [
-          `${base}/api/token`,
-          `${base}/api/token.php`,
-          `${base}/api/unlock.php`
-        ];
-
-        for (const url of endpoints) {
-          try {
-            const res = await fetch(url, {
-              method: 'POST',
-              headers: { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
-              body: JSON.stringify(payload)
-            });
-
-            const rawText = await res.text();
-
-            // Detect static server serving raw PHP text
-            if (rawText.trim().startsWith('<?php')) {
-              logEvent(`Host ${base} returned raw PHP script instead of JSON (GitHub Pages does not run PHP).`, 'warn');
-              lastError = new Error(`Static host detected at ${base}. GitHub Pages cannot execute PHP. Please start the local server by running 'run-backend.bat' (or 'node server.js') and click '⚡ Local (3200)'.`);
-              continue;
-            }
-
-            let data = null;
-            try {
-              data = JSON.parse(rawText);
-            } catch (jsonErr) {
-              if (res.status === 405) {
-                // If POST was refused (405 on static server), check GET
-                const qParams = new URLSearchParams({
-                  appToken: payload.appToken,
-                  secret: payload.secret,
-                  levelName: payload.levelName,
-                  action: payload.action,
-                  userId: payload.userId
-                });
-
-                const getRes = await fetch(`${url}?${qParams.toString()}`, {
-                  method: 'GET',
-                  headers: { 'Accept': 'application/json' }
-                });
-                const getTxt = await getRes.text();
-                if (getTxt.trim().startsWith('<?php')) {
-                  lastError = new Error(`Static host detected at ${base}. GitHub Pages cannot execute PHP. Please launch 'run-backend.bat' locally or deploy to a PHP server.`);
-                  continue;
-                }
-                data = JSON.parse(getTxt);
-              } else {
-                lastError = new Error(`Unexpected non-JSON response from ${url}: ${rawText.substring(0, 80)}`);
-                continue;
-              }
-            }
-
-            if (data && (data.token || data.independentUrl)) {
-              if (base !== rawBase) {
-                logEvent(`Switched and connected to live backend: ${base}`, 'success');
-                document.getElementById('api-base-url').value = base;
-                localStorage.setItem(API_BASE_KEY, base);
-              }
-              return data;
-            } else if (data && data.error) {
-              lastError = new Error(data.error);
-            }
-          } catch (netErr) {
-            lastError = netErr;
+    // ─── Load Cloud Pool from tokens.json ───
+    async function loadCloudPool() {
+      try {
+        const res = await fetch(`tokens.json?nocache=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.sessions)) {
+            const now = Date.now();
+            cloudSessions = data.sessions.filter(s => new Date(s.expiresAt).getTime() > now);
           }
+        }
+      } catch (e) {
+        console.warn("Could not fetch tokens.json:", e);
+      }
+      updatePoolUI();
+    }
+
+    async function refreshPool() {
+      const btn = event?.currentTarget;
+      if (btn) btn.textContent = '↻ Refreshing...';
+      await loadCloudPool();
+      if (btn) btn.textContent = '↻ Refresh Pool';
+    }
+
+    // ─── Update UI with Available Fresh Counts ───
+    function updatePoolUI() {
+      const consumed = getConsumedSessionIds();
+      const levels = ['developer-liveness-check', 'id-and-liveness', 'idv-and-phone-verification', 'id-only'];
+
+      let currentLevelAvailableCount = 0;
+      let totalEnvAvailableCount = 0;
+
+      levels.forEach(lvl => {
+        const unconsumed = cloudSessions.filter(s => 
+          (s.env || 'sandbox') === currentEnv && 
+          s.levelName === lvl && 
+          !consumed.has(s.userId)
+        );
+
+        const count = unconsumed.length;
+        const el = document.getElementById(`quota-${lvl}`);
+        if (el) el.textContent = `${count} ready`;
+
+        if (lvl === currentLevel) {
+          currentLevelAvailableCount = count;
+        }
+        totalEnvAvailableCount += count;
+      });
+
+      const badge = document.getElementById('pool-balance-badge');
+      if (badge) {
+        if (currentLevelAvailableCount > 0) {
+          badge.className = 'pool-balance-badge';
+          badge.innerHTML = `🟢 ${currentLevelAvailableCount} Fresh [${currentEnv.toUpperCase()}] Ready`;
+        } else {
+          badge.className = 'pool-balance-badge warning';
+          badge.innerHTML = `⚠️ 0 Fresh in [${currentEnv.toUpperCase()}] (Click Refresh)`;
         }
       }
 
-      logEvent(`Token Generation Error: ${lastError?.message || 'Request failed'}`, 'error');
-      throw lastError;
+      const heading = document.getElementById('action-heading');
+      if (heading) {
+        heading.textContent = `${currentEnv === 'sandbox' ? 'Sandbox' : 'Production'} Verification • ${currentLevel}`;
+      }
     }
 
-    // ─── Full Screen & Aspect Ratio Controls ───
+    // ─── Pick Dead-Fresh Session (Guaranteed Never-Before-Used) ───
+    function claimDeadFreshSession() {
+      const consumed = getConsumedSessionIds();
+
+      // 1. Strict match on environment and level
+      const matchIdx = cloudSessions.findIndex(s => 
+        (s.env || 'sandbox') === currentEnv && 
+        s.levelName === currentLevel && 
+        !consumed.has(s.userId)
+      );
+
+      if (matchIdx !== -1) {
+        const session = cloudSessions[matchIdx];
+        markSessionConsumed(session.userId);
+        updatePoolUI();
+        return session;
+      }
+
+      // 2. Fallback to any unconsumed session in this environment
+      const envIdx = cloudSessions.findIndex(s => 
+        (s.env || 'sandbox') === currentEnv && 
+        !consumed.has(s.userId)
+      );
+
+      if (envIdx !== -1) {
+        const session = cloudSessions[envIdx];
+        markSessionConsumed(session.userId);
+        updatePoolUI();
+        return session;
+      }
+
+      return null;
+    }
+
+    // ─── Launch Verification (16:9 Canvas or New Tab) ───
+    async function launchVerification(mode) {
+      const session = claimDeadFreshSession();
+
+      if (!session) {
+        alert(`No fresh sessions available in the ${currentEnv.toUpperCase()} pool for this level.\n\nPlease click "↻ Refresh Pool" to reload or check back in a moment.`);
+        return;
+      }
+
+      activeSession = session;
+
+      // Add to Session History immediately
+      recordSessionHistory({
+        id: session.userId,
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', month: 'short', day: 'numeric' }),
+        env: currentEnv.toUpperCase(),
+        level: session.levelName,
+        applicantId: session.applicantId || 'N/A',
+        userId: session.userId,
+        type: mode === 'canvas' ? '16:9 Canvas' : 'New Tab',
+        url: session.independentUrl,
+        status: 'Launched'
+      });
+
+      if (mode === 'newtab') {
+        window.open(session.independentUrl, '_blank');
+      } else {
+        openFullscreenView();
+        mountCleanWebSdk(session);
+      }
+    }
+
+    function openActiveSessionInNewTab() {
+      if (activeSession && activeSession.independentUrl) {
+        window.open(activeSession.independentUrl, '_blank');
+      }
+    }
+
+    // ─── Anti-Cache WebSDK Mounting ───
+    function mountCleanWebSdk(session) {
+      const stage = document.getElementById('sumsub-mount');
+      // Completely destroy previous DOM container to purge all internal state
+      stage.innerHTML = '';
+
+      // Destroy previous SDK instance if it exists
+      if (currentSdkInstance && typeof currentSdkInstance.destroy === 'function') {
+        try { currentSdkInstance.destroy(); } catch (e) {}
+      }
+      currentSdkInstance = null;
+
+      // Create brand new dynamic container element
+      const containerId = 'sdk-cnt-' + Date.now();
+      const newDiv = document.createElement('div');
+      newDiv.id = containerId;
+      newDiv.style.width = '100%';
+      newDiv.style.height = '100%';
+      stage.appendChild(newDiv);
+
+      if (typeof snsWebSdk === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://static.sumsub.com/idensic/static/sns-websdk-builder.js';
+        script.onload = () => buildSdk(session, containerId);
+        document.head.appendChild(script);
+      } else {
+        buildSdk(session, containerId);
+      }
+    }
+
+    function buildSdk(session, containerId) {
+      try {
+        currentSdkInstance = snsWebSdk
+          .init(session.token, () => session.token)
+          .withConf({ lang: 'en' })
+          .withOptions({
+            addViewportTag: false,
+            adaptIframeHeight: false
+          })
+          .on('idCheck.onStepCompleted', (payload) => {
+            updateSessionStatus(session.userId, `Step: ${payload?.idDocType || 'Done'}`);
+          })
+          .on('idCheck.onApplicantStatusChanged', (payload) => {
+            updateSessionStatus(session.userId, payload?.reviewStatus || 'In Progress');
+          })
+          .build();
+
+        currentSdkInstance.launch('#' + containerId);
+      } catch (err) {
+        console.error("WebSDK build exception:", err);
+      }
+    }
+
+    // ─── Fullscreen 16:9 Controls ───
     function openFullscreenView() {
-      const viewport = document.getElementById('fullscreen-viewport');
-      viewport.classList.add('active');
+      const vp = document.getElementById('fullscreen-viewport');
+      vp.classList.add('active');
 
       const badge = document.getElementById('fs-badge');
       const badgeText = document.getElementById('fs-badge-text');
-      const aliasEl = document.getElementById('fs-key-alias');
-
-      const pool = keyStore[currentEnv] || [];
-      const activeIdx = activeKeyIndex[currentEnv];
-      const activeKey = pool[activeIdx];
+      const sid = document.getElementById('fs-session-id');
 
       if (currentEnv === 'sandbox') {
-        badge.className = 'fs-live-badge sandbox';
-        badgeText.textContent = 'SANDBOX • 16:9 HD CAMERA';
+        badge.className = 'fs-badge sandbox';
+        badgeText.textContent = 'SANDBOX 16:9 HD';
       } else {
-        badge.className = 'fs-live-badge';
-        badgeText.textContent = 'PRODUCTION • 16:9 HD CAMERA';
+        badge.className = 'fs-badge';
+        badgeText.textContent = 'PRODUCTION 16:9 HD';
       }
 
-      if (activeKey) {
-        aliasEl.textContent = activeKey.alias;
+      if (activeSession) {
+        sid.textContent = `${activeSession.levelName} (${activeSession.userId.substring(0, 16)}...)`;
       }
-
-      document.getElementById('reopen-fs-btn').style.display = 'inline-flex';
     }
 
     function closeFullscreenView() {
@@ -1502,11 +1169,9 @@
       if (is16by9) {
         box.classList.remove('stretch-mode');
         btn.textContent = '⛶ Ratio: 16:9';
-        btn.className = 'btn btn-outline btn-sm';
       } else {
         box.classList.add('stretch-mode');
         btn.textContent = '🗖 Ratio: Fill Screen';
-        btn.className = 'btn btn-primary btn-sm';
       }
     }
 
@@ -1519,355 +1184,134 @@
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeFullscreenView();
-      }
+      if (e.key === 'Escape') closeFullscreenView();
     });
 
-    // ─── GitHub Pages Direct Token / Link Launcher ───
-    function launchDirectToken(isNewTab) {
-      const input = (document.getElementById('direct-token-input').value || '').trim();
-      if (!input) {
-        alert('Please paste an SDK Access Token (_act-...) or a Standalone URL (https://in.sumsub.com/websdk/p/...) first.');
-        document.getElementById('direct-token-input').focus();
-        return;
-      }
-
-      if (input.startsWith('http://') || input.startsWith('https://')) {
-        // It is an independent hosted URL
-        logEvent(`Opening direct hosted link in new tab: ${input}`, 'success');
-        window.open(input, '_blank');
-        return;
-      }
-
-      if (isNewTab) {
-        // It is an access token, open standalone viewer in new tab
-        const standaloneUrl = `https://cockpit.sumsub.com/idensic/index.html?token=${encodeURIComponent(input)}`;
-        logEvent(`Opening standalone viewer in new tab with direct token...`, 'success');
-        window.open(standaloneUrl, '_blank');
-      } else {
-        // Mount WebSDK inside 16:9 full screen canvas
-        logEvent(`Mounting direct token inside 16:9 Full Screen Canvas...`, 'info');
-        openFullscreenView();
-        document.getElementById('sumsub-container').innerHTML = '';
-        launchSumsubSdk(input, { alias: 'Direct Token' });
-      }
-    }
-
-    // ─── GitHub Actions Cloud Token Pool Integration & Multi-Level Support ───
-    const GITHUB_REPO = "usaalphaandrew-ship-it/sumsite1";
-    let cloudSessionPool = [];
-
-    const LEVEL_DESCRIPTIONS = {
-      'developer-liveness-check': "Standard 3D biometric face liveness check (active selfie camera scan).",
-      'id-and-liveness': "Verify applicant's identity with an ID document and a liveness check to confirm authenticity.",
-      'idv-and-phone-verification': "Verify applicant's identity with an ID document, SMS verification, and a liveness check for added security.",
-      'id-only': "Verify applicant's identity with only an ID document, ensuring basic identity confirmation."
-    };
-
-    function onActiveLevelChanged() {
-      const select = document.getElementById('active-level-select');
-      const level = select ? select.value : 'developer-liveness-check';
-      const hint = document.getElementById('level-description-hint');
-      if (hint && LEVEL_DESCRIPTIONS[level]) {
-        hint.textContent = LEVEL_DESCRIPTIONS[level];
-      }
-      updateCloudPoolStatus();
-    }
-
-    async function loadCloudTokenPool() {
+    // ─── ACCURATE SESSION HISTORY ENGINE ───
+    function getSessionHistory() {
       try {
-        const res = await fetch(`tokens.json?nocache=${Date.now()}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && Array.isArray(data.sessions)) {
-            const now = Date.now();
-            cloudSessionPool = data.sessions.filter(s => new Date(s.expiresAt).getTime() > now);
-
-            const card = document.getElementById('github-actions-pool-card');
-            const statusTxt = document.getElementById('cloud-pool-status-text');
-            const detailTxt = document.getElementById('cloud-pool-detail');
-
-            if (card && cloudSessionPool.length > 0) {
-              card.style.display = 'block';
-              onActiveLevelChanged();
-              if (detailTxt) {
-                detailTxt.innerHTML = `Auto-refreshed by GitHub Actions runner at ${new Date(data.updatedAt).toLocaleTimeString()}. 100 sessions across 4 levels. Instant 16:9 canvas and new tab ready on GitHub Pages.`;
-              }
-              logEvent(`Loaded ${cloudSessionPool.length} active sessions from GitHub Actions pool across ${data.levelsAvailable?.length || 4} levels.`, 'success');
-            } else if (card) {
-              card.style.display = 'block';
-              if (statusTxt) {
-                statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty or expired</span>`;
-              }
-              if (detailTxt) {
-                detailTxt.innerHTML = `Click "↻ Regenerate (100 Daily Sessions)" to launch a fresh background generator.`;
-              }
-            }
-          }
-        }
+        const raw = localStorage.getItem(HISTORY_KEY);
+        return raw ? JSON.parse(raw) : [];
       } catch (e) {
-        console.warn("tokens.json not yet loaded:", e);
+        return [];
       }
     }
 
-    function updateCloudPoolStatus() {
-      const card = document.getElementById('github-actions-pool-card');
-      const statusTxt = document.getElementById('cloud-pool-status-text');
-      const badge = document.getElementById('level-quota-badge');
-      const select = document.getElementById('active-level-select');
-      const selectedLevel = select ? select.value : 'developer-liveness-check';
-
-      const levelCount = cloudSessionPool.filter(s => s.levelName === selectedLevel).length;
-
-      if (badge) {
-        badge.textContent = `${levelCount} ready`;
-        badge.style.color = levelCount > 0 ? '#38BDF8' : '#F59E0B';
-      }
-
-      if (!card || !statusTxt) return;
-      if (cloudSessionPool.length > 0) {
-        card.style.display = 'block';
-        statusTxt.textContent = `✓ GitHub Cloud Sessions Ready (${cloudSessionPool.length} Total, ${levelCount} for chosen level)`;
-      } else {
-        card.style.display = 'block';
-        statusTxt.innerHTML = `<span style="color:#F59E0B;">⚠ Cloud pool empty. Click "↻ Regenerate" to trigger GitHub Action.</span>`;
-      }
-    }
-
-    async function triggerGitHubWorkflow() {
-      let pat = localStorage.getItem('gh_actions_pat');
-      if (!pat) {
-        pat = prompt('Please enter your GitHub PAT to trigger the Actions workflow:');
-        if (pat) {
-          pat = pat.trim();
-          localStorage.setItem('gh_actions_pat', pat);
-        } else {
-          return;
-        }
-      }
-
-      const btn = document.getElementById('dispatch-action-btn');
-      btn.disabled = true;
-      btn.textContent = 'Triggering Action...';
-      logEvent('Dispatching GitHub Actions refresh-tokens workflow via API...');
-
+    function recordSessionHistory(item) {
       try {
-        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/workflows/refresh-tokens.yml/dispatches`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/vnd.github.v3+json',
-            'Authorization': `Bearer ${pat}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ ref: 'main' })
-        });
-
-        if (res.ok || res.status === 204) {
-          logEvent('GitHub Action dispatched! 100 fresh tokens will commit to tokens.json in ~30 seconds.', 'success');
-          alert('GitHub Action launched! 100 new tokens will be available in ~30 seconds.');
-          setTimeout(loadCloudTokenPool, 35000);
-        } else if (res.status === 401 || res.status === 403) {
-          localStorage.removeItem('gh_actions_pat');
-          const newPat = prompt('Your saved GitHub token was rejected (HTTP ' + res.status + '). Please enter your new Classic GitHub PAT (with "repo" and "workflow" scopes):');
-          if (newPat) {
-            localStorage.setItem('gh_actions_pat', newPat.trim());
-            triggerGitHubWorkflow();
-          }
-          return;
-        } else {
-          const txt = await res.text();
-          throw new Error(txt || `HTTP ${res.status}`);
-        }
-      } catch (err) {
-        logEvent(`Workflow dispatch failed: ${err.message}`, 'error');
-        alert(`Could not trigger GitHub Action: ${err.message}`);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = '↻ Regenerate (100 Daily Sessions)';
+        const history = getSessionHistory();
+        history.unshift(item); // Prepend so newest is on top
+        if (history.length > 100) history.pop(); // Keep last 100
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        updateHistoryCountBadge();
+      } catch (e) {
+        console.error("Could not record session history", e);
       }
     }
 
-    // ─── FEATURE 1: Open Fresh Session in New Tab (Independent Sumsub Page) ───
-    async function openFreshSessionInNewTab() {
-      const selectedLevel = document.getElementById('active-level-select')?.value || 'developer-liveness-check';
+    function updateSessionStatus(userId, status) {
+      try {
+        const history = getSessionHistory();
+        const found = history.find(h => h.userId === userId);
+        if (found) {
+          found.status = status;
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        }
+      } catch (e) {}
+    }
 
-      // 1. Check if we have pre-generated GitHub Cloud tokens matching the selected level
-      const matchIdx = cloudSessionPool.findIndex(s => s.levelName === selectedLevel);
-      let cloudSession = null;
-      if (matchIdx !== -1) {
-        cloudSession = cloudSessionPool.splice(matchIdx, 1)[0];
-      } else if (cloudSessionPool.length > 0) {
-        cloudSession = cloudSessionPool.shift();
+    function updateHistoryCountBadge() {
+      const count = getSessionHistory().length;
+      const el = document.getElementById('history-count-badge');
+      if (el) el.textContent = count;
+    }
+
+    function openHistoryModal() {
+      renderHistoryTable();
+      document.getElementById('history-modal').classList.add('open');
+    }
+
+    function closeHistoryModal() {
+      document.getElementById('history-modal').classList.remove('open');
+    }
+
+    function clearSessionHistory() {
+      if (confirm('Clear all session history? (This will not revoke generated sessions).')) {
+        localStorage.removeItem(HISTORY_KEY);
+        updateHistoryCountBadge();
+        renderHistoryTable();
       }
+    }
 
-      if (cloudSession) {
-        logEvent(`Using pre-signed session for level "${cloudSession.levelName}" (${cloudSession.userId})...`, 'success');
-        updateCloudPoolStatus();
-        window.open(cloudSession.independentUrl, '_blank');
+    function renderHistoryTable() {
+      const container = document.getElementById('history-list-container');
+      const list = getSessionHistory();
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <p style="font-size: 1.1rem; margin-bottom: 6px;">No verification sessions logged yet</p>
+            <p style="font-size: 0.85rem;">Every session you launch will be recorded here with its unique applicant ID and independent link.</p>
+          </div>
+        `;
         return;
       }
 
-      const pool = keyStore[currentEnv] || [];
-      const activeIdx = activeKeyIndex[currentEnv];
+      let html = `
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Mode</th>
+              <th>Level</th>
+              <th>Applicant ID</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
 
-      if (pool.length === 0 || activeIdx < 0 || !pool[activeIdx]) {
-        alert(`No active key in ${currentEnv.toUpperCase()} pool. Please add a key first.`);
-        openAddKeyModal();
-        return;
-      }
+      list.forEach(item => {
+        const envClass = item.env === 'SANDBOX' ? 'sandbox' : 'production';
+        html += `
+          <tr>
+            <td style="color: var(--text-muted); font-size: 0.8rem; white-space: nowrap;">${item.time}</td>
+            <td><span class="badge-env ${envClass}">${item.env}</span></td>
+            <td style="font-weight: 600; font-size: 0.82rem;">${escapeHtml(item.level)}</td>
+            <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #38BDF8;">
+              ${escapeHtml(item.applicantId || item.userId.substring(0, 16))}
+            </td>
+            <td style="font-size: 0.8rem; color: var(--text-dim);">${item.type}</td>
+            <td>
+              <span style="font-size: 0.76rem; color: #10B981; font-weight: 600;">${escapeHtml(item.status || 'Active')}</span>
+            </td>
+            <td>
+              <div style="display: flex; gap: 6px;">
+                <a href="${item.url}" target="_blank" class="btn-action-sm" title="Reopen link">↗ Open</a>
+                <button onclick="navigator.clipboard.writeText('${item.url}'); alert('URL copied to clipboard!');" class="btn-action-sm" title="Copy URL">📋</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
 
-      const keyItem = Object.assign({}, pool[activeIdx], { level: selectedLevel });
-      logEvent(`Generating independent hosted link for "${keyItem.alias}" [Level: ${selectedLevel}]...`);
-
-      // Open blank tab immediately to prevent popup blocker
-      const newTab = window.open('about:blank', '_blank');
-
-      try {
-        const session = await requestFreshToken(keyItem, 'create');
-        activeSessionUserId = session.userId;
-
-        let targetUrl = session.independentUrl;
-        if (!targetUrl && session.token) {
-          targetUrl = `https://cockpit.sumsub.com/idensic/index.html?token=${session.token}`;
-        }
-
-        if (targetUrl) {
-          logEvent(`Independent Sumsub Page generated: ${targetUrl}`, 'success');
-          if (newTab) {
-            newTab.location.href = targetUrl;
-          } else {
-            window.open(targetUrl, '_blank');
-          }
-        } else {
-          throw new Error('No hosted URL returned by Sumsub.');
-        }
-      } catch (err) {
-        if (newTab) newTab.close();
-        alert(`Could not open independent session: ${err.message}\n\nPlease verify that api/token.php is uploaded to your host.`);
-      }
+      html += '</tbody></table>';
+      container.innerHTML = html;
     }
 
-    // ─── FEATURE 2: Full Screen 16:9 Camera WebSDK Flow ───
-    async function startVerification() {
-      const selectedLevel = document.getElementById('active-level-select')?.value || 'developer-liveness-check';
-
-      // 1. Check if we have pre-generated GitHub Cloud tokens matching the selected level
-      const matchIdx = cloudSessionPool.findIndex(s => s.levelName === selectedLevel);
-      let cloudSession = null;
-      if (matchIdx !== -1) {
-        cloudSession = cloudSessionPool.splice(matchIdx, 1)[0];
-      } else if (cloudSessionPool.length > 0) {
-        cloudSession = cloudSessionPool.shift();
-      }
-
-      if (cloudSession) {
-        logEvent(`Using pre-signed session for level "${cloudSession.levelName}" (${cloudSession.userId})...`, 'success');
-        updateCloudPoolStatus();
-        openFullscreenView();
-        document.getElementById('sumsub-container').innerHTML = '';
-        launchSumsubSdk(cloudSession.token, { alias: `Cloud: ${cloudSession.levelName}` });
-        return;
-      }
-
-      const pool = keyStore[currentEnv] || [];
-      const activeIdx = activeKeyIndex[currentEnv];
-
-      if (pool.length === 0 || activeIdx < 0 || !pool[activeIdx]) {
-        alert(`No active key in ${currentEnv.toUpperCase()} pool. Please add a key first.`);
-        openAddKeyModal();
-        return;
-      }
-
-      const keyItem = Object.assign({}, pool[activeIdx], { level: selectedLevel });
-      const launchBtn = document.getElementById('launch-flow-btn');
-      launchBtn.disabled = true;
-      launchBtn.textContent = 'Generating Session...';
-
-      try {
-        logEvent(`Initiating session for "${keyItem.alias}" [${currentEnv.toUpperCase()} • Level: ${selectedLevel}]`);
-
-        // Request a fresh, non-expiring session token
-        const session = await requestFreshToken(keyItem, 'create');
-        activeSessionUserId = session.userId;
-        lastGeneratedUrl = session.independentUrl;
-
-        logEvent(`Session created! Applicant ID: ${session.applicantId || 'N/A'}`, 'success');
-        logEvent(`Fresh SDK Token ready (_act-...)`, 'success');
-
-        // Open Fullscreen with 16:9 camera canvas
-        openFullscreenView();
-
-        // Clear container
-        document.getElementById('sumsub-container').innerHTML = '';
-
-        launchSumsubSdk(session.token, keyItem);
-      } catch (err) {
-        alert(`Could not start verification: ${err.message}\n\nPlease check the API Host URL or verify your App Token & Secret.`);
-      } finally {
-        launchBtn.disabled = false;
-        launchBtn.textContent = '⛶ Launch Full Screen Flow (16:9 Canvas)';
-      }
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[m]);
     }
 
-    function launchSumsubSdk(token, keyItem) {
-      logEvent('Loading Sumsub WebSDK library...');
-
-      if (typeof snsWebSdk === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://static.sumsub.com/idensic/static/sns-websdk-builder.js';
-        script.onload = () => mountSdk(token, keyItem);
-        script.onerror = () => logEvent('Failed to load sns-websdk-builder.js from CDN.', 'error');
-        document.head.appendChild(script);
-      } else {
-        mountSdk(token, keyItem);
-      }
-    }
-
-    function mountSdk(token, keyItem) {
-      try {
-        logEvent('Mounting WebSDK inside 16:9 camera canvas...');
-
-        currentSdkInstance = snsWebSdk
-          .init(token, async () => {
-            logEvent('WebSDK requested background token refresh...');
-            try {
-              const refreshed = await requestFreshToken(keyItem, 'refresh', activeSessionUserId);
-              logEvent('Token refreshed successfully.', 'success');
-              return refreshed.token;
-            } catch (e) {
-              logEvent('Failed to refresh token: ' + e.message, 'error');
-              return token;
-            }
-          })
-          .withConf({ lang: 'en' })
-          .withOptions({
-            addViewportTag: false,
-            adaptIframeHeight: false // Governed by 16:9 canvas container
-          })
-          .on('idCheck.onStepCompleted', (payload) => {
-            logEvent(`Step completed: ${payload?.idDocType || 'step'}`, 'success');
-          })
-          .on('idCheck.onApplicantStatusChanged', (payload) => {
-            logEvent(`Status changed: ${payload?.reviewStatus || 'unknown'} (Answer: ${payload?.reviewResult?.reviewAnswer || 'pending'})`, 'warn');
-          })
-          .on('idCheck.onError', (error) => {
-            logEvent(`WebSDK notice/error: ${JSON.stringify(error || 'unknown')}`, 'error');
-          })
-          .build();
-
-        currentSdkInstance.launch('#sumsub-container');
-        logEvent('WebSDK launched successfully in full screen 16:9 canvas.', 'success');
-      } catch (err) {
-        logEvent(`Launch exception: ${err.message}`, 'error');
-      }
-    }
-
-    // Initialize on load
+    // ─── Initialization ───
     window.addEventListener('DOMContentLoaded', () => {
       checkGateSession();
-      loadKeysFromStorage();
-      loadCloudTokenPool();
+      loadCloudPool();
+      updateHistoryCountBadge();
     });
   </script>
 </body>

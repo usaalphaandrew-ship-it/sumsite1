@@ -1,7 +1,7 @@
 /**
- * GitHub Actions Token Generator for Sumsub
- * Runs in GitHub Actions compute environment (server-to-server).
- * Generates 100 fresh WebSDK tokens and hosted links across all configured levels.
+ * GitHub Actions Multi-Environment Token Generator for Sumsub
+ * Generates fresh WebSDK access tokens & hosted verification links
+ * across Sandbox and Production environments for 4 verification levels.
  */
 
 const crypto = require("crypto");
@@ -10,34 +10,35 @@ const path = require("path");
 
 const SANDBOX_APP_TOKEN = process.env.SUMSUB_APP_TOKEN;
 const SANDBOX_SECRET = process.env.SUMSUB_SECRET;
+const PROD_APP_TOKEN = process.env.SUMSUB_PROD_APP_TOKEN;
+const PROD_SECRET = process.env.SUMSUB_PROD_SECRET;
+
 const TTL_SECONDS = 86400; // 24 hours validity for each session
 
-if (!SANDBOX_APP_TOKEN || !SANDBOX_SECRET) {
-  console.error("Error: SUMSUB_APP_TOKEN and SUMSUB_SECRET environment variables must be provided.");
-  process.exit(1);
-}
-
-// Configured Verification Levels and daily allocation (Total = 100 sessions)
 const LEVEL_CONFIGS = [
   {
     name: "developer-liveness-check",
-    description: "Liveness Check Only (Quick Face Scan)",
-    count: 40
+    description: "Standard 3D biometric face liveness check (active selfie scan)",
+    sbxCount: 40,
+    prdCount: 40
   },
   {
     name: "id-and-liveness",
-    description: "ID Document & Liveness Check",
-    count: 20
+    description: "Verify applicant identity with an ID document and liveness check",
+    sbxCount: 20,
+    prdCount: 20
   },
   {
     name: "idv-and-phone-verification",
-    description: "ID Document + Phone/SMS + Liveness Check",
-    count: 20
+    description: "Verify applicant identity with ID document, SMS phone OTP, and liveness check",
+    sbxCount: 20,
+    prdCount: 20
   },
   {
     name: "id-only",
-    description: "ID Document Confirmation Only",
-    count: 20
+    description: "Verify applicant identity with only an ID document",
+    sbxCount: 20,
+    prdCount: 20
   }
 ];
 
@@ -67,8 +68,8 @@ async function requestSumsub(method, pathStr, bodyStr, appToken, secret) {
 }
 
 async function generateSingleSession(envName, appToken, secret, levelName, levelDescription) {
-  const userId = (appToken.startsWith("sbx:") ? "sbx_usr_" : "prd_usr_") +
-    crypto.randomBytes(4).toString("hex") + "_" + Date.now();
+  const prefix = envName === "sandbox" ? "sbx_usr_" : "prd_usr_";
+  const userId = prefix + crypto.randomBytes(6).toString("hex") + "_" + Date.now();
 
   // 1. Create applicant with site origin tracking
   const applicantPayload = JSON.stringify({
@@ -78,7 +79,8 @@ async function generateSingleSession(envName, appToken, secret, levelName, level
       { key: "Source", value: "aicodehelper.us" },
       { key: "InitiatedFrom", value: "https://aicodehelper.us/verifyss.html" },
       { key: "Domain", value: "aicodehelper.us" },
-      { key: "Level", value: levelName }
+      { key: "Level", value: levelName },
+      { key: "Environment", value: envName }
     ]
   });
 
@@ -125,32 +127,61 @@ async function generateSingleSession(envName, appToken, secret, levelName, level
 }
 
 async function main() {
-  console.log("Generating 100 Sumsub sessions partitioned by verification levels...");
-
+  console.log("Starting Sumsub multi-environment session generation...");
   const pool = [];
 
-  for (const cfg of LEVEL_CONFIGS) {
-    console.log(`\nGenerating ${cfg.count} sessions for level: "${cfg.name}"...`);
-    for (let i = 0; i < cfg.count; i++) {
-      try {
-        const session = await generateSingleSession("sandbox", SANDBOX_APP_TOKEN, SANDBOX_SECRET, cfg.name, cfg.description);
-        if (session.token && session.independentUrl) {
-          pool.push(session);
-          process.stdout.write(".");
+  // Sandbox Generation
+  if (SANDBOX_APP_TOKEN && SANDBOX_SECRET) {
+    console.log("\n=== Generating Sandbox Sessions (100 total) ===");
+    for (const cfg of LEVEL_CONFIGS) {
+      console.log(`Generating ${cfg.sbxCount} sessions for sandbox [${cfg.name}]...`);
+      for (let i = 0; i < cfg.sbxCount; i++) {
+        try {
+          const session = await generateSingleSession("sandbox", SANDBOX_APP_TOKEN, SANDBOX_SECRET, cfg.name, cfg.description);
+          if (session.token && session.independentUrl) {
+            pool.push(session);
+            process.stdout.write(".");
+          }
+        } catch (err) {
+          console.error(`\n[Sandbox: ${cfg.name} #${i + 1}] Error:`, err.message);
         }
-      } catch (err) {
-        console.error(`\n[${cfg.name} #${i + 1}] Error:`, err.message);
       }
+      console.log("");
     }
+  } else {
+    console.warn("Notice: SUMSUB_APP_TOKEN or SUMSUB_SECRET not provided for Sandbox.");
   }
 
-  console.log(`\n\nTotal generated: ${pool.length} sessions.`);
+  // Production Generation
+  if (PROD_APP_TOKEN && PROD_SECRET) {
+    console.log("\n=== Generating Production Sessions (100 total) ===");
+    for (const cfg of LEVEL_CONFIGS) {
+      console.log(`Generating ${cfg.prdCount} sessions for production [${cfg.name}]...`);
+      for (let i = 0; i < cfg.prdCount; i++) {
+        try {
+          const session = await generateSingleSession("production", PROD_APP_TOKEN, PROD_SECRET, cfg.name, cfg.description);
+          if (session.token && session.independentUrl) {
+            pool.push(session);
+            process.stdout.write(".");
+          }
+        } catch (err) {
+          console.error(`\n[Production: ${cfg.name} #${i + 1}] Error:`, err.message);
+        }
+      }
+      console.log("");
+    }
+  } else {
+    console.warn("Notice: SUMSUB_PROD_APP_TOKEN or SUMSUB_PROD_SECRET not provided for Production.");
+  }
+
+  console.log(`\nGeneration complete. Total sessions in pool: ${pool.length}`);
 
   const outputData = {
     updatedAt: new Date().toISOString(),
     activeCount: pool.length,
     ttlSeconds: TTL_SECONDS,
     levelsAvailable: LEVEL_CONFIGS.map(l => l.name),
+    environments: ["sandbox", "production"],
     sessions: pool
   };
 
