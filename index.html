@@ -3,330 +3,506 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AITokens — AI Token Optimization, Architecture Audits &amp; Code Reviews</title>
-  <meta name="description" content="Ship efficient, secure AI systems with comprehensive token optimization, LLM architecture audits, and codebase reviews from verified senior engineers.">
+  <title>AITutor — Spaceship-Grade 1-on-1 AI &amp; Code Mentorship</title>
+  <meta name="description" content="Level up your coding and AI skills with 1-on-1 personalized mentorship from verified senior engineers. From Minecraft modding to autonomous Claude AI agents.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- Starfield Canvas for Cosmic Spaceship Background -->
+  <canvas id="starfield-canvas"></canvas>
+
+  <!-- Navigation (Spaceship Deck) -->
   <nav class="site-nav">
     <div class="container nav-wrapper">
       <a href="/" class="brand-link">
-        <div class="brand-badge">&lt;/&gt;</div>
-        <span>AITokens</span>
+        <div class="brand-badge">🚀</div>
+        <span>AITutor</span>
       </a>
       <div class="nav-links">
-        <a href="#services">Token &amp; Code Audits</a>
-        <a href="#stacks">Technologies</a>
-        <a href="#process">How It Works</a>
-        <a href="#faq">FAQ</a>
+        <a href="#lab">⚡ Code Simulator</a>
+        <a href="#quests">💎 Quests</a>
+        <a href="#missions">🛸 Missions &amp; Pricing</a>
+        <a href="#faq">❓ FAQ</a>
       </div>
-      <a href="become-reviewer.html" class="btn btn-primary btn-sm">Join as Auditor</a>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="become-reviewer.html" class="btn btn-outline btn-sm">Join as Tutor</a>
+        <a href="#contact" class="btn btn-primary btn-sm">Launch Mission &rarr;</a>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Hyperspace Launch Deck) -->
   <header class="hero-section">
     <div class="container hero-grid">
       <div class="hero-content">
-        <div class="pill pill-indigo">AI Token &amp; Architecture Audits</div>
-        <h1>Optimize AI tokens and code with <span>expert audits</span></h1>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px;">
+          <span class="pill pill-cosmic">🛸 Spaceship Orbital Deck</span>
+          <span class="pill pill-minecraft">LVL 99 EXPERT</span>
+          <span class="pill pill-claude">Powered by Claude</span>
+        </div>
+        <h1>Master AI &amp; Code with <span>Your Personal AI Tutor</span></h1>
         <p class="hero-lead">
-          Get your AI pipelines, LLM token architectures, and repositories audited by verified senior developers. Actionable reports on token efficiency, security hotspots, and model architecture — delivered in 24 to 48 hours.
+          1-on-1 live pair-programming, gamified code quests, and personalized architectural mentoring from verified senior engineers. From Minecraft Java modding to autonomous LLM multi-agent systems.
         </p>
         <div class="hero-cta">
-          <a href="#services" class="btn btn-primary">Browse Audit Packages</a>
-          <a href="become-reviewer.html" class="btn btn-outline">Become a Verified Auditor</a>
+          <a href="#missions" class="btn btn-primary">Choose Your Mission Tier</a>
+          <a href="#lab" class="btn btn-outline">Explore Code Lab</a>
         </div>
-        <div class="hero-metric-row">
-          <div class="metric-item">
-            <strong>24h–48h</strong>
-            <span>Standard Turnaround</span>
+
+        <!-- Minecraft XP Level Bar -->
+        <div class="mc-xp-container">
+          <div class="mc-xp-header">
+            <div class="mc-xp-level">
+              <span>⛏️</span>
+              <span>LEVEL 99 CODER</span>
+            </div>
+            <div class="mc-xp-stats">
+              <span>5,000+ Taught Hours &bull; 100% Verified Tutors</span>
+            </div>
           </div>
-          <div class="metric-item">
-            <strong>100%</strong>
-            <span>Human Expert Reviews</span>
-          </div>
-          <div class="metric-item">
-            <strong>20+</strong>
-            <span>AI Stacks &amp; Frameworks</span>
+          <div class="mc-xp-bar-track">
+            <div class="mc-xp-bar-fill"></div>
           </div>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <span class="terminal-dot dot-red"></span>
-            <span class="terminal-dot dot-yellow"></span>
-            <span class="terminal-dot dot-green"></span>
-            <span class="terminal-title">aitokens-audit-report.md</span>
+      <!-- Claude Cartoon Mascot & Interactive Dialogue Card -->
+      <div class="claude-card-wrapper">
+        <div class="claude-mascot-header">
+          <div class="claude-avatar-box">
+            <!-- Cartoon Claude Mascot SVG with Astronaut Helmet -->
+            <svg class="claude-avatar-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="17" fill="#E07A5F" stroke="#FFFFFF" stroke-width="2"/>
+              <!-- Cartoon Glasses -->
+              <circle cx="15" cy="19" r="4.5" fill="#FFFFFF" stroke="#2B2D42" stroke-width="1.8"/>
+              <circle cx="25" cy="19" r="4.5" fill="#FFFFFF" stroke="#2B2D42" stroke-width="1.8"/>
+              <line x1="19.5" y1="19" x2="20.5" y2="19" stroke="#2B2D42" stroke-width="2"/>
+              <!-- Eyes inside glasses -->
+              <circle cx="15.5" cy="19" r="1.8" fill="#1D2A44"/>
+              <circle cx="25.5" cy="19" r="1.8" fill="#1D2A44"/>
+              <!-- Smiling Mouth -->
+              <path d="M16 27C17.5 29 22.5 29 24 27" stroke="#2B2D42" stroke-width="2" stroke-linecap="round"/>
+              <!-- Astronaut Antenna -->
+              <line x1="20" y1="3" x2="20" y2="0" stroke="#FFD166" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="20" cy="0" r="2" fill="#06B6D4"/>
+            </svg>
           </div>
-          <div class="terminal-body">
-            <p><span class="cmd">$ aitokens audit</span> --target ./ai-backend --level standard</p>
-            <p class="comment"># Running token profiling, AST analysis &amp; senior manual inspection...</p>
-            <p><span class="pass">[PASS]</span> Token budget management &amp; prompt caching contracts</p>
-            <p><span class="pass">[PASS]</span> LLM context window efficiency &amp; license compliance</p>
-            <p><span class="warn">[WARN]</span> Redundant token consumption in /api/v2/embeddings.ts:84</p>
-            <p><span class="warn">[WARN]</span> Unbounded prompt expansion on user input webhook</p>
-            <p><span class="pass">[REPORT]</span> 14 findings &bull; 3 recommendations &bull; Grade: A-</p>
+          <div class="claude-mascot-info">
+            <h3>
+              Claude Tutor Companion
+              <span class="claude-online-tag"><span class="claude-online-dot"></span> ORBITAL LIVE</span>
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Your personal AI copilot &amp; senior mentorship buddy</p>
           </div>
+        </div>
+
+        <div class="claude-bubble">
+          <p id="claude-speech-text">
+            Beep-boop human friend! 🤖 Building an autonomous AI agent is like giving an LLM hands and feet. In AITutor 1-on-1 sessions, we hook an LLM up with real tools (web search, calculator, Python REPL) using a ReAct thought loop. Here's your starter blueprint:
+          </p>
+          <pre id="claude-speech-code" style="margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: #38BDF8; background: #04060C; padding: 10px; border-radius: 6px; overflow-x: auto;">from langchain.agents import initialize_agent, load_tools
+llm = ChatAnthropic(model="claude-3-5-sonnet")
+tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
+        </div>
+
+        <div style="font-size: 0.76rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.04em;">
+          Ask Claude a Learning Question:
+        </div>
+        <div class="claude-prompt-chips">
+          <button class="prompt-chip-btn active" data-topic="agent">
+            <span>🤖 How do I build an autonomous AI agent in Python?</span>
+            <span style="color: var(--cyan);">&rarr;</span>
+          </button>
+          <button class="prompt-chip-btn" data-topic="minecraft">
+            <span>⛏️ Can you teach me Minecraft modding in Java?</span>
+            <span style="color: var(--cyan);">&rarr;</span>
+          </button>
+          <button class="prompt-chip-btn" data-topic="tokens">
+            <span>🧠 How do LLMs handle context windows &amp; tokens?</span>
+            <span style="color: var(--cyan);">&rarr;</span>
+          </button>
+          <button class="prompt-chip-btn" data-topic="redstone">
+            <span>🔴 How does Minecraft Redstone relate to real CPUs?</span>
+            <span style="color: var(--cyan);">&rarr;</span>
+          </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Supported Stacks Strip -->
-  <section class="section" id="stacks" style="padding: 48px 0; background: var(--surface);">
+  <!-- Minecraft 9-Slot Skill Inventory Strip -->
+  <section style="background: rgba(14, 19, 38, 0.6); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 36px 0;">
     <div class="container" style="text-align: center;">
-      <span class="pill pill-emerald" style="margin-bottom: 12px;">Multi-Stack Coverage</span>
-      <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">Auditing Modern AI Stacks &amp; Token Architectures</h3>
-      <div class="stacks-strip">
-        <div class="stack-chip">OpenAI / Anthropic APIs</div>
-        <div class="stack-chip">LangChain / LlamaIndex</div>
-        <div class="stack-chip">Python / FastAPI</div>
-        <div class="stack-chip">TypeScript / Next.js</div>
-        <div class="stack-chip">Vector DBs &amp; Embeddings</div>
-        <div class="stack-chip">Hugging Face &amp; PyTorch</div>
-        <div class="stack-chip">Go / Microservices</div>
-        <div class="stack-chip">Token Contracts &amp; Smart Tokens</div>
+      <span class="pill pill-minecraft" style="margin-bottom: 8px;">HOTBAR INVENTORY</span>
+      <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #FFF; margin-top: 6px;">
+        Choose Your Tutoring Focus Weapon
+      </h3>
+      <div class="mc-inventory-belt">
+        <div class="mc-slot selected" data-skill="Python &amp; AI Agents" title="Python &amp; AI Agents">
+          🐍
+          <span class="mc-slot-count">99</span>
+        </div>
+        <div class="mc-slot" data-skill="Minecraft Java Modding" title="Minecraft Java Modding">
+          ⛏️
+          <span class="mc-slot-count">64</span>
+        </div>
+        <div class="mc-slot" data-skill="Claude &amp; Prompt Engineering" title="Claude &amp; Prompt Engineering">
+          🤖
+          <span class="mc-slot-count">32</span>
+        </div>
+        <div class="mc-slot" data-skill="Redstone &amp; Computer Architecture" title="Redstone &amp; Computer Architecture">
+          🔴
+          <span class="mc-slot-count">16</span>
+        </div>
+        <div class="mc-slot" data-skill="TypeScript &amp; Full-Stack" title="TypeScript &amp; Full-Stack">
+          ⚡
+          <span class="mc-slot-count">48</span>
+        </div>
+        <div class="mc-slot" data-skill="Rust &amp; High-Performance Systems" title="Rust &amp; Systems">
+          🦀
+          <span class="mc-slot-count">12</span>
+        </div>
+        <div class="mc-slot" data-skill="Vector Databases &amp; Embeddings" title="Vector DBs &amp; Embeddings">
+          💎
+          <span class="mc-slot-count">8</span>
+        </div>
+        <div class="mc-slot" data-skill="Algorithms &amp; Interview Prep" title="Algorithms &amp; Data Structures">
+          🧪
+          <span class="mc-slot-count">24</span>
+        </div>
+        <div class="mc-slot" data-skill="Autonomous Space Bots" title="Autonomous Space Bots">
+          🛸
+          <span class="mc-slot-count">1</span>
+        </div>
+      </div>
+      <p style="font-size: 0.84rem; color: var(--text-dim); margin-top: 8px;">
+        Click any tool slot to equip your topic for your 1-on-1 mentor session!
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Code Playground & Simulator -->
+  <section class="section" id="lab">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill pill-cosmic">LIVE MISSION SIMULATOR</span>
+        <h2>Interactive Code Laboratory</h2>
+        <p>Test real sample curriculum lessons taught in our 1-on-1 tutoring sessions. Run code directly in the terminal simulator.</p>
+      </div>
+
+      <div class="code-playground-wrap">
+        <div class="code-tabs-header">
+          <div class="code-tabs-list">
+            <button class="code-tab-btn active" data-code="python">
+              <span>🐍</span> Python (AI Agent)
+            </button>
+            <button class="code-tab-btn" data-code="minecraft">
+              <span>⛏️</span> Minecraft (Java Mod)
+            </button>
+            <button class="code-tab-btn" data-code="claude">
+              <span>🤖</span> Claude API (Prompting)
+            </button>
+            <button class="code-tab-btn" data-code="redstone">
+              <span>🔴</span> Redstone (ALU Chip)
+            </button>
+          </div>
+          <div class="code-action-btns">
+            <button class="btn btn-outline btn-sm" id="copy-code-btn" style="padding: 6px 12px; font-size: 0.78rem;">
+              📋 Copy Code
+            </button>
+            <button class="btn btn-primary btn-sm" id="run-code-btn" style="padding: 6px 14px; font-size: 0.78rem;">
+              ▶ Run in Simulator
+            </button>
+          </div>
+        </div>
+
+        <div class="code-body-container">
+          <pre id="code-display-content"><code># Loading code snippet...</code></pre>
+        </div>
+
+        <div class="terminal-console-output" id="terminal-console-output">
+          <!-- Live Terminal Output Appears Here -->
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Audit Packages -->
-  <section class="section" id="services">
+  <!-- Gamified Quests & Curriculum -->
+  <section class="section" id="quests" style="background: rgba(10, 14, 30, 0.6); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-indigo">Fixed-Price Packages</span>
-        <h2>Structured Audits Designed for Speed</h2>
-        <p>Simple pricing with guaranteed turnaround. No recurring subscriptions or long contract commitments.</p>
+        <span class="pill pill-minecraft">ACHIEVEMENTS &amp; PATHS</span>
+        <h2>Choose Your Mentorship Quest</h2>
+        <p>Every mission is custom-tailored to your learning velocity. Pair-program side-by-side with verified senior engineers.</p>
+      </div>
+
+      <div class="quest-grid">
+        <!-- Quest 1 -->
+        <div class="quest-card">
+          <div class="quest-icon">💎</div>
+          <div class="quest-badge">ACHIEVEMENT QUEST</div>
+          <h3>From Zero to AI Builder</h3>
+          <p>
+            Master Python fundamentals, API integrations, and prompt pipelines. Build your first real Claude-powered chatbot and web application from scratch.
+          </p>
+          <div class="quest-tags">
+            <span class="quest-tag">Python 3.12</span>
+            <span class="quest-tag">FastAPI</span>
+            <span class="quest-tag">Claude SDK</span>
+            <span class="quest-tag">Beginner Friendly</span>
+          </div>
+        </div>
+
+        <!-- Quest 2 -->
+        <div class="quest-card">
+          <div class="quest-icon">⛏️</div>
+          <div class="quest-badge">MINECRAFT VOXEL LAB</div>
+          <h3>Java Modding &amp; Game Logic</h3>
+          <p>
+            Ever wanted to craft your own Minecraft dimensions, entities, and AI companion bots? Learn object-oriented Java, events, networking, and rendering.
+          </p>
+          <div class="quest-tags">
+            <span class="quest-tag">Java 21</span>
+            <span class="quest-tag">Fabric &amp; Forge</span>
+            <span class="quest-tag">OOP Patterns</span>
+            <span class="quest-tag">Game Engine</span>
+          </div>
+        </div>
+
+        <!-- Quest 3 -->
+        <div class="quest-card">
+          <div class="quest-icon">🛸</div>
+          <div class="quest-badge">ASTRONAUT GRADE</div>
+          <h3>Autonomous Agents &amp; LLM Ops</h3>
+          <p>
+            High-tier technical mentorship for senior developers. Dive deep into vector embeddings, prompt caching, token budgeting, fine-tuning, and multi-agent coordination.
+          </p>
+          <div class="quest-tags">
+            <span class="quest-tag">LangChain</span>
+            <span class="quest-tag">LlamaIndex</span>
+            <span class="quest-tag">Vector DBs</span>
+            <span class="quest-tag">Production LLMs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spaceship Mission Tiers (Packages) -->
+  <section class="section" id="missions">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill pill-cosmic">TRANSPARENT ORBITAL PRICING</span>
+        <h2>Personalized Mentorship Tiers</h2>
+        <p>No locked-in subscriptions. Choose the exact pair-programming hours and technical depth your mission demands.</p>
       </div>
 
       <div class="packages-grid">
-        <!-- Package 1 -->
+        <!-- Package 1: Cadet -->
         <div class="package-card">
-          <div class="package-tag">Quick Health Check</div>
-          <h3>Token &amp; Sprint Review</h3>
-          <p class="package-desc">Ideal for prompt pipelines, token wrappers, and targeted AI modules before merging.</p>
-          <div class="package-price">$149</div>
-          <div class="package-duration">Guaranteed 24-hour turnaround</div>
+          <div class="package-tag">Quick Jump</div>
+          <h3>Cadet Sprint</h3>
+          <p class="package-desc">Single 1-on-1 pair programming session to smash through a stubborn bug or understand a complex concept.</p>
+          <div class="package-price">$79 <span>/ 1 hr session</span></div>
+          <div class="package-duration">Scheduled within 24 hours</div>
           <ul class="package-features">
-            <li><span class="feature-check">&#10003;</span> Up to 1,500 lines of code &amp; prompts</li>
-            <li><span class="feature-check">&#10003;</span> Token usage profiling &amp; prompt leak analysis</li>
-            <li><span class="feature-check">&#10003;</span> Logic bug &amp; edge case evaluation</li>
-            <li><span class="feature-check">&#10003;</span> Inline comments &amp; token optimization diffs</li>
+            <li><span class="feature-check">&#10003;</span> 1 hour live video pair-programming</li>
+            <li><span class="feature-check">&#10003;</span> Live code screen sharing &amp; audio</li>
+            <li><span class="feature-check">&#10003;</span> Bug triage &amp; architecture walkthrough</li>
+            <li><span class="feature-check">&#10003;</span> Session code notes &amp; GitHub repository push</li>
           </ul>
-          <a href="#contact" class="btn btn-outline" data-package="Token &amp; Sprint Review">Request Review</a>
+          <a href="#contact" class="btn btn-outline" data-package="Cadet Sprint ($79)">Select Cadet Mission</a>
         </div>
 
-        <!-- Package 2 (Highlight) -->
+        <!-- Package 2: Commander (Highlight) -->
         <div class="package-card highlight">
           <div class="package-tag">Most Popular</div>
-          <h3>Architecture &amp; Token Audit</h3>
-          <p class="package-desc">Comprehensive system inspection for production AI apps, token pipelines, and scaling codebases.</p>
-          <div class="package-price">$399</div>
-          <div class="package-duration">Guaranteed 48-hour turnaround</div>
+          <h3>Commander Build</h3>
+          <p class="package-desc">Comprehensive project-building track. Design, implement, and ship a functional AI or Minecraft project.</p>
+          <div class="package-price">$249 <span>/ 4 hrs total</span></div>
+          <div class="package-duration">Flexible multi-session scheduling</div>
           <ul class="package-features">
-            <li><span class="feature-check">&#10003;</span> Up to 8,000 lines of code (LOC)</li>
-            <li><span class="feature-check">&#10003;</span> Architectural soundness &amp; token cost optimization</li>
-            <li><span class="feature-check">&#10003;</span> Context window &amp; latency bottlenecks</li>
-            <li><span class="feature-check">&#10003;</span> Prompt security, injection &amp; dependency review</li>
-            <li><span class="feature-check">&#10003;</span> Structured PDF executive report</li>
+            <li><span class="feature-check">&#10003;</span> 4 hours dedicated 1-on-1 mentorship</li>
+            <li><span class="feature-check">&#10003;</span> Custom curriculum tailored to your goal</li>
+            <li><span class="feature-check">&#10003;</span> Line-by-line pull request reviews</li>
+            <li><span class="feature-check">&#10003;</span> Full project architecture &amp; deployment guide</li>
+            <li><span class="feature-check">&#10003;</span> 14-day async chat support with mentor</li>
           </ul>
-          <a href="#contact" class="btn btn-primary" data-package="Architecture &amp; Token Audit">Request Review</a>
+          <a href="#contact" class="btn btn-primary" data-package="Commander Build ($249)">Select Commander Mission</a>
         </div>
 
-        <!-- Package 3 -->
+        <!-- Package 3: Hyperspace -->
         <div class="package-card">
-          <div class="package-tag">Production Ready</div>
-          <h3>Full Repository &amp; AI Assessment</h3>
-          <p class="package-desc">Deep-dive technical assessment for commercial AI products, multi-agent frameworks, pre-launch or investment.</p>
-          <div class="package-price">$890</div>
-          <div class="package-duration">3 to 4 business days turnaround</div>
+          <div class="package-tag">Elite Mentorship</div>
+          <h3>Hyperspace Mastery</h3>
+          <p class="package-desc">Full-month intensive engineering mentorship for career changers, student researchers, and scaling founders.</p>
+          <div class="package-price">$599 <span>/ full month</span></div>
+          <div class="package-duration">4 weeks dedicated acceleration</div>
           <ul class="package-features">
-            <li><span class="feature-check">&#10003;</span> Up to 25,000 lines of code (LOC)</li>
-            <li><span class="feature-check">&#10003;</span> Full-stack AI security posture &amp; token governance</li>
-            <li><span class="feature-check">&#10003;</span> Token rate-limiting, fallback &amp; caching review</li>
-            <li><span class="feature-check">&#10003;</span> Test coverage &amp; CI/CD token evaluation hygiene</li>
-            <li><span class="feature-check">&#10003;</span> 45-minute live Q&amp;A consultation</li>
+            <li><span class="feature-check">&#10003;</span> 10 hours live 1-on-1 mentorship</li>
+            <li><span class="feature-check">&#10003;</span> Unlimited async code review on GitHub</li>
+            <li><span class="feature-check">&#10003;</span> Full-stack AI system design &amp; token optimization</li>
+            <li><span class="feature-check">&#10003;</span> Mock technical interview &amp; portfolio audit</li>
+            <li><span class="feature-check">&#10003;</span> Official AITutor Master Certificate</li>
           </ul>
-          <a href="#contact" class="btn btn-outline" data-package="Full Repository &amp; AI Assessment">Request Review</a>
+          <a href="#contact" class="btn btn-outline" data-package="Hyperspace Mastery ($599)">Select Hyperspace Mission</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="section" id="process" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill pill-emerald">Clear Workflow</span>
-        <h2>How AITokens Delivers Audits</h2>
-        <p>A streamlined process connecting engineering teams with verified senior developers and AI architects.</p>
-      </div>
-
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <h4>Submit Repository</h4>
-          <p>Share your Git repository link or zip bundle. Specify your AI framework, token concerns, and audit scope.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <h4>Expert Allocation</h4>
-          <p>Your codebase is assigned to a verified domain specialist with proven senior experience in your specific AI &amp; token stack.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <h4>Receive Structured Report</h4>
-          <p>Get a comprehensive audit document complete with token optimization diffs, security ratings, and architectural recommendations.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reviewer Banner -->
+  <!-- Tutor Recruitment Banner -->
   <section class="section">
     <div class="container">
       <div class="reviewer-banner">
         <div>
-          <h3>Are you a Senior AI Engineer or Architect?</h3>
-          <p>Join the AITokens verified auditor network. Perform flexible code &amp; token reviews in your domain and earn competitive compensation on your schedule.</p>
+          <h3>Are you a Senior Engineer or Coding Educator?</h3>
+          <p>
+            Join the AITutor verified mentorship fleet. Mentor curious developers worldwide in AI, Python, Java/Minecraft, and modern full-stack systems. Flexible hours and competitive compensation.
+          </p>
         </div>
-        <a href="become-reviewer.html" class="btn btn-primary" style="background: #FFFFFF; color: var(--primary);">Apply as an Auditor &rarr;</a>
+        <a href="become-reviewer.html" class="btn btn-primary" style="background: #FFFFFF; color: #0E1326; flex-shrink: 0;">Apply as a Tutor &rarr;</a>
       </div>
     </div>
   </section>
 
-  <!-- Order / Inquiry Section -->
-  <section class="section" id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <!-- Interactive Booking / Mission Inquiry Form -->
+  <section class="section" id="contact" style="background: rgba(14, 19, 38, 0.5); border-top: 1px solid var(--border);">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-indigo">Get Started</span>
-        <h2>Request a Token &amp; Code Audit</h2>
-        <p>Tell us about your project and requirements. Our engineering team will confirm reviewer availability within 2 hours.</p>
+        <span class="pill pill-cosmic">MISSION CONTROL</span>
+        <h2>Schedule Your 1-on-1 Tutoring Session</h2>
+        <p>Tell us what you want to learn or build. Our tutoring team will match you with a verified senior mentor within 2 hours.</p>
       </div>
 
-      <div style="max-width: 580px; margin: 0 auto; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px 28px;">
-        <form onsubmit="event.preventDefault(); alert('Thank you for your submission. An audit coordinator will contact you shortly.');">
-          <div class="form-group">
-            <label for="contact-name">Your Full Name</label>
-            <input type="text" id="contact-name" class="form-control" placeholder="Alex Morgan" required>
-          </div>
-          <div class="form-group">
-            <label for="contact-email">Work Email</label>
-            <input type="email" id="contact-email" class="form-control" placeholder="alex@company.com" required>
-          </div>
+      <div class="booking-card">
+        <form onsubmit="event.preventDefault(); alert('🚀 Mission request received! An AITutor mentor coordinator will connect with you within 2 hours to confirm your schedule.');">
           <div class="form-row">
             <div class="form-group">
-              <label for="selected-package">Selected Package</label>
-              <input type="text" id="selected-package" class="form-control" value="Architecture &amp; Token Audit" readonly>
+              <label for="student-name">Your Name</label>
+              <input type="text" id="student-name" class="form-control" placeholder="Alex Morgan" required>
             </div>
             <div class="form-group">
-              <label for="repo-stack">Primary Tech / AI Stack</label>
-              <input type="text" id="repo-stack" class="form-control" placeholder="e.g. OpenAI, LangChain, TypeScript" required>
+              <label for="student-email">Email Address</label>
+              <input type="email" id="student-email" class="form-control" placeholder="alex@domain.com" required>
             </div>
           </div>
-          <div class="form-group">
-            <label for="repo-notes">Scope / Specific Areas to Inspect</label>
-            <textarea id="repo-notes" class="form-control" rows="3" placeholder="Describe repository purpose, critical endpoints, token efficiency goals, or security concerns..."></textarea>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="selected-package">Selected Mission</label>
+              <input type="text" id="selected-package" class="form-control" value="Commander Build ($249)" readonly>
+            </div>
+            <div class="form-group">
+              <label for="tutoring-skill-input">Focus Language / Topic</label>
+              <input type="text" id="tutoring-skill-input" class="form-control" placeholder="e.g. Python AI Agents, Minecraft Java Modding" value="Python &amp; AI Agents" required>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">Submit Audit Request</button>
+
+          <div class="form-group">
+            <label for="mission-goals">What are your specific learning goals or project blockers?</label>
+            <textarea id="mission-goals" class="form-control" rows="3" placeholder="Describe your current experience level, what project you are building, or what concept you want to master..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem;">
+            🚀 Confirm Tutoring Request
+          </button>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- FAQ Accordion -->
   <section class="section" id="faq">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-indigo">Common Questions</span>
+        <span class="pill pill-cosmic">TRANSMISSIONS &amp; INTEL</span>
         <h2>Frequently Asked Questions</h2>
-        <p>Everything you need to know about our token audit methodology and reviewer qualification.</p>
+        <p>Everything you need to know about AITutor's mentorship format, code environments, and tutor vetting.</p>
       </div>
 
       <div class="faq-box">
         <div class="faq-row">
           <div class="faq-question">
-            <span>How do you protect client code privacy and intellectual property?</span>
+            <span>How are AITutor mentors selected and verified?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            All code access is governed by strict non-disclosure agreements. Repositories are processed on secure ephemeral workstations and are deleted immediately upon report delivery. Your code is never shared publicly or used for model training.
+            Every tutor undergoes rigorous identity verification, code portfolio inspection, and live technical teaching evaluations before being approved. Many of our mentors are working senior software engineers, AI researchers, and open-source mod contributors.
           </div>
         </div>
 
         <div class="faq-row">
           <div class="faq-question">
-            <span>How are auditors vetted before joining AITokens?</span>
+            <span>Can complete beginners learn Minecraft modding or AI?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            Every auditor undergoes rigorous technical credential evaluation and identity verification before being approved. This guarantees our clients receive advice exclusively from real, experienced practitioners.
+            Absolutely! Our Cadet and Commander tracks are structured to take you step-by-step from zero setup to your first working code. We adapt the pace to your comfort level—no prior computer science degree required.
           </div>
         </div>
 
         <div class="faq-row">
           <div class="faq-question">
-            <span>What format does the audit report come in?</span>
+            <span>What tool or video software do we use for sessions?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            Deliverables include a structured PDF report categorised by severity (Critical, Warning, Informational), accompanied by token usage breakdowns, prompt annotations, remediation diffs, and architectural recommendations.
+            We use collaborative live coding platforms (VS Code Live Share, GitHub Codespaces, or Discord/Google Meet screen sharing). You write code directly on your computer while your mentor guides you line-by-line.
           </div>
         </div>
 
         <div class="faq-row">
           <div class="faq-question">
-            <span>Can we request an NDA prior to sharing our codebase?</span>
+            <span>What if I need to reschedule my session?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            Yes. We execute standard mutual non-disclosure agreements for all custom audits and enterprise evaluations upon request.
+            Life happens! You can reschedule any booked session with up to 12 hours notice at zero extra charge directly with your assigned mentor.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (Spaceship Docking Bay) -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
           <h4>
-            <span style="background: var(--primary); padding: 4px 8px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">&lt;/&gt;</span>
-            AITokens
+            <span style="background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%); padding: 6px 10px; border-radius: 8px;">🚀</span>
+            AITutor
           </h4>
           <p>
-            Professional AI token optimization, architecture review, and code audit platform connecting engineering leaders with verified technical specialists.
+            Spaceship-grade 1-on-1 coding mentorship, live AI pair-programming, and gamified technical learning for ambitious developers.
           </p>
         </div>
         <div class="footer-col">
-          <h5>Services</h5>
-          <a href="#services">Token &amp; Sprint Review</a>
-          <a href="#services">Architecture &amp; Token Audit</a>
-          <a href="#services">Repository &amp; AI Assessment</a>
-          <a href="become-reviewer.html">Reviewer Portal</a>
+          <h5>Curriculum &amp; Quests</h5>
+          <a href="#lab">Interactive Code Lab</a>
+          <a href="#quests">Minecraft Java Modding</a>
+          <a href="#quests">Autonomous AI Agents</a>
+          <a href="#missions">Tutoring Packages</a>
+          <a href="become-reviewer.html">Apply as Tutor</a>
         </div>
         <div class="footer-col">
           <h5>Legal &amp; Policy</h5>
           <a href="terms.html">Terms of Service</a>
           <a href="privacy.html">Privacy Notice</a>
           <a href="cookies.html">Cookie Preferences</a>
+          <a href="verifyss.html">Verification Hub</a>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div class="footer-corporate">
-          <p>&copy; 2026 AITokens. Operated by <strong>A1 Tutoring Private Limited</strong></p>
+          <p>&copy; 2026 AITutor. Operated by <strong>A1 Tutoring Private Limited</strong></p>
           <p>CIN: <strong>U74999KA2018PTC115748</strong> &bull; Incorporated 28 August 2018 under the Companies Act (ROC Bangalore, Karnataka)</p>
           <p>Registered Address: 3, 5th Cross, Near Kc General Hospital, Malleshwaram, Bangalore, Karnataka, India 560003</p>
-          <p>Website: <a href="https://aitutor.host" style="color: #CBD5E1;">aitutor.host</a> &bull; Support: <a href="mailto:support@aitutor.host" style="color: #CBD5E1;">support@aitutor.host</a></p>
+          <p>Website: <a href="https://aitutor.host" style="color: #67E8F9;">aitutor.host</a> &bull; Support: <a href="mailto:support@aitutor.host" style="color: #67E8F9;">support@aitutor.host</a></p>
         </div>
         <div style="display: flex; gap: 16px;">
           <a href="terms.html" style="color: #94A3B8;">Terms</a>

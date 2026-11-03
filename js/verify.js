@@ -1,4 +1,4 @@
-// AITokens Reviewer Onboarding & Verification Controller
+// AITutor Reviewer Onboarding & Verification Controller
 const API_BASE = '/api';
 
 const verifyForm  = document.getElementById('verify-form');
