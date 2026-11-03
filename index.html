@@ -3,183 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AITutor — Spaceship-Grade 1-on-1 AI &amp; Code Mentorship</title>
-  <meta name="description" content="Level up your coding and AI skills with 1-on-1 personalized mentorship from verified senior engineers. From Minecraft modding to autonomous Claude AI agents.">
+  <title>AITutor — Professional 1-on-1 AI &amp; Software Engineering Mentorship</title>
+  <meta name="description" content="Accelerate your engineering skills with 1-on-1 personalized mentorship from verified senior software engineers. Master AI systems, distributed architecture, and production full-stack engineering.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
-  <!-- Starfield Canvas for Cosmic Spaceship Background -->
+  <!-- Subtle Ambient Particle Canvas -->
   <canvas id="starfield-canvas"></canvas>
 
-  <!-- Navigation (Spaceship Deck) -->
+  <!-- Navigation -->
   <nav class="site-nav">
     <div class="container nav-wrapper">
       <a href="/" class="brand-link">
-        <div class="brand-badge">🚀</div>
+        <div class="brand-badge">&lt;/&gt;</div>
         <span>AITutor</span>
       </a>
       <div class="nav-links">
-        <a href="#lab">⚡ Code Simulator</a>
-        <a href="#quests">💎 Quests</a>
-        <a href="#missions">🛸 Missions &amp; Pricing</a>
-        <a href="#faq">❓ FAQ</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#lab">Interactive Code Lab</a>
+        <a href="#pricing">Pricing &amp; Plans</a>
+        <a href="#faq">FAQ</a>
       </div>
       <div style="display: flex; gap: 12px; align-items: center;">
-        <a href="become-reviewer.html" class="btn btn-outline btn-sm">Join as Tutor</a>
-        <a href="#contact" class="btn btn-primary btn-sm">Launch Mission &rarr;</a>
+        <a href="become-reviewer.html" class="btn btn-outline btn-sm">Become a Mentor</a>
+        <a href="#booking" class="btn btn-primary btn-sm">Book a Session &rarr;</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section (Hyperspace Launch Deck) -->
+  <!-- Hero Section -->
   <header class="hero-section">
     <div class="container hero-grid">
       <div class="hero-content">
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px;">
-          <span class="pill pill-cosmic">🛸 Spaceship Orbital Deck</span>
-          <span class="pill pill-minecraft">LVL 99 EXPERT</span>
-          <span class="pill pill-claude">Powered by Claude</span>
+          <span class="pill pill-cosmic">ENGINEERING MENTORSHIP PLATFORM</span>
+          <span class="pill pill-emerald">100% VETTED SENIOR MENTORS</span>
         </div>
-        <h1>Master AI &amp; Code with <span>Your Personal AI Tutor</span></h1>
+        <h1>Accelerate Your Career with <span>Direct Senior Mentorship</span></h1>
         <p class="hero-lead">
-          1-on-1 live pair-programming, gamified code quests, and personalized architectural mentoring from verified senior engineers. From Minecraft Java modding to autonomous LLM multi-agent systems.
+          Master production AI engineering, distributed architecture, and modern full-stack development through personalized 1-on-1 live pair-programming sessions guided by verified tech leads.
         </p>
         <div class="hero-cta">
-          <a href="#missions" class="btn btn-primary">Choose Your Mission Tier</a>
+          <a href="#pricing" class="btn btn-primary">View Mentorship Packages</a>
           <a href="#lab" class="btn btn-outline">Explore Code Lab</a>
         </div>
 
-        <!-- Minecraft XP Level Bar -->
-        <div class="mc-xp-container">
-          <div class="mc-xp-header">
-            <div class="mc-xp-level">
-              <span>⛏️</span>
-              <span>LEVEL 99 CODER</span>
-            </div>
-            <div class="mc-xp-stats">
-              <span>5,000+ Taught Hours &bull; 100% Verified Tutors</span>
-            </div>
+        <!-- Metrics Row -->
+        <div class="metrics-row">
+          <div class="metric-item">
+            <span class="metric-val">5,000+</span>
+            <span class="metric-lbl">Taught Hours</span>
           </div>
-          <div class="mc-xp-bar-track">
-            <div class="mc-xp-bar-fill"></div>
+          <div class="metric-item">
+            <span class="metric-val">98.4%</span>
+            <span class="metric-lbl">Satisfaction Score</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">Top 2%</span>
+            <span class="metric-lbl">Vetted Tech Leads</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">&lt; 2 Hrs</span>
+            <span class="metric-lbl">Mentor Match Time</span>
           </div>
         </div>
       </div>
 
-      <!-- Claude Cartoon Mascot & Interactive Dialogue Card -->
-      <div class="claude-card-wrapper">
-        <div class="claude-mascot-header">
-          <div class="claude-avatar-box">
-            <!-- Cartoon Claude Mascot SVG with Astronaut Helmet -->
-            <svg class="claude-avatar-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="17" fill="#E07A5F" stroke="#FFFFFF" stroke-width="2"/>
-              <!-- Cartoon Glasses -->
-              <circle cx="15" cy="19" r="4.5" fill="#FFFFFF" stroke="#2B2D42" stroke-width="1.8"/>
-              <circle cx="25" cy="19" r="4.5" fill="#FFFFFF" stroke="#2B2D42" stroke-width="1.8"/>
-              <line x1="19.5" y1="19" x2="20.5" y2="19" stroke="#2B2D42" stroke-width="2"/>
-              <!-- Eyes inside glasses -->
-              <circle cx="15.5" cy="19" r="1.8" fill="#1D2A44"/>
-              <circle cx="25.5" cy="19" r="1.8" fill="#1D2A44"/>
-              <!-- Smiling Mouth -->
-              <path d="M16 27C17.5 29 22.5 29 24 27" stroke="#2B2D42" stroke-width="2" stroke-linecap="round"/>
-              <!-- Astronaut Antenna -->
-              <line x1="20" y1="3" x2="20" y2="0" stroke="#FFD166" stroke-width="2.5" stroke-linecap="round"/>
-              <circle cx="20" cy="0" r="2" fill="#06B6D4"/>
-            </svg>
+      <!-- Senior Mentor Code Review Console (Interactive Hero Card) -->
+      <div class="mentor-console-card">
+        <div class="mentor-card-header">
+          <div class="mentor-profile-info">
+            <div class="mentor-avatar">MV</div>
+            <div class="mentor-details">
+              <h4>Dr. Michael Vance</h4>
+              <p>Principal AI Architect &bull; Ex-Big Tech Staff Engineer</p>
+            </div>
           </div>
-          <div class="claude-mascot-info">
-            <h3>
-              Claude Tutor Companion
-              <span class="claude-online-tag"><span class="claude-online-dot"></span> ORBITAL LIVE</span>
-            </h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Your personal AI copilot &amp; senior mentorship buddy</p>
+          <div class="live-badge">
+            <span class="live-dot"></span>
+            AVAILABLE
           </div>
         </div>
 
-        <div class="claude-bubble">
-          <p id="claude-speech-text">
-            Beep-boop human friend! 🤖 Building an autonomous AI agent is like giving an LLM hands and feet. In AITutor 1-on-1 sessions, we hook an LLM up with real tools (web search, calculator, Python REPL) using a ReAct thought loop. Here's your starter blueprint:
+        <div style="font-size: 0.74rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em;">
+          Select Session Architecture Preview:
+        </div>
+
+        <div class="console-topic-selector">
+          <button class="topic-btn active" data-topic="rag">AI RAG &amp; Re-Ranking</button>
+          <button class="topic-btn" data-topic="api">Next.js Edge API</button>
+          <button class="topic-btn" data-topic="concurrency">Go Worker Pool</button>
+          <button class="topic-btn" data-topic="caching">Distributed Cache</button>
+        </div>
+
+        <div class="mentor-feedback-box">
+          <h5>1-on-1 Mentor Architecture Audit</h5>
+          <p id="mentor-feedback-text">
+            “Your vector search was pulling raw top-k chunks without re-ranking, resulting in context dilution. In this refactor, we inject a cross-encoder re-ranker and reciprocal rank fusion to prune hallucinations by 64%.”
           </p>
-          <pre id="claude-speech-code" style="margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: #38BDF8; background: #04060C; padding: 10px; border-radius: 6px; overflow-x: auto;">from langchain.agents import initialize_agent, load_tools
-llm = ChatAnthropic(model="claude-3-5-sonnet")
-tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
         </div>
 
-        <div style="font-size: 0.76rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.04em;">
-          Ask Claude a Learning Question:
-        </div>
-        <div class="claude-prompt-chips">
-          <button class="prompt-chip-btn active" data-topic="agent">
-            <span>🤖 How do I build an autonomous AI agent in Python?</span>
-            <span style="color: var(--cyan);">&rarr;</span>
-          </button>
-          <button class="prompt-chip-btn" data-topic="minecraft">
-            <span>⛏️ Can you teach me Minecraft modding in Java?</span>
-            <span style="color: var(--cyan);">&rarr;</span>
-          </button>
-          <button class="prompt-chip-btn" data-topic="tokens">
-            <span>🧠 How do LLMs handle context windows &amp; tokens?</span>
-            <span style="color: var(--cyan);">&rarr;</span>
-          </button>
-          <button class="prompt-chip-btn" data-topic="redstone">
-            <span>🔴 How does Minecraft Redstone relate to real CPUs?</span>
-            <span style="color: var(--cyan);">&rarr;</span>
-          </button>
-        </div>
+        <pre class="mentor-code-preview"><code id="mentor-code-block">async function retrieveContext(query: string, k = 5): Promise&lt;string[]&gt; {
+  const denseEmbeddings = await openai.embeddings.create({ input: query });
+  const rawMatches = await vectorIndex.query({ vector: denseEmbeddings.data[0].embedding, topK: k * 3 });
+  
+  // Mentor Optimization: Cross-Encoder Re-Ranking Pipeline
+  const reranked = await cohere.rerank({ query, documents: rawMatches.docs, topN: k });
+  return reranked.results.map(r => r.document.text);
+}</code></pre>
       </div>
     </div>
   </header>
 
-  <!-- Minecraft 9-Slot Skill Inventory Strip -->
-  <section style="background: rgba(14, 19, 38, 0.6); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 36px 0;">
+  <!-- Specialization Tracks Bar -->
+  <section class="specializations-section" id="curriculum">
     <div class="container" style="text-align: center;">
-      <span class="pill pill-minecraft" style="margin-bottom: 8px;">HOTBAR INVENTORY</span>
-      <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #FFF; margin-top: 6px;">
-        Choose Your Tutoring Focus Weapon
+      <span class="pill pill-cosmic" style="margin-bottom: 8px;">TECHNICAL SPECIALIZATIONS</span>
+      <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: #FFF; margin-top: 6px;">
+        Choose Your Mentorship Focus Area
       </h3>
-      <div class="mc-inventory-belt">
-        <div class="mc-slot selected" data-skill="Python &amp; AI Agents" title="Python &amp; AI Agents">
-          🐍
-          <span class="mc-slot-count">99</span>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+        Click any specialization below to load it into your personalized booking request:
+      </p>
+
+      <div class="spec-pills-wrap">
+        <div class="spec-pill active" data-skill="Applied AI Systems &amp; LLM Engineering">
+          <span>🧠</span> Applied AI Systems &amp; LLM Engineering
         </div>
-        <div class="mc-slot" data-skill="Minecraft Java Modding" title="Minecraft Java Modding">
-          ⛏️
-          <span class="mc-slot-count">64</span>
+        <div class="spec-pill" data-skill="Next.js 15 &amp; Modern Full-Stack Web">
+          <span>⚡</span> Next.js &amp; Full-Stack TypeScript
         </div>
-        <div class="mc-slot" data-skill="Claude &amp; Prompt Engineering" title="Claude &amp; Prompt Engineering">
-          🤖
-          <span class="mc-slot-count">32</span>
+        <div class="spec-pill" data-skill="Distributed Systems &amp; Cloud Infrastructure">
+          <span>🌐</span> Distributed Systems &amp; Cloud Infra
         </div>
-        <div class="mc-slot" data-skill="Redstone &amp; Computer Architecture" title="Redstone &amp; Computer Architecture">
-          🔴
-          <span class="mc-slot-count">16</span>
+        <div class="spec-pill" data-skill="High-Performance Systems (Go &amp; Rust)">
+          <span>🦀</span> High-Performance Systems (Go / Rust)
         </div>
-        <div class="mc-slot" data-skill="TypeScript &amp; Full-Stack" title="TypeScript &amp; Full-Stack">
-          ⚡
-          <span class="mc-slot-count">48</span>
+        <div class="spec-pill" data-skill="Vector Databases &amp; Semantic Retrieval">
+          <span>📊</span> Vector DBs &amp; Semantic Search
         </div>
-        <div class="mc-slot" data-skill="Rust &amp; High-Performance Systems" title="Rust &amp; Systems">
-          🦀
-          <span class="mc-slot-count">12</span>
-        </div>
-        <div class="mc-slot" data-skill="Vector Databases &amp; Embeddings" title="Vector DBs &amp; Embeddings">
-          💎
-          <span class="mc-slot-count">8</span>
-        </div>
-        <div class="mc-slot" data-skill="Algorithms &amp; Interview Prep" title="Algorithms &amp; Data Structures">
-          🧪
-          <span class="mc-slot-count">24</span>
-        </div>
-        <div class="mc-slot" data-skill="Autonomous Space Bots" title="Autonomous Space Bots">
-          🛸
-          <span class="mc-slot-count">1</span>
+        <div class="spec-pill" data-skill="System Design &amp; Senior Engineering Interviews">
+          <span>🎯</span> System Design &amp; Interview Mastery
         </div>
       </div>
-      <p style="font-size: 0.84rem; color: var(--text-dim); margin-top: 8px;">
-        Click any tool slot to equip your topic for your 1-on-1 mentor session!
-      </p>
     </div>
   </section>
 
@@ -187,25 +155,25 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
   <section class="section" id="lab">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-cosmic">LIVE MISSION SIMULATOR</span>
-        <h2>Interactive Code Laboratory</h2>
-        <p>Test real sample curriculum lessons taught in our 1-on-1 tutoring sessions. Run code directly in the terminal simulator.</p>
+        <span class="pill pill-cosmic">LIVE CODE LABORATORY</span>
+        <h2>Hands-On Engineering Playground</h2>
+        <p>Explore real code architectures designed and debugged during our 1-on-1 tutoring sessions. Run benchmarks directly in the code simulator.</p>
       </div>
 
       <div class="code-playground-wrap">
         <div class="code-tabs-header">
           <div class="code-tabs-list">
             <button class="code-tab-btn active" data-code="python">
-              <span>🐍</span> Python (AI Agent)
+              <span>🐍</span> Python (Vector Search)
             </button>
-            <button class="code-tab-btn" data-code="minecraft">
-              <span>⛏️</span> Minecraft (Java Mod)
+            <button class="code-tab-btn" data-code="typescript">
+              <span>⚡</span> TypeScript (Next.js Actions)
             </button>
-            <button class="code-tab-btn" data-code="claude">
-              <span>🤖</span> Claude API (Prompting)
+            <button class="code-tab-btn" data-code="go">
+              <span>🐹</span> Go (Worker Pool)
             </button>
-            <button class="code-tab-btn" data-code="redstone">
-              <span>🔴</span> Redstone (ALU Chip)
+            <button class="code-tab-btn" data-code="rust">
+              <span>🦀</span> Rust (Zero-Copy Engine)
             </button>
           </div>
           <div class="code-action-btns">
@@ -223,131 +191,131 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
         </div>
 
         <div class="terminal-console-output" id="terminal-console-output">
-          <!-- Live Terminal Output Appears Here -->
+          <!-- Terminal Output Appears Here -->
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Gamified Quests & Curriculum -->
-  <section class="section" id="quests" style="background: rgba(10, 14, 30, 0.6); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <!-- Structured Curriculum Tracks -->
+  <section class="section" style="background: rgba(10, 14, 26, 0.6); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-minecraft">ACHIEVEMENTS &amp; PATHS</span>
-        <h2>Choose Your Mentorship Quest</h2>
-        <p>Every mission is custom-tailored to your learning velocity. Pair-program side-by-side with verified senior engineers.</p>
+        <span class="pill pill-cosmic">CURRICULUM ARCHITECTURE</span>
+        <h2>Tailored Engineering Tracks</h2>
+        <p>Whether you're breaking into AI engineering or architecting distributed services, every curriculum is tailored to your exact tech stack and project roadmap.</p>
       </div>
 
-      <div class="quest-grid">
-        <!-- Quest 1 -->
-        <div class="quest-card">
-          <div class="quest-icon">💎</div>
-          <div class="quest-badge">ACHIEVEMENT QUEST</div>
-          <h3>From Zero to AI Builder</h3>
+      <div class="curriculum-grid">
+        <!-- Track 1 -->
+        <div class="curriculum-card">
+          <div class="curriculum-badge">CORE TRACK 01</div>
+          <h3>Applied AI &amp; LLM Engineering</h3>
           <p>
-            Master Python fundamentals, API integrations, and prompt pipelines. Build your first real Claude-powered chatbot and web application from scratch.
+            Build production-grade AI systems from scratch. Master vector embeddings, hybrid semantic retrieval, agentic workflows, dynamic prompt optimization, and low-latency LLM serving.
           </p>
-          <div class="quest-tags">
-            <span class="quest-tag">Python 3.12</span>
-            <span class="quest-tag">FastAPI</span>
-            <span class="quest-tag">Claude SDK</span>
-            <span class="quest-tag">Beginner Friendly</span>
+          <div class="curriculum-tags">
+            <span class="curriculum-tag">Python 3.12</span>
+            <span class="curriculum-tag">LangChain</span>
+            <span class="curriculum-tag">LlamaIndex</span>
+            <span class="curriculum-tag">Vector DBs</span>
+            <span class="curriculum-tag">RAG Pipeline</span>
           </div>
         </div>
 
-        <!-- Quest 2 -->
-        <div class="quest-card">
-          <div class="quest-icon">⛏️</div>
-          <div class="quest-badge">MINECRAFT VOXEL LAB</div>
-          <h3>Java Modding &amp; Game Logic</h3>
+        <!-- Track 2 -->
+        <div class="curriculum-card">
+          <div class="curriculum-badge">CORE TRACK 02</div>
+          <h3>Production Web &amp; Next.js Systems</h3>
           <p>
-            Ever wanted to craft your own Minecraft dimensions, entities, and AI companion bots? Learn object-oriented Java, events, networking, and rendering.
+            Architect full-stack applications with bulletproof type safety. Master Next.js App Router, Server Actions, resilient caching strategies, PostgreSQL indexing, and edge deployments.
           </p>
-          <div class="quest-tags">
-            <span class="quest-tag">Java 21</span>
-            <span class="quest-tag">Fabric &amp; Forge</span>
-            <span class="quest-tag">OOP Patterns</span>
-            <span class="quest-tag">Game Engine</span>
+          <div class="curriculum-tags">
+            <span class="curriculum-tag">TypeScript</span>
+            <span class="curriculum-tag">Next.js 15</span>
+            <span class="curriculum-tag">PostgreSQL</span>
+            <span class="curriculum-tag">Redis</span>
+            <span class="curriculum-tag">Docker</span>
           </div>
         </div>
 
-        <!-- Quest 3 -->
-        <div class="quest-card">
-          <div class="quest-icon">🛸</div>
-          <div class="quest-badge">ASTRONAUT GRADE</div>
-          <h3>Autonomous Agents &amp; LLM Ops</h3>
+        <!-- Track 3 -->
+        <div class="curriculum-card">
+          <div class="curriculum-badge">CORE TRACK 03</div>
+          <h3>Distributed Systems &amp; Concurrency</h3>
           <p>
-            High-tier technical mentorship for senior developers. Dive deep into vector embeddings, prompt caching, token budgeting, fine-tuning, and multi-agent coordination.
+            Design resilient cloud backend microservices. Dive into concurrent worker architectures, message queues, memory-safe data structures, and high-throughput network protocols in Go and Rust.
           </p>
-          <div class="quest-tags">
-            <span class="quest-tag">LangChain</span>
-            <span class="quest-tag">LlamaIndex</span>
-            <span class="quest-tag">Vector DBs</span>
-            <span class="quest-tag">Production LLMs</span>
+          <div class="curriculum-tags">
+            <span class="curriculum-tag">Go 1.22</span>
+            <span class="curriculum-tag">Rust</span>
+            <span class="curriculum-tag">gRPC</span>
+            <span class="curriculum-tag">Kafka</span>
+            <span class="curriculum-tag">System Design</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Spaceship Mission Tiers (Packages) -->
-  <section class="section" id="missions">
+  <!-- Mentorship Pricing Packages -->
+  <section class="section" id="pricing">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-cosmic">TRANSPARENT ORBITAL PRICING</span>
+        <span class="pill pill-cosmic">TRANSPARENT PRICING</span>
         <h2>Personalized Mentorship Tiers</h2>
-        <p>No locked-in subscriptions. Choose the exact pair-programming hours and technical depth your mission demands.</p>
+        <p>No recurring locked subscriptions. Select the exact pair-programming hours and architectural depth your career or project requires.</p>
       </div>
 
       <div class="packages-grid">
-        <!-- Package 1: Cadet -->
+        <!-- Package 1: Sprint -->
         <div class="package-card">
-          <div class="package-tag">Quick Jump</div>
-          <h3>Cadet Sprint</h3>
-          <p class="package-desc">Single 1-on-1 pair programming session to smash through a stubborn bug or understand a complex concept.</p>
+          <div class="package-tag">Targeted Session</div>
+          <h3>Sprint Mentorship</h3>
+          <p class="package-desc">Single 1-on-1 pair-programming session to eliminate stubborn bugs, conduct a code audit, or master a specific architectural concept.</p>
           <div class="package-price">$79 <span>/ 1 hr session</span></div>
-          <div class="package-duration">Scheduled within 24 hours</div>
+          <div class="package-duration">Scheduled within 24 hours of booking</div>
           <ul class="package-features">
             <li><span class="feature-check">&#10003;</span> 1 hour live video pair-programming</li>
-            <li><span class="feature-check">&#10003;</span> Live code screen sharing &amp; audio</li>
-            <li><span class="feature-check">&#10003;</span> Bug triage &amp; architecture walkthrough</li>
-            <li><span class="feature-check">&#10003;</span> Session code notes &amp; GitHub repository push</li>
+            <li><span class="feature-check">&#10003;</span> Screen sharing &amp; interactive live terminal</li>
+            <li><span class="feature-check">&#10003;</span> Bug triage &amp; code architecture review</li>
+            <li><span class="feature-check">&#10003;</span> Session summary notes &amp; GitHub commit summary</li>
           </ul>
-          <a href="#contact" class="btn btn-outline" data-package="Cadet Sprint ($79)">Select Cadet Mission</a>
+          <a href="#booking" class="btn btn-outline" data-package="Sprint Mentorship ($79)">Select Sprint Track</a>
         </div>
 
-        <!-- Package 2: Commander (Highlight) -->
+        <!-- Package 2: Project (Highlight) -->
         <div class="package-card highlight">
           <div class="package-tag">Most Popular</div>
-          <h3>Commander Build</h3>
-          <p class="package-desc">Comprehensive project-building track. Design, implement, and ship a functional AI or Minecraft project.</p>
+          <h3>Project Acceleration</h3>
+          <p class="package-desc">Comprehensive project-building track. Design, implement, and deploy a production-ready AI or web system side-by-side with a tech lead.</p>
           <div class="package-price">$249 <span>/ 4 hrs total</span></div>
-          <div class="package-duration">Flexible multi-session scheduling</div>
+          <div class="package-duration">Flexible multi-session schedule over 2 weeks</div>
           <ul class="package-features">
             <li><span class="feature-check">&#10003;</span> 4 hours dedicated 1-on-1 mentorship</li>
-            <li><span class="feature-check">&#10003;</span> Custom curriculum tailored to your goal</li>
-            <li><span class="feature-check">&#10003;</span> Line-by-line pull request reviews</li>
-            <li><span class="feature-check">&#10003;</span> Full project architecture &amp; deployment guide</li>
-            <li><span class="feature-check">&#10003;</span> 14-day async chat support with mentor</li>
+            <li><span class="feature-check">&#10003;</span> Custom curriculum designed for your project</li>
+            <li><span class="feature-check">&#10003;</span> Line-by-line GitHub pull request reviews</li>
+            <li><span class="feature-check">&#10003;</span> Production deployment &amp; CI/CD pipeline setup</li>
+            <li><span class="feature-check">&#10003;</span> 14 days of asynchronous mentor chat support</li>
           </ul>
-          <a href="#contact" class="btn btn-primary" data-package="Commander Build ($249)">Select Commander Mission</a>
+          <a href="#booking" class="btn btn-primary" data-package="Project Acceleration ($249)">Select Project Track</a>
         </div>
 
-        <!-- Package 3: Hyperspace -->
+        <!-- Package 3: Executive -->
         <div class="package-card">
-          <div class="package-tag">Elite Mentorship</div>
-          <h3>Hyperspace Mastery</h3>
-          <p class="package-desc">Full-month intensive engineering mentorship for career changers, student researchers, and scaling founders.</p>
+          <div class="package-tag">Intensive Track</div>
+          <h3>Executive Mentorship</h3>
+          <p class="package-desc">Full-month intensive engineering mentorship for senior career transitions, engineering leadership, and scaling founders.</p>
           <div class="package-price">$599 <span>/ full month</span></div>
-          <div class="package-duration">4 weeks dedicated acceleration</div>
+          <div class="package-duration">4 weeks of dedicated engineering acceleration</div>
           <ul class="package-features">
-            <li><span class="feature-check">&#10003;</span> 10 hours live 1-on-1 mentorship</li>
-            <li><span class="feature-check">&#10003;</span> Unlimited async code review on GitHub</li>
-            <li><span class="feature-check">&#10003;</span> Full-stack AI system design &amp; token optimization</li>
-            <li><span class="feature-check">&#10003;</span> Mock technical interview &amp; portfolio audit</li>
-            <li><span class="feature-check">&#10003;</span> Official AITutor Master Certificate</li>
+            <li><span class="feature-check">&#10003;</span> 10 hours live 1-on-1 pair-programming</li>
+            <li><span class="feature-check">&#10003;</span> Unlimited asynchronous GitHub code reviews</li>
+            <li><span class="feature-check">&#10003;</span> System design deep dives &amp; mock interviews</li>
+            <li><span class="feature-check">&#10003;</span> Architecture audit &amp; security review</li>
+            <li><span class="feature-check">&#10003;</span> Official AITutor Engineering Certificate</li>
           </ul>
-          <a href="#contact" class="btn btn-outline" data-package="Hyperspace Mastery ($599)">Select Hyperspace Mission</a>
+          <a href="#booking" class="btn btn-outline" data-package="Executive Mentorship ($599)">Select Executive Track</a>
         </div>
       </div>
     </div>
@@ -358,30 +326,32 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
     <div class="container">
       <div class="reviewer-banner">
         <div>
-          <h3>Are you a Senior Engineer or Coding Educator?</h3>
+          <h3>Are you a Senior Staff Engineer or Tech Lead?</h3>
           <p>
-            Join the AITutor verified mentorship fleet. Mentor curious developers worldwide in AI, Python, Java/Minecraft, and modern full-stack systems. Flexible hours and competitive compensation.
+            Join the AITutor verified mentorship network. Guide engineers worldwide in AI systems, Python, TypeScript, Go, and distributed cloud architecture. Enjoy flexible hours and competitive compensation.
           </p>
         </div>
-        <a href="become-reviewer.html" class="btn btn-primary" style="background: #FFFFFF; color: #0E1326; flex-shrink: 0;">Apply as a Tutor &rarr;</a>
+        <a href="become-reviewer.html" class="btn btn-primary" style="background: #FFFFFF; color: #0A0E1A; flex-shrink: 0; font-weight: 700;">
+          Apply as a Mentor &rarr;
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Booking / Mission Inquiry Form -->
-  <section class="section" id="contact" style="background: rgba(14, 19, 38, 0.5); border-top: 1px solid var(--border);">
+  <!-- Interactive Booking / Inquiry Form -->
+  <section class="section" id="booking" style="background: rgba(14, 20, 36, 0.5); border-top: 1px solid var(--border);">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-cosmic">MISSION CONTROL</span>
-        <h2>Schedule Your 1-on-1 Tutoring Session</h2>
-        <p>Tell us what you want to learn or build. Our tutoring team will match you with a verified senior mentor within 2 hours.</p>
+        <span class="pill pill-cosmic">GET STARTED</span>
+        <h2>Schedule Your 1-on-1 Mentorship Session</h2>
+        <p>Tell us your technical focus or project goals. Our team will match you with a verified senior tech lead within 2 hours.</p>
       </div>
 
       <div class="booking-card">
-        <form onsubmit="event.preventDefault(); alert('🚀 Mission request received! An AITutor mentor coordinator will connect with you within 2 hours to confirm your schedule.');">
+        <form onsubmit="event.preventDefault(); alert('Mentorship inquiry received! An AITutor mentor coordinator will connect with you within 2 hours to confirm your schedule.');">
           <div class="form-row">
             <div class="form-group">
-              <label for="student-name">Your Name</label>
+              <label for="student-name">Your Full Name</label>
               <input type="text" id="student-name" class="form-control" placeholder="Alex Morgan" required>
             </div>
             <div class="form-group">
@@ -392,22 +362,22 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="selected-package">Selected Mission</label>
-              <input type="text" id="selected-package" class="form-control" value="Commander Build ($249)" readonly>
+              <label for="selected-package">Selected Package</label>
+              <input type="text" id="selected-package" class="form-control" value="Project Acceleration ($249)" readonly>
             </div>
             <div class="form-group">
-              <label for="tutoring-skill-input">Focus Language / Topic</label>
-              <input type="text" id="tutoring-skill-input" class="form-control" placeholder="e.g. Python AI Agents, Minecraft Java Modding" value="Python &amp; AI Agents" required>
+              <label for="tutoring-skill-input">Focus Language / Specialization</label>
+              <input type="text" id="tutoring-skill-input" class="form-control" placeholder="e.g. Applied AI Systems &amp; LLM Engineering" value="Applied AI Systems &amp; LLM Engineering" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="mission-goals">What are your specific learning goals or project blockers?</label>
-            <textarea id="mission-goals" class="form-control" rows="3" placeholder="Describe your current experience level, what project you are building, or what concept you want to master..."></textarea>
+            <label for="mission-goals">Project Goals &amp; Current Technical Blockers</label>
+            <textarea id="mission-goals" class="form-control" rows="3" placeholder="Describe your experience level, what project or architecture you are building, or what concept you want to master..."></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1rem;">
-            🚀 Confirm Tutoring Request
+            Confirm Mentorship Request &rarr;
           </button>
         </form>
       </div>
@@ -418,9 +388,9 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
   <section class="section" id="faq">
     <div class="container">
       <div class="section-head">
-        <span class="pill pill-cosmic">TRANSMISSIONS &amp; INTEL</span>
+        <span class="pill pill-cosmic">KNOWLEDGE BASE</span>
         <h2>Frequently Asked Questions</h2>
-        <p>Everything you need to know about AITutor's mentorship format, code environments, and tutor vetting.</p>
+        <p>Everything you need to know about AITutor's live pair-programming format, code environments, and mentor vetting standards.</p>
       </div>
 
       <div class="faq-box">
@@ -430,63 +400,64 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            Every tutor undergoes rigorous identity verification, code portfolio inspection, and live technical teaching evaluations before being approved. Many of our mentors are working senior software engineers, AI researchers, and open-source mod contributors.
+            Every mentor undergoes rigorous identity verification, GitHub code portfolio audits, and live technical pair-programming evaluations before joining our network. Our mentors are practicing senior engineers, tech leads, and open-source contributors from top technology firms.
           </div>
         </div>
 
         <div class="faq-row">
           <div class="faq-question">
-            <span>Can complete beginners learn Minecraft modding or AI?</span>
+            <span>Can developers at early stages benefit from these sessions?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            Absolutely! Our Cadet and Commander tracks are structured to take you step-by-step from zero setup to your first working code. We adapt the pace to your comfort level—no prior computer science degree required.
+            Yes. Our mentors customize their pedagogy to your exact level. Whether you are transitioning to Python AI systems or mastering system architecture, your mentor adapts explanations to your pace without skipping foundational mechanics.
           </div>
         </div>
 
         <div class="faq-row">
           <div class="faq-question">
-            <span>What tool or video software do we use for sessions?</span>
+            <span>What collaboration tools are used for live sessions?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            We use collaborative live coding platforms (VS Code Live Share, GitHub Codespaces, or Discord/Google Meet screen sharing). You write code directly on your computer while your mentor guides you line-by-line.
+            We use collaborative development environments including VS Code Live Share, GitHub Codespaces, and Google Meet/Zoom with high-definition audio and screen sharing. You write and test code directly in your local environment with live mentor guidance.
           </div>
         </div>
 
         <div class="faq-row">
           <div class="faq-question">
-            <span>What if I need to reschedule my session?</span>
+            <span>What if I need to reschedule a booked session?</span>
             <span class="faq-symbol">+</span>
           </div>
           <div class="faq-answer">
-            Life happens! You can reschedule any booked session with up to 12 hours notice at zero extra charge directly with your assigned mentor.
+            Flexibility is built into our platform. You can reschedule any session up to 12 hours prior to the scheduled start time at zero penalty directly with your assigned mentor.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer (Spaceship Docking Bay) -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
           <h4>
-            <span style="background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%); padding: 6px 10px; border-radius: 8px;">🚀</span>
+            <span style="background: linear-gradient(135deg, #4F46E5 0%, #38BDF8 100%); padding: 6px 10px; border-radius: 8px; font-size: 0.95rem; font-family: 'JetBrains Mono', monospace;">&lt;/&gt;</span>
             AITutor
           </h4>
           <p>
-            Spaceship-grade 1-on-1 coding mentorship, live AI pair-programming, and gamified technical learning for ambitious developers.
+            Professional 1-on-1 software engineering mentorship, live AI pair-programming, and production architectural reviews for ambitious developers.
           </p>
         </div>
         <div class="footer-col">
-          <h5>Curriculum &amp; Quests</h5>
+          <h5>Curriculum &amp; Tracks</h5>
+          <a href="#curriculum">Applied AI Systems</a>
+          <a href="#curriculum">Full-Stack Next.js</a>
+          <a href="#curriculum">Distributed Systems</a>
           <a href="#lab">Interactive Code Lab</a>
-          <a href="#quests">Minecraft Java Modding</a>
-          <a href="#quests">Autonomous AI Agents</a>
-          <a href="#missions">Tutoring Packages</a>
-          <a href="become-reviewer.html">Apply as Tutor</a>
+          <a href="#pricing">Mentorship Plans</a>
+          <a href="become-reviewer.html">Apply as Mentor</a>
         </div>
         <div class="footer-col">
           <h5>Legal &amp; Policy</h5>
@@ -502,7 +473,7 @@ tools = load_tools(["serpapi", "python_repl"], llm=llm)</pre>
           <p>&copy; 2026 AITutor. Operated by <strong>A1 Tutoring Private Limited</strong></p>
           <p>CIN: <strong>U74999KA2018PTC115748</strong> &bull; Incorporated 28 August 2018 under the Companies Act (ROC Bangalore, Karnataka)</p>
           <p>Registered Address: 3, 5th Cross, Near Kc General Hospital, Malleshwaram, Bangalore, Karnataka, India 560003</p>
-          <p>Website: <a href="https://aitutor.host" style="color: #67E8F9;">aitutor.host</a> &bull; Support: <a href="mailto:support@aitutor.host" style="color: #67E8F9;">support@aitutor.host</a></p>
+          <p>Website: <a href="https://aitutor.host" style="color: #38BDF8;">aitutor.host</a> &bull; Support: <a href="mailto:support@aitutor.host" style="color: #38BDF8;">support@aitutor.host</a></p>
         </div>
         <div style="display: flex; gap: 16px;">
           <a href="terms.html" style="color: #94A3B8;">Terms</a>
