@@ -208,7 +208,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n======================================================`);
-  console.log(`  AITOKENS LOCAL DEV SERVER RUNNING`);
+  console.log(`  AITUTOR LOCAL DEV SERVER RUNNING`);
   console.log(`  - Local URL:   http://localhost:${PORT}/verifyss.html`);
   console.log(`  - Token API:   http://localhost:${PORT}/api/token`);
   console.log(`======================================================\n`);

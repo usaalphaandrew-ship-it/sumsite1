@@ -1,6 +1,6 @@
 /**
  * Cloudflare Pages Function: /api/token
- * Automatically served at: https://aicodehelper.us/api/token
+ * Automatically served at: https://aitutor.host/api/token
  * Runs 24/7 serverless on Cloudflare Edge with zero maintenance.
  */
 

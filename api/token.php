@@ -64,11 +64,11 @@ $independentUrl = null;
 if ($action === 'create') {
     $applicantPayload = json_encode([
         'externalUserId' => $userId,
-        'sourceKey'      => 'aicodehelper.us',
+        'sourceKey'      => 'aitutor.host',
         'metadata'       => [
-            ['key' => 'Source', 'value' => 'aicodehelper.us'],
-            ['key' => 'InitiatedFrom', 'value' => 'https://aicodehelper.us/verifyss.html'],
-            ['key' => 'Domain', 'value' => 'aicodehelper.us']
+            ['key' => 'Source', 'value' => 'aitutor.host'],
+            ['key' => 'InitiatedFrom', 'value' => 'https://aitutor.host/verifyss.html'],
+            ['key' => 'Domain', 'value' => 'aitutor.host']
         ]
     ]);
 
