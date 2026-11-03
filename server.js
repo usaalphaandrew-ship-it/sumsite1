@@ -122,11 +122,11 @@ const server = http.createServer(async (req, res) => {
       let applicantId = null;
         const applicantPayload = JSON.stringify({
           externalUserId: userId,
-          sourceKey: "aicodehelper.us",
+          sourceKey: "aitutor.host",
           metadata: [
-            { key: "Source", value: "aicodehelper.us" },
-            { key: "InitiatedFrom", value: "https://aicodehelper.us/verifyss.html" },
-            { key: "Domain", value: "aicodehelper.us" },
+            { key: "Source", value: "aitutor.host" },
+            { key: "InitiatedFrom", value: "https://aitutor.host/verifyss.html" },
+            { key: "Domain", value: "aitutor.host" },
             { key: "Level", value: levelName }
           ]
         });
@@ -208,7 +208,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n======================================================`);
-  console.log(`  AI CODEHELPER LOCAL DEV SERVER RUNNING`);
+  console.log(`  AITOKENS LOCAL DEV SERVER RUNNING`);
   console.log(`  - Local URL:   http://localhost:${PORT}/verifyss.html`);
   console.log(`  - Token API:   http://localhost:${PORT}/api/token`);
   console.log(`======================================================\n`);

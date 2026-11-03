@@ -74,11 +74,11 @@ async function generateSingleSession(envName, appToken, secret, levelName, level
   // 1. Create applicant with site origin tracking
   const applicantPayload = JSON.stringify({
     externalUserId: userId,
-    sourceKey: "aicodehelper.us",
+    sourceKey: "aitutor.host",
     metadata: [
-      { key: "Source", value: "aicodehelper.us" },
-      { key: "InitiatedFrom", value: "https://aicodehelper.us/verifyss.html" },
-      { key: "Domain", value: "aicodehelper.us" },
+      { key: "Source", value: "aitutor.host" },
+      { key: "InitiatedFrom", value: "https://aitutor.host/verifyss.html" },
+      { key: "Domain", value: "aitutor.host" },
       { key: "Level", value: levelName },
       { key: "Environment", value: envName }
     ]
