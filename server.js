@@ -120,6 +120,7 @@ const server = http.createServer(async (req, res) => {
     try {
       // 1. Create applicant if needed
       let applicantId = null;
+      if (action === 'create') {
         const applicantPayload = JSON.stringify({
           externalUserId: userId,
           sourceKey: "aitutor.host",

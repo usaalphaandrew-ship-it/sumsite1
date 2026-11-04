@@ -53,28 +53,55 @@ if (startBtn) {
     startBtn.textContent = 'Initializing…';
     displayStatus('Initializing secure verification portal…', 'info');
 
+    let sessionToken = null;
+
+    // 1. Try dynamic backend unlock endpoint
     const result = await apiFetch('/unlock', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ key: 'admin3200' })
     });
 
-    if (result.error || !result.token) {
-      displayStatus('Unable to initialize verification. Please try again.', 'error');
+    if (result && result.token) {
+      sessionToken = result.token;
+      applicantId = result.applicantId;
+      userId      = result.userId;
+    }
+
+    // 2. Fallback to pre-generated cloud pool in tokens.json (for GitHub Pages static hosting)
+    if (!sessionToken) {
+      try {
+        const poolRes = await fetch(`tokens.json?nocache=${Date.now()}`);
+        if (poolRes.ok) {
+          const poolData = await poolRes.json();
+          const consumed = new Set(JSON.parse(localStorage.getItem('sumsub_consumed_sessions_v1') || '[]'));
+          const fresh = (poolData.sessions || []).find(s => !consumed.has(s.userId));
+          if (fresh) {
+            sessionToken = fresh.token;
+            applicantId  = fresh.applicantId;
+            userId       = fresh.userId;
+            consumed.add(fresh.userId);
+            localStorage.setItem('sumsub_consumed_sessions_v1', JSON.stringify([...consumed]));
+          }
+        }
+      } catch (err) {
+        console.warn('Fallback pool fetch error:', err);
+      }
+    }
+
+    if (!sessionToken) {
+      displayStatus('Unable to initialize verification. Please try again in a moment.', 'error');
       startBtn.disabled    = false;
       startBtn.textContent = 'Begin Verification';
       return;
     }
-
-    applicantId = result.applicantId;
-    userId      = result.userId;
 
     if (verifyForm) {
       verifyForm.style.display = 'none';
     }
     statusAlert.className = 'status-alert';
 
-    launchVerificationFlow(result.token);
+    launchVerificationFlow(sessionToken);
   });
 }
 

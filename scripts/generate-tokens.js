@@ -17,28 +17,28 @@ const TTL_SECONDS = 86400; // 24 hours validity for each session
 
 const LEVEL_CONFIGS = [
   {
-    name: "developer-liveness-check",
-    description: "Standard 3D biometric face liveness check (active selfie scan)",
+    name: "id-and-liveness",
+    description: "Verify applicant identity with an ID document and liveness check",
     sbxCount: 40,
     prdCount: 40
   },
   {
-    name: "id-and-liveness",
-    description: "Verify applicant identity with an ID document and liveness check",
-    sbxCount: 20,
-    prdCount: 20
-  },
-  {
     name: "idv-and-phone-verification",
     description: "Verify applicant identity with ID document, SMS phone OTP, and liveness check",
-    sbxCount: 20,
-    prdCount: 20
+    sbxCount: 30,
+    prdCount: 30
   },
   {
     name: "id-only",
     description: "Verify applicant identity with only an ID document",
-    sbxCount: 20,
-    prdCount: 20
+    sbxCount: 30,
+    prdCount: 30
+  },
+  {
+    name: "developer-liveness-check",
+    description: "Standard 3D biometric face liveness check (active selfie scan)",
+    sbxCount: 0,
+    prdCount: 0
   }
 ];
 
