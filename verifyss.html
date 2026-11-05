@@ -853,7 +853,7 @@
     const HISTORY_KEY   = "sumsub_session_history_v1";
 
     let currentEnv = "sandbox"; // 'sandbox' | 'production'
-    let currentLevel = "id-and-liveness";
+    let currentLevel = "tutor-is-active-or-no-check";
     let is16by9 = true;
     let cloudSessions = [];
     let activeSession = null;
@@ -968,7 +968,7 @@
     // ─── Update UI with Available Fresh Counts ───
     function updatePoolUI() {
       const consumed = getConsumedSessionIds();
-      const levels = ['developer-liveness-check', 'id-and-liveness', 'idv-and-phone-verification', 'id-only'];
+      const levels = ['tutor-is-active-or-no-check', 'id-and-liveness', 'idv-and-phone-verification', 'id-only'];
 
       let currentLevelAvailableCount = 0;
       let totalEnvAvailableCount = 0;
